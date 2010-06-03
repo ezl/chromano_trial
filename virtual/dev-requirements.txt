@@ -1,0 +1,4 @@
+django==1.2
+django-debug-toolbar
+django-extensions
+werkzeug

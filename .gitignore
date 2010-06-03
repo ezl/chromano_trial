@@ -1,0 +1,6 @@
+*.pyc
+*.sqlite3
+virtual/bin/
+virtual/include/
+virtual/lib/
+*.swp
