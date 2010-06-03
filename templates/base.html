@@ -4,10 +4,35 @@
     <title>{% block title %}Quote monitor{% endblock %}</title>
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css"/>
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz"/>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/cupertino/jquery-ui.css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 </head>
 <body>
     <div id="container">
-    {% block content %}{% endblock %}
+        <div id="header">
+            <!--<div class="image"></div>-->
+            <h1 class="logo ui-corner-all">Quote Monitor</h1>
+            <ul class="menu ui-buttonset">
+            {% for label, view, link in MENU_ITEMS %}
+                <li class="ui-button ui-button-text-only
+                    {% ifequal page view %}ui-state-active{% else %}ui-state-default{% endifequal %}
+                    {% if forloop.first %}ui-corner-left{% endif %}
+                    {% if forloop.last %}ui-corner-right{% endif %}">
+                    <a href="{{ link }}" class="ui-button-text">{{ label }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+            <div class="info ui-corner-all">
+                You are logged in as <b>ezl</b>
+            </div>
+        </div>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        <div id="footer">
+            &copy; {% now "Y" %} QuoteMonitor.com
+        </div>
     </div>
 </body>
 </html>
