@@ -25,7 +25,11 @@
             {% endfor %}
             </ul>
             <div class="info ui-corner-all">
-                You are logged in as <b>ezl</b>
+            {% if user.is_authenticated %}
+                You are logged in as <b>{{ user }}</b>
+            {% else %}
+                You are not logged in
+            {% endif %}
             </div>
         </div>
         <div id="content">

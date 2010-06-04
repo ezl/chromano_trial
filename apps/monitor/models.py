@@ -21,7 +21,7 @@ class FinancialInstrument(models.Model):
     symbol = models.CharField(max_length=10, unique=True)
     name = models.CharField(max_length=100)
     last_price = models.FloatField()
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.symbol
