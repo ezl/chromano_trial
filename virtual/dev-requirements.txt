@@ -1,4 +1,5 @@
 django==1.2
 django-debug-toolbar
+django-annoying
 django-extensions
 werkzeug

@@ -15,12 +15,12 @@
             <!--<div class="image"></div>-->
             <h1 class="logo ui-corner-all">Quote Monitor</h1>
             <ul class="menu ui-buttonset">
-            {% for label, view, link in MENU_ITEMS %}
+            {% for view, label in menu %}
                 <li class="ui-button ui-button-text-only
                     {% ifequal page view %}ui-state-active{% else %}ui-state-default{% endifequal %}
                     {% if forloop.first %}ui-corner-left{% endif %}
                     {% if forloop.last %}ui-corner-right{% endif %}">
-                    <a href="{{ link }}" class="ui-button-text">{{ label }}</a>
+                    <a href="/{{ view }}" class="ui-button-text">{{ label }}</a>
                 </li>
             {% endfor %}
             </ul>
