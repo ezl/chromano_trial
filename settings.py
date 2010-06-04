@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django_extensions',
     'debug_toolbar',
+    'monitor',
 )
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

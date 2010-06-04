@@ -1,1 +1,30 @@
 {% extends "base.html" %}
+
+{% block content %}
+<div class="add-watch">
+    <div class="ui-widget-shadow ui-corner-all"></div>
+    <form method="post" class="ui-widget ui-widget-content ui-corner-all">
+        <div>
+            <label for="id_symbol">Symbol</label>
+            <input type="text" name="s" id="id_symbol" size="8"/>
+        </div>
+        <div>
+            <label>Price</label>
+            <span class="price">&nbsp;</span>
+        </div>
+        <br/>
+        <div>
+            <label for="id_high">High</label>
+            <input type="text" name="h" id="id_high" size="4"/>
+        </div>
+        <div>
+            <label for="id_low">Low</label>
+            <input type="text" name="l" id="id_low" size="4"/>
+        </div>
+        <br/>
+        <button type="submit" class="ui-button ui-button-text-only ui-state-default ui-corner-all">
+            <span class="ui-button-text">Add watch</span>
+        </button>
+    </form>
+</div>
+{% endblock %}
