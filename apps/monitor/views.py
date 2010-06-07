@@ -2,6 +2,8 @@ import simplejson
 from datetime import datetime, timedelta
 from functools import wraps
 
+from django.db import IntegrityError
+from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
 from annoying.decorators import render_to, ajax_request
 
@@ -34,7 +36,7 @@ def monitor(request):
     """ Monitor page """
     qs = PriceWatch.objects.filter(user=request.user)
     return {
-        'watchlist': qs.order_by('-id'),
+        'watchlist': qs.order_by('-position', '-id'),
     }
 
 
@@ -110,7 +112,7 @@ def monitor_add(request):
             upper_bound = float(upper_bound)
     except ValueError:
         # output error
-        return json_or_redirect(request, {'error': True})
+        return json_or_redirect(request, {'error': "Invalid value"})
 
     # create database record (instrument)
     try:
@@ -120,10 +122,18 @@ def monitor_add(request):
             name=info.name, last_price=info.price)
         item.save()
 
-    # create database record (watch)
-    watch = PriceWatch(user=request.user, instrument=item,
-        lower_bound=lower_bound, upper_bound=upper_bound)
-    watch.save()
+    try:
+        # get next position
+        qs = PriceWatch.objects.filter(user=request.user)
+        pos = 1 + (qs.aggregate(Max('position'))['position__max'] or 0)
+
+        # create database record (watch)
+        watch = PriceWatch(user=request.user, instrument=item,
+            lower_bound=lower_bound, upper_bound=upper_bound, position=pos)
+        watch.save()
+    except IntegrityError:
+        # output error
+        return json_or_redirect(request, {'error': "Symbol exists"})
 
     # output result or redirect
     return json_or_redirect(request, {
@@ -145,15 +155,32 @@ def monitor_del(request, id=0):
 
 
 def monitor_edit(request, id=0, field=''):
-    """ Toggle value """
+    """ Toggle value (via html or ajax) """
     item = PriceWatch.objects.get(id=id, user=request.user)
+    value = request.GET.get('value')
 
     # update database record
-    value = request.GET.get('value')
-    if value is None:
-        value = not getattr(item, field)
-    setattr(item, field, value)
+    if field == 'active':
+        item.active = not item.active
+    elif field == 'lower':
+        item.lower_bound = value and float(value)
+    elif field == 'upper':
+        item.upper_bound = value and float(value)
 
     # output result or redirect
     item.save()
     return json_or_redirect(request, {'value': value})
+
+def monitor_position(request):
+    """ Reposition values (ajax only) """
+    id_list = map(int, reversed(request.GET['order'].split(',')))
+    qs = PriceWatch.objects.filter(user=request.user)
+
+    # update item positions
+    id_map = dict([(v, k + 1) for k, v in enumerate(id_list)])
+    for item in qs:
+        item.position = id_map[item.id]
+        item.save()
+
+    # no output
+    return HttpResponse('')

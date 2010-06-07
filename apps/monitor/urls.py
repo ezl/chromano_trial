@@ -16,4 +16,5 @@ urlpatterns = patterns('monitor.views',
     (r'^monitor/add/?$', 'monitor_add'),
     (r'^monitor/del/(?P<id>\d+)/?$', 'monitor_del'),
     (r'^monitor/edit/(?P<id>\d+)/(?P<field>\w+)/?$', 'monitor_edit'),
+    (r'^monitor/pos/?$', 'monitor_position'),
 )

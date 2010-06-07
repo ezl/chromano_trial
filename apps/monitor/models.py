@@ -38,6 +38,7 @@ class PriceWatch(models.Model):
     upper_bound = models.FloatField(null=True, blank=True)
     triggered = models.DateTimeField(null=True)
     active = models.BooleanField(default=True)
+    position = models.IntegerField(default=0)
 
     class Meta:
         unique_together = [('user', 'instrument')]

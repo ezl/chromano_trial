@@ -1,7 +1,5 @@
 
 jQuery(function($) {
-    $('.grid-watch ul').sortable();
-
     // symbol template (should be changed if template is altered)
     function format(v) {
         if (v == null)
@@ -10,7 +8,6 @@ jQuery(function($) {
             return v.toFixed(4).replace(/\.?0*$/, '');
         return v;
     }
-
     function createItem(data) {
         var tpl = '<li id="w{{ id }}" class="ui-state-default ui-corner-all">' +
             '<table><tr>' +
@@ -27,6 +24,51 @@ jQuery(function($) {
             el = $(html).hide().prependTo($('.grid-watch ul')).fadeIn('slow');
         return el;
     }
+
+    // edit limit values
+    var editing = null;
+    $('.grid-watch .editable').live('click', function(ev) {
+        if (ev.target.tagName == 'INPUT')
+            return;
+        if (editing)
+            editing.blur();
+
+        var el = $(ev.target),
+            id = el.parents('li').attr('id').substring(1),
+            value = parseFloat(el.html()) || null,
+            input = $('<input type="text">').val(value || '');
+        el.html('').append(input);
+        input.focus();
+        editing = input;
+
+        input.blur(function() {
+            var v = parseFloat(this.value) || null;
+            if (v < 0) v = null;
+            if (v != value) {
+                var field = el[0].className.split(' ').pop();
+                $.get('/monitor/edit/' + id + '/' + field + '?value=' + (v || '0'));
+            }
+            el.html(format(v));
+            editing = null;
+        });
+        input.keypress(function(ev) {
+            if (ev.which == 13)
+                this.blur();
+        });
+    });
+
+    // symbol position
+    function updatePosition() {
+        var list = [];
+        $('.grid-watch li').each(function() {
+            list.push(this.id.substring(1));
+        });
+        $.get('/monitor/pos/?order=' + list.join(','));
+    }
+    $('.grid-watch ul').sortable({
+        update: updatePosition,
+        start: function() { if (editing) editing.blur() }
+    });
 
     // symbol toggle
     $('.grid-watch .toggle').live('click', function(ev) {
@@ -57,8 +99,8 @@ jQuery(function($) {
             return;
         var form = $(this);
         $.post(form.attr('action'), form.serialize(), function(data) {
-            if (!data || data.error)
-                return;
+            if (data.error)
+                return $('p', form).html('<em>' + data.error + '</em>');
             form.find('.name, .price').html('&nbsp;');
             form.find(':input').val('') // reset values
                 .first().focus(); // focus first element
@@ -81,9 +123,8 @@ jQuery(function($) {
         $.get('/monitor/check/' + value, function(data) {
             if (symbolInput.val() != value)
                 return;
-            if (!data || data.error) {
-                if (data)
-                    checkFailed[value] = true;
+            if (data.error) {
+                checkFailed[value] = true;
                 priceDisplay.html('&nbsp;');
             } else {
                 priceDisplay.html(format(data.price));
