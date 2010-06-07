@@ -19,21 +19,49 @@
             <span class="price">&nbsp;</span>
         </div>
         <br/>
-        <div class="name">&nbsp;</div>
-        <div>
-            <label for="id_high">High</label>
-            <input type="text" name="h" id="id_high" size="4"/>
-        </div>
+        <p class="name">&nbsp;</p>
         <div>
             <label for="id_low">Low</label>
             <input type="text" name="l" id="id_low" size="4"/>
         </div>
+        <div>
+            <label for="id_high">High</label>
+            <input type="text" name="h" id="id_high" size="4"/>
+        </div>
         <br/>
-        <input type="hidden" name="html" value="1"/>
         <button type="submit"
             class="ui-button ui-button-text-only ui-state-default ui-corner-all">
             <span class="ui-button-text">Add watch</span>
         </button>
     </form>
+</div>
+
+<div class="grid-watch">
+    <table class="header ui-widget-content">
+        <th>Symbol</th>
+        <th>Lower</th>
+        <th>Price</th>
+        <th>Upper</th>
+        <th>&nbsp;</th>
+    </table>
+    <ul class="ui-sortable">
+    {% for item in watchlist %}
+        <li id="w{{ item.id }}" class="ui-state-default ui-corner-all">
+            <table>
+            <tr>
+                <th scope="row" class="symbol">
+                    <a href="{% url monitor.views.monitor_edit item.id 'active' %}"
+                    class="icon {% if item.active %}icon-on{% else %}icon-off{% endif %} toggle"></a>
+                    {{ item.instrument }}
+                </th>
+                <td><div class="editable lower">{{ item.lower_bound|default:"---" }}</div></td>
+                <td><div class="price">{{ item.instrument.last_price }}</div></td>
+                <td><div class="editable upper">{{ item.upper_bound|default:"---" }}</div></td>
+                <td><a href="{% url monitor.views.monitor_del item.id %}" class="icon icon-trash remove"></a></td>
+            </tr>
+            </table>
+        </li>
+    {% endfor %}
+    </ul>
 </div>
 {% endblock %}

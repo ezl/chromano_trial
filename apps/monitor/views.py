@@ -1,3 +1,4 @@
+import simplejson
 from datetime import datetime, timedelta
 from functools import wraps
 
@@ -51,6 +52,8 @@ def register(request, plan='free'):
     return {}
 
 
+# ----- ajax views -----
+
 @ajax_request
 def check(request, symbol=''):
     """ Fetch symbol information """
@@ -77,6 +80,14 @@ def check(request, symbol=''):
     return convert(item)
 
 
+def json_or_redirect(request, data):
+    """ Output json or redirect to previous page """
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+        return HttpResponse(simplejson.dumps(data))
+    else:
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
 def monitor_add(request):
     """ Add symbol (via html or ajax) """
     # fetch form data
@@ -84,7 +95,6 @@ def monitor_add(request):
     symbol = data.get('s')
     lower_bound = data.get('l') or None
     upper_bound = data.get('h') or None
-    ajax = not data.get('html')
 
     # load content from yahoo API
     yapi = YahooFinance()
@@ -97,13 +107,10 @@ def monitor_add(request):
         if lower_bound is not None:
             lower_bound = float(lower_bound)
         if upper_bound is not None:
-            upper_bound = float(lower_bound)
+            upper_bound = float(upper_bound)
     except ValueError:
         # output error
-        if ajax:
-            return HttpResponse('{error:true}')
-        # ??? should print some error here
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        return json_or_redirect(request, {'error': True})
 
     # create database record (instrument)
     try:
@@ -119,7 +126,34 @@ def monitor_add(request):
     watch.save()
 
     # output result or redirect
-    if ajax:
-        return HttpResponse('{id:%d}' % watch.id)
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    return json_or_redirect(request, {
+        'id': watch.id,
+        'symbol': symbol,
+        'lower_bound': lower_bound,
+        'upper_bound': upper_bound,
+        'price': info.price,
+    })
+
+
+def monitor_del(request, id=0):
+    """ Remove symbol (via html or ajax) """
+    item = PriceWatch.objects.get(id=id, user=request.user)
     
+    # output result or redirect
+    item.delete()
+    return json_or_redirect(request, {})
+
+
+def monitor_edit(request, id=0, field=''):
+    """ Toggle value """
+    item = PriceWatch.objects.get(id=id, user=request.user)
+
+    # update database record
+    value = request.GET.get('value')
+    if value is None:
+        value = not getattr(item, field)
+    setattr(item, field, value)
+
+    # output result or redirect
+    item.save()
+    return json_or_redirect(request, {'value': value})
