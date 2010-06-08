@@ -4,8 +4,10 @@ from models import SubscriptionPlan, FinancialInstrument, PriceWatch
 
 
 class SubscriptionPlanAdmin(admin.ModelAdmin):
-    list_display = ('name', 'max_price_watches', 'allow_email_alerts',
-        'allow_phone_alerts', 'billing_period_price', 'billing_period_length')
+    list_display = ('name', 'max_price_watches',
+        'allow_email_alerts', 'limit_email_alerts',
+        'allow_phone_alerts', 'limit_phone_alerts',
+        'billing_period_price', 'billing_period_length')
 
 
 class FinancialInstrumentAdmin(admin.ModelAdmin):

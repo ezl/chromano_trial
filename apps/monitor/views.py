@@ -2,6 +2,7 @@ import simplejson
 from datetime import datetime, timedelta
 from functools import wraps
 
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import Max
@@ -62,6 +63,14 @@ def register(request, plan_name=''):
     
     if request.method == 'POST':
         form = RegistrationForm(free, data=request.POST)
+        if form.is_valid():
+            get = lambda k: form.cleaned_data[k]
+            user = form.save(commit=False)
+            user.email = get('email')
+            user.save()
+            args = dict(username=get('username'), password=get('password1'))
+            login(request, authenticate(**args))
+            return HttpResponseRedirect('/')
     else:
         form = RegistrationForm(free)
     
@@ -69,6 +78,17 @@ def register(request, plan_name=''):
         'plan': plan,
         'form': form,
     }
+
+
+def signin(request):
+    """ Start session """
+    pass
+
+
+def signout(request):
+    """ Close session """
+    logout(request)
+    return HttpResponseRedirect('/')
 
 
 # ----- ajax views -----

@@ -4,7 +4,7 @@
 <form method="post" class="register">
     {% include "plan_include.html" %}
 
-    <h2>Login details</h2>
+    <h2>Registration details</h2>
     <div>
         {{ form.username.errors }}
         <label for="id_username">Username</label>
@@ -29,6 +29,11 @@
     {% if not form.free %}
     <h2>Payment details</h2>
     <div>
+        {{ form.card_holder.errors }}
+        <label for="id_card_holder">Name on card</label>
+        {{ form.card_holder }}
+    </div>
+    <div>
         {{ form.card_number.errors }}
         <label for="id_card_number">Card number</label>
         {{ form.card_number }}
@@ -38,13 +43,8 @@
         {{ form.card_expires_month }}
         {{ form.card_expires_year }}
     </div>
-    <div>
-        {{ form.card_holder.errors }}
-        <label for="id_card_holder">Name on card</label>
-        {{ form.card_holder }}
-    </div>
     {% endif %}
 
-    <button type="submit">Register</button>
+    <button type="submit">Register account</button>
 </form>
 {% endblock %}

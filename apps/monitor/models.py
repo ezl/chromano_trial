@@ -8,7 +8,9 @@ class SubscriptionPlan(models.Model):
     description = models.TextField("Description")
     max_price_watches = models.IntegerField("Max.monitors")
     allow_email_alerts = models.BooleanField("Email alerts")
+    limit_email_alerts = models.IntegerField("Email alerts limit", default=0)
     allow_phone_alerts = models.BooleanField("SMS alerts")
+    limit_phone_alerts = models.IntegerField("SMS alerts limit", default=0)
     billing_period_price = models.IntegerField("Price")
     billing_period_length = models.IntegerField("Period (days)")
 

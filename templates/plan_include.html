@@ -4,15 +4,17 @@
     <ul>
         <li>
             <label>Monitors</label>
-            <em>{{ plan.max_price_watches }}</em>
+            <em>{% if plan.max_price_watches %}{{ plan.max_price_watches }}{% else %}unlimited{% endif %}</em>
         </li>
         <li>
             <label>Email alerts</label>
             <div class="icon {% if plan.allow_email_alerts %}icon-yes{% else %}icon-no{% endif %}"></div>
+            {% if plan.limit_email_alerts %}(max {{ plan.limit_email_alerts }}){% endif %}
         </li>
         <li>
             <label>SMS alerts</label>
             <div class="icon {% if plan.allow_phone_alerts %}icon-yes{% else %}icon-no{% endif %}"></div>
+            {% if plan.limit_phone_alerts %}(max {{ plan.limit_phone_alerts }}){% endif %}
         </li>
         <li>
             <label>Price</label>
