@@ -27,6 +27,8 @@
         <div class="note"><sup>*</sup> billing period is {{ plan.billing_period_length }} days.</div>
     {% endif %}
         {{ plan.description|linebreaks }}
+    {% if not form %}
         <a href="{% url monitor.views.register plan.name|slugify %}">Subscribe</a>
+    {% endif %}
     </div>
 </div>

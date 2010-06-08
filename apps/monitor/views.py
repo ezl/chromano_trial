@@ -8,6 +8,7 @@ from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
 from annoying.decorators import render_to, ajax_request
 
+from forms import RegistrationForm
 from models import SubscriptionPlan, FinancialInstrument, PriceWatch
 from urls import MENU_ITEMS
 from ext.yfinance import YahooFinance
@@ -54,12 +55,19 @@ def plans(request):
 
 @render_to('register.html')
 @menu_item
-def register(request, plan='free'):
+def register(request, plan_name=''):
     """ Registration page """
-    plan = SubscriptionPlan.objects.get(name__iexact=plan)
+    plan = SubscriptionPlan.objects.get(name__iexact=plan_name or 'free')
+    free = not plan.billing_period_price
+    
+    if request.method == 'POST':
+        form = RegistrationForm(free, data=request.POST)
+    else:
+        form = RegistrationForm(free)
+    
     return {
         'plan': plan,
-        'use_cc': plan.billing_period_price > 0,
+        'form': form,
     }
 
 

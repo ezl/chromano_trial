@@ -1,1 +1,50 @@
 {% extends "base.html" %}
+
+{% block content %}
+<form method="post" class="register">
+    {% include "plan_include.html" %}
+
+    <h2>Login details</h2>
+    <div>
+        {{ form.username.errors }}
+        <label for="id_username">Username</label>
+        {{ form.username }}
+    </div>
+    <div>
+        {{ form.email.errors }}
+        <label for="id_email">E-mail</label>
+        {{ form.email }}
+    </div>
+    <div>
+        {{ form.password1.errors }}
+        <label for="id_password1">Password</label>
+        {{ form.password1 }}
+    </div>
+    <div>
+        {{ form.password2.errors }}
+        <label for="id_password2">Password (repeat)</label>
+        {{ form.password2 }}
+    </div>
+
+    {% if not form.free %}
+    <h2>Payment details</h2>
+    <div>
+        {{ form.card_number.errors }}
+        <label for="id_card_number">Card number</label>
+        {{ form.card_number }}
+    </div>
+    <div>
+        <label for="id_card_expires_month">Expires on</label>
+        {{ form.card_expires_month }}
+        {{ form.card_expires_year }}
+    </div>
+    <div>
+        {{ form.card_holder.errors }}
+        <label for="id_card_holder">Name on card</label>
+        {{ form.card_holder }}
+    </div>
+    {% endif %}
+
+    <button type="submit">Register</button>
+</form>
+{% endblock %}

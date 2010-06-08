@@ -35,6 +35,7 @@ body { font-family: Verdana, sans-serif; }
 .icon-no { background: url('../icons/icon_no.png'); }
 
 /* registration page */
+.register .sub-plan { float: right; }
 
 /* watch page: add form */
 .add-watch { float: left; margin: 10px 5px; position: relative; }
