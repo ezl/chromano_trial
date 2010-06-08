@@ -2,6 +2,7 @@ import simplejson
 from datetime import datetime, timedelta
 from functools import wraps
 
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
@@ -30,6 +31,7 @@ def main(request):
     return {}
 
 
+@login_required
 @render_to('monitor.html')
 @menu_item
 def monitor(request):
@@ -44,14 +46,21 @@ def monitor(request):
 @menu_item
 def plans(request):
     """ Subscription plans page """
-    return {}
+    qs = SubscriptionPlan.objects.all()
+    return {
+        'plans': qs.order_by('billing_period_price'),
+    }
 
 
 @render_to('register.html')
 @menu_item
 def register(request, plan='free'):
     """ Registration page """
-    return {}
+    plan = SubscriptionPlan.objects.get(name__iexact=plan)
+    return {
+        'plan': plan,
+        'use_cc': plan.billing_period_price > 0,
+    }
 
 
 # ----- ajax views -----
@@ -90,6 +99,7 @@ def json_or_redirect(request, data):
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
+@login_required
 def monitor_add(request):
     """ Add symbol (via html or ajax) """
     # fetch form data
@@ -145,6 +155,7 @@ def monitor_add(request):
     })
 
 
+@login_required
 def monitor_del(request, id=0):
     """ Remove symbol (via html or ajax) """
     item = PriceWatch.objects.get(id=id, user=request.user)
@@ -154,6 +165,7 @@ def monitor_del(request, id=0):
     return json_or_redirect(request, {})
 
 
+@login_required
 def monitor_edit(request, id=0, field=''):
     """ Toggle value (via html or ajax) """
     item = PriceWatch.objects.get(id=id, user=request.user)
@@ -170,6 +182,7 @@ def monitor_edit(request, id=0, field=''):
     # output result or redirect
     item.save()
     return json_or_redirect(request, {'value': value})
+
 
 def monitor_position(request):
     """ Reposition values (ajax only) """

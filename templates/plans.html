@@ -1,1 +1,9 @@
 {% extends "base.html" %}
+
+{% block content %}
+<div class="sub-plan-container">
+{% for plan in plans %}
+    {% include "plan_include.html" %}
+{% endfor %}
+</div>
+{% endblock %}
