@@ -57,6 +57,35 @@ jQuery(function($) {
         });
     });
 
+    // sort columns
+    function sortHeader(ev, index, desc) {
+        ev.preventDefault();
+        var a = $('.grid-watch li').toArray(),
+            f = index ? function(v) { return parseFloat(v) || 0 } : $.trim,
+            txt = function(e) { return $('th,td', e).eq(index).text() },
+            val = !desc ? 1 : -1;
+        a.sort(function(e1, e2) {
+            var v1 = f(txt(e1)), v2 = f(txt(e2));
+            if (v1 == v2) return 0;
+            return v1 < v2 ? val : -val;
+        });
+        $(a).each(function() {
+            $(this).prependTo(this.parentNode);
+        });
+        updatePosition();
+    }
+    $('.grid-watch .header th').each(function(k) {
+        var el = $(this), label = el.html(),
+            sort_asc = $('<a href="#">')
+                .html(label + ' <small>&#9660;</small>')
+                .click(function(ev) { sortHeader(ev, k) }),
+            sort_desc = $('<a href="#">')
+                .html(' <small>&#9650;</small>')
+                .click(function(ev) { sortHeader(ev, k, true) });
+        if (label)
+            el.html('').append(sort_asc, sort_desc);
+    });
+
     // symbol position
     function updatePosition() {
         var list = [];

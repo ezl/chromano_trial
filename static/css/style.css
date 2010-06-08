@@ -41,6 +41,8 @@ body { font-family: Verdana, sans-serif; }
 .grid-watch tr>*:nth-child(3) { width: 150px; }
 .grid-watch tr>*:nth-child(4) { width: 75px; }
 .grid-watch tr>*:nth-child(5) { width: 20px; }
+.grid-watch th a { text-decoration: none; }
+.grid-watch th a:hover { color: #00c; }
 
 .grid-watch .header { font-size: 12px; }
 .grid-watch .header th { padding: 2px 4px; }
