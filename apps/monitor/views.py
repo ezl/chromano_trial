@@ -1,4 +1,3 @@
-import simplejson
 from datetime import datetime, timedelta
 from functools import wraps
 
@@ -8,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils import simplejson
 from annoying.decorators import render_to, ajax_request
 
 from forms import RegistrationForm
