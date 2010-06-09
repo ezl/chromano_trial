@@ -11,7 +11,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from annoying.decorators import render_to, ajax_request
 
 from forms import RegistrationForm
-from models import SubscriptionPlan, FinancialInstrument, PriceWatch
+from models import SubscriptionPlan, FinancialInstrument, \
+    PriceWatch, UserCounter
 from urls import MENU_ITEMS
 from ext.yfinance import YahooFinance
 
@@ -40,8 +41,12 @@ def main(request):
 def monitor(request):
     """ Monitor page """
     qs = PriceWatch.objects.filter(user=request.user)
+    counter = UserCounter.objects.get(user=request.user)
+
     return {
         'watchlist': qs.order_by('-position', '-id'),
+        'near_limit': counter.count_watches < 5,
+        'plan': counter.plan,
     }
 
 
@@ -69,6 +74,10 @@ def register(request, plan_name=''):
             user = form.save(commit=False)
             user.email = get('email')
             user.save()
+            counter = UserCounter()
+            counter.user = user
+            counter.plan = plan
+            counter.reset()
             args = dict(username=get('username'), password=get('password1'))
             login(request, authenticate(**args))
             return HttpResponseRedirect(reverse(monitor))
@@ -93,7 +102,7 @@ def signin(request):
             return HttpResponseRedirect(reverse(monitor))
         username, error = get('username'), True
     else:
-        username, error = None, False
+        username, error = '', False
     
     return {
         'menu': MENU_ITEMS,
@@ -152,6 +161,11 @@ def monitor_add(request):
     symbol = data.get('s')
     lower_bound = data.get('l') or None
     upper_bound = data.get('h') or None
+
+    # verify user subscription
+    counter = UserCounter.objects.get(user=request.user)
+    if not counter.count_watches:
+        return json_or_redirect(request, {'error': "Plan limit reached"})
 
     # load content from yahoo API
     yapi = YahooFinance()

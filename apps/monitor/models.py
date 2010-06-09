@@ -49,3 +49,30 @@ class PriceWatch(models.Model):
     def __unicode__(self):
         return '%s: (%s<%s<%s)' % (self.user, self.lower_bound or '0',
             self.instrument, self.upper_bound or 'inf')
+
+
+class UserCounter(models.Model):
+    """ User resource usage """
+    user = models.ForeignKey(User)
+    plan = models.ForeignKey(SubscriptionPlan)
+
+    count_email_alerts = models.IntegerField("Email alerts remaining", default=0)
+    count_phone_alerts = models.IntegerField("SMS alerts remaining", default=0)
+
+    @property
+    def count_watches(self):
+        """ Number of available monitors """
+        max_ = self.plan.max_price_watches
+        if not max_:
+            return 9999
+        qs = PriceWatch.objects.filter(user=self.user)
+        return max_ - qs.count()
+
+    def reset(self):
+        """ Reset values to defaults """
+        self.count_email_alerts = (self.plan.limit_email_alerts or -1) \
+            if self.plan.allow_email_alerts else 0
+        self.count_phone_alerts = (self.plan.limit_phone_alerts or -1) \
+            if self.plan.allow_phone_alerts else 0
+        self.save()
+

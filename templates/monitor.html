@@ -6,6 +6,14 @@
 {% endblock %}
 
 {% block content %}
+{% if near_limit %}
+<div class="warning ui-state-highlight ui-corner-all">
+    <span class="ui-icon ui-icon-alert"></span>
+    You are near your {{ plan.name }} plan limit of {{ plan.max_price_watches }} pricewatches.
+    <br/><a href="#">Click to upgrade</a>.
+</div>
+{% endif %}
+
 <div class="add-watch">
     <div class="ui-widget-shadow ui-corner-all"></div>
     <form action="{% url monitor.views.monitor_add %}" method="post"
