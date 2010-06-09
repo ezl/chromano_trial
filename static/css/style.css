@@ -18,6 +18,13 @@ body { font-family: Verdana, sans-serif; }
 #footer { margin-bottom: 20px; padding: 5px 10px; font-size: 11px;
     background-color: #000; color: #666; border-bottom: 1px solid #888; }
 
+/* login page */
+.login { width: 250px; margin: 50px auto; padding: 20px; }
+.login div { margin-bottom: 10px; }
+.login label { display: block; font-size: 14px; }
+.login input { font-size: 20px; width: 240px; padding: 2px; }
+.login .error { color: red; font-size: 12px; padding: 5px; }
+
 /* registration page */
 .register .sub-plan { float: right; }
 .register h2 { font-size: 20px; margin: 10px; }

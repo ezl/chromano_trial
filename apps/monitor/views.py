@@ -4,6 +4,7 @@ from functools import wraps
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
@@ -60,7 +61,7 @@ def register(request, plan_name=''):
     """ Registration page """
     plan = SubscriptionPlan.objects.get(name__iexact=plan_name or 'free')
     free = not plan.billing_period_price
-    
+
     if request.method == 'POST':
         form = RegistrationForm(free, data=request.POST)
         if form.is_valid():
@@ -70,25 +71,41 @@ def register(request, plan_name=''):
             user.save()
             args = dict(username=get('username'), password=get('password1'))
             login(request, authenticate(**args))
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse(monitor))
     else:
         form = RegistrationForm(free)
-    
+
     return {
         'plan': plan,
         'form': form,
     }
 
 
+@render_to('login.html')
 def signin(request):
     """ Start session """
-    pass
+    if request.method == 'POST':
+        get = lambda k: request.POST[k]
+        args = dict(username=get('username'), password=get('password'))
+        user = authenticate(**args)
+        if user:
+            login(request, user)
+            return HttpResponseRedirect(reverse(monitor))
+        username, error = get('username'), True
+    else:
+        username, error = None, False
+    
+    return {
+        'menu': MENU_ITEMS,
+        'username': username,
+        'error': error,
+    }
 
 
 def signout(request):
     """ Close session """
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse(main))
 
 
 # ----- ajax views -----
@@ -187,7 +204,7 @@ def monitor_add(request):
 def monitor_del(request, id=0):
     """ Remove symbol (via html or ajax) """
     item = PriceWatch.objects.get(id=id, user=request.user)
-    
+
     # output result or redirect
     item.delete()
     return json_or_redirect(request, {})
@@ -212,6 +229,7 @@ def monitor_edit(request, id=0, field=''):
     return json_or_redirect(request, {'value': value})
 
 
+@ajax_request
 def monitor_position(request):
     """ Reposition values (ajax only) """
     id_list = map(int, reversed(request.GET['order'].split(',')))
@@ -224,4 +242,4 @@ def monitor_position(request):
         item.save()
 
     # no output
-    return HttpResponse('')
+    return {}

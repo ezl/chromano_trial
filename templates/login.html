@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post" class="login ui-widget-content ui-corner-all">
+    <div>
+        <label for="id_username">Username</label>
+        <input type="text" name="username" id="id_username" value="{{ username }}"/>
+    </div>
+    <div>
+        <label for="id_password">Password</label>
+        <input type="password" name="password" id="id_password"/>
+    </div>
+    {% if error %}
+        <div class="error">Incorrect username or password</div>
+    {% endif %}
+    <button type="submit">Log in</button>
+</form>
+{% endblock %}

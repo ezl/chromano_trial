@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     (r'^' + MEDIA_URL[1:] + '(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': MEDIA_ROOT}),
     (r'^admin/', include(admin.site.urls)),
+    (r'^accounts/login/', 'monitor.views.signin'),
 )
 
 from monitor.urls import urlpatterns as extra
