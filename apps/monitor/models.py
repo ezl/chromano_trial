@@ -5,7 +5,7 @@ from django.db import models
 class SubscriptionPlan(models.Model):
     """ User subscription options """
     name = models.CharField("Plan name", max_length=100)
-    description = models.TextField("Description")
+    description = models.TextField("Description", blank=True)
     max_price_watches = models.IntegerField("Max.monitors")
     allow_email_alerts = models.BooleanField("Email alerts")
     limit_email_alerts = models.IntegerField("Email alerts limit", default=0)
@@ -51,11 +51,12 @@ class PriceWatch(models.Model):
             self.instrument, self.upper_bound or 'inf')
 
 
-class UserCounter(models.Model):
+class UserProfile(models.Model):
     """ User resource usage """
     user = models.ForeignKey(User)
     plan = models.ForeignKey(SubscriptionPlan)
 
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
     count_email_alerts = models.IntegerField("Email alerts remaining", default=0)
     count_phone_alerts = models.IntegerField("SMS alerts remaining", default=0)
 

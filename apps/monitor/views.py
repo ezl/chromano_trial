@@ -12,7 +12,7 @@ from annoying.decorators import render_to, ajax_request
 
 from forms import RegistrationForm
 from models import SubscriptionPlan, FinancialInstrument, \
-    PriceWatch, UserCounter
+    PriceWatch, UserProfile
 from urls import MENU_ITEMS
 from ext.yfinance import YahooFinance
 
@@ -41,12 +41,15 @@ def main(request):
 def monitor(request):
     """ Monitor page """
     qs = PriceWatch.objects.filter(user=request.user)
-    counter = UserCounter.objects.get(user=request.user)
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        profile = None  # admin account
 
     return {
         'watchlist': qs.order_by('-position', '-id'),
-        'near_limit': counter.count_watches < 5,
-        'plan': counter.plan,
+        'near_limit': profile and profile.count_watches < 5,
+        'plan': profile and profile.plan,
     }
 
 
@@ -74,10 +77,10 @@ def register(request, plan_name=''):
             user = form.save(commit=False)
             user.email = get('email')
             user.save()
-            counter = UserCounter()
-            counter.user = user
-            counter.plan = plan
-            counter.reset()
+            profile = UserProfile()
+            profile.user = user
+            profile.plan = plan
+            profile.reset()
             args = dict(username=get('username'), password=get('password1'))
             login(request, authenticate(**args))
             return HttpResponseRedirect(reverse(monitor))
@@ -163,9 +166,12 @@ def monitor_add(request):
     upper_bound = data.get('h') or None
 
     # verify user subscription
-    counter = UserCounter.objects.get(user=request.user)
-    if not counter.count_watches:
-        return json_or_redirect(request, {'error': "Plan limit reached"})
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+        if not profile.count_watches:
+            return json_or_redirect(request, {'error': "Plan limit reached"})
+    except UserProfile.DoesNotExist:
+        pass  # admin account
 
     # load content from yahoo API
     yapi = YahooFinance()
@@ -233,6 +239,7 @@ def monitor_edit(request, id=0, field=''):
     # update database record
     if field == 'active':
         item.active = not item.active
+        value = item.active
     elif field == 'lower':
         item.lower_bound = value and float(value)
     elif field == 'upper':

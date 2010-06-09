@@ -3,4 +3,6 @@
 virtual/bin/
 virtual/include/
 virtual/lib/
+virtual/share/
+settings_local.py
 *.swp

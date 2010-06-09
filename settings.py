@@ -57,3 +57,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+# operational settings
+ALERTS_EMAIL = 'pricealert@92.114.206.30'
+GOOGLE_VOICE_USER = 'ezlmail@gmail.com'
+GOOGLE_VOICE_PASS = 'idontcare'
+
+try:
+    from settings_local import *
+except ImportError:
+    pass
