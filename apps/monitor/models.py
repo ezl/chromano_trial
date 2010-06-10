@@ -43,7 +43,7 @@ class PriceWatch(models.Model):
     position = models.IntegerField(default=0)
 
     class Meta:
-        unique_together = [('user', 'instrument')]
+        #unique_together = [('user', 'instrument')]
         verbose_name_plural = 'price watches'
 
     def __unicode__(self):
