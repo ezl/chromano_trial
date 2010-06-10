@@ -25,6 +25,15 @@ jQuery(function($) {
         return el;
     }
 
+    // update label and display warning
+    function updateCountLabel(delta) {
+        var el = $('#watch-count'), value = parseInt(el.html()) + delta,
+            elMax = $('#watch-max'), valueMax = parseInt(elMax.html());
+        if (valueMax)
+            $('#warn-limit').toggle(valueMax - value < 5);
+        el.html(value);
+    }
+
     // periodic updates
     function updatePrices() {
         var items = $('.grid-watch .symbol'),
@@ -136,6 +145,7 @@ jQuery(function($) {
         $.get(link.attr('href'), function(data) {
             if (!data) return;
             item.fadeOut('slow', function() { item.remove() });
+            updateCountLabel(-1);
         }, 'json');
     });
 
@@ -152,6 +162,7 @@ jQuery(function($) {
             form.find(':input').val('') // reset values
                 .first().focus(); // focus first element
             createItem(data);
+            updateCountLabel(1);
         }, 'json');
     });
 

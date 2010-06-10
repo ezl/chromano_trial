@@ -59,6 +59,8 @@ class UserProfile(models.Model):
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     count_email_alerts = models.IntegerField("Email alerts remaining", default=0)
     count_phone_alerts = models.IntegerField("SMS alerts remaining", default=0)
+    received_email_alerts = models.IntegerField("Email alerts received", default=0)
+    received_phone_alerts = models.IntegerField("SMS alerts received", default=0)
 
     @property
     def count_watches(self):
@@ -75,5 +77,6 @@ class UserProfile(models.Model):
             if self.plan.allow_email_alerts else 0
         self.count_phone_alerts = (self.plan.limit_phone_alerts or -1) \
             if self.plan.allow_phone_alerts else 0
+        self.received_email_alerts = 0
+        self.received_phone_alerts = 0
         self.save()
-

@@ -48,8 +48,10 @@ def monitor(request):
 
     return {
         'watchlist': qs.order_by('-position', '-id'),
+        'watchcount': qs.count(),
         'near_limit': profile and profile.count_watches < 5,
         'plan': profile and profile.plan,
+        'profile': profile,
     }
 
 

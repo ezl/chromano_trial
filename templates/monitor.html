@@ -6,13 +6,19 @@
 {% endblock %}
 
 {% block content %}
-{% if near_limit %}
-<div class="warning ui-state-highlight ui-corner-all">
+<div class="plan-status ui-state-highlight ui-corner-all">
     <span class="ui-icon ui-icon-alert"></span>
-    You are near your {{ plan.name }} plan limit of {{ plan.max_price_watches }} pricewatches.
-    <br/><a href="#">Click to upgrade</a>.
+    You have <span id="watch-count">{{ watchcount }}</span> active pricewatches.
+    <div id="warn-limit" {% if not near_limit %} style="display: none;" {% endif %}>
+        You are nearing your maximum of
+        <span id="watch-max">{{ plan.max_price_watches|default:"???" }}</span> pricewatches.
+        <a href="#">Upgrade</a>
+    </div>
+    <div id="alert-count">
+        You have received {{ profile.received_email_alerts }} email alerts
+        and {{ profile.received_phone_alerts }} text alerts this month.
+    </div>
 </div>
-{% endif %}
 
 <div class="add-watch">
     <div class="ui-widget-shadow ui-corner-all"></div>
