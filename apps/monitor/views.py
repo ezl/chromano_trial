@@ -123,29 +123,41 @@ def signout(request):
 # ----- ajax views -----
 
 @ajax_request
-def check(request, symbol=''):
+def check(request, symbols=''):
     """ Fetch symbol information """
     convert = lambda x: dict(symbol=symbol, name=x.name, price=x.last_price)
+    symbols = [s.upper() for s in symbols.split(',')]
 
-    # check database first (not to stress API)
-    try:
-        item = FinancialInstrument.objects.get(symbol=symbol)
-        if datetime.now() - item.last_update < timedelta(minutes=1):
-            return convert(item)
-    except FinancialInstrument.DoesNotExist:
-        item = FinancialInstrument(symbol=symbol)
+    # fetch item records, detect new and expired items
+    items = list(FinancialInstrument.objects.filter(symbol__in=symbols))
+    items_update, items_map = [], {}
+    for item in items:
+        if datetime.now() - item.last_update >= timedelta(minutes=1):
+            items_update.append(item)
+        items_map[item.symbol] = item
+    for symbol in symbols:
+        if symbol not in items_map:
+            items_update.append(FinancialInstrument(symbol=symbol))
 
     # load content from yahoo API
-    yapi = YahooFinance()
-    info = yapi.query_single(symbol)
-    if not info.price:
-        return {'error': 'NO_SYMBOL'}
+    if items_update:
+        yapi = YahooFinance()
+        yapi.query_multiple([x.symbol for x in items_update])
+        for item in items_update:
+            info = yapi[item.symbol]
+            item.last_price = info.price
+            if not info.price:
+                break
+            if item.symbol not in items_map:
+                item.name = info.name
+                items_map[item.symbol] = item
+            item.save()
 
-    # update database
-    item.name = info.name
-    item.last_price = info.price
-    item.save()
-    return convert(item)
+    # return values
+    if not items:
+        return {'error': 'NO_SYMBOL'}
+    items.sort(key=lambda x: symbols.index(x.symbol))  # maintain order
+    return {'data': map(convert, items)}
 
 
 def json_or_redirect(request, data):
@@ -161,7 +173,7 @@ def monitor_add(request):
     """ Add symbol (via html or ajax) """
     # fetch form data
     data = request.POST
-    symbol = data.get('s')
+    symbol = data.get('s').upper()
     lower_bound = data.get('l') or None
     upper_bound = data.get('h') or None
 
@@ -183,8 +195,12 @@ def monitor_add(request):
             raise ValueError
         if lower_bound is not None:
             lower_bound = float(lower_bound)
+            if lower_bound >= info.price:
+                return json_or_redirect(request, {'error': "Check lower limit"})
         if upper_bound is not None:
             upper_bound = float(upper_bound)
+            if upper_bound <= info.price:
+                return json_or_redirect(request, {'error': "Check upper limit"})
     except ValueError:
         # output error
         return json_or_redirect(request, {'error': "Invalid value"})

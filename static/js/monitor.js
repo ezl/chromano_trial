@@ -25,6 +25,18 @@ jQuery(function($) {
         return el;
     }
 
+    // periodic updates
+    function updatePrices() {
+        var items = $('.grid-watch .symbol'),
+            symbols = items.map(function(k,v) { return $.trim($(v).text()) }).toArray();
+        $.get('/monitor/check/' + symbols.join(','), function(data) {
+            $.each(data.data, function(k, v) {
+                $(items[k]).siblings().find('.price').html(format(v.price));
+            });
+        }, 'json');
+    }
+    setInterval(updatePrices, 62 * 1000);
+
     // edit limit values
     var editing = null;
     $('.grid-watch .editable').live('click', function(ev) {
@@ -156,8 +168,9 @@ jQuery(function($) {
                 checkFailed[value] = true;
                 priceDisplay.html('&nbsp;');
             } else {
-                priceDisplay.html(format(data.price));
-                nameDisplay.html(data.name);
+                info = data.data[0];
+                priceDisplay.html(format(info.price));
+                nameDisplay.html(info.name);
             }
             checkLast = value;
         }, 'json');
