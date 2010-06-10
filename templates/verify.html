@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post" class="basic">
+    <h2>Phone activation</h2>
+    <div>
+        <label for="id_confirm">Confirmation string</label>
+        <input type="text" name="confirm" id="id_confirm" value="{{ confirm }}"/>
+    </div>
+    <div>
+        <label for="id_phone">Phone number</label>
+        <input type="text" name="phone" id="id_phone" value="{{ phone }}"/>
+    </div>
+    <button type="submit">Activate number</button>
+</form>
+{% endblock %}

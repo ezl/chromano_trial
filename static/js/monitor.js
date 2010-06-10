@@ -39,6 +39,7 @@ jQuery(function($) {
         var items = $('.grid-watch .symbol'),
             symbols = items.map(function(k, v) { return $.trim($(v).text()) }).toArray(),
             groups = {};
+        if (!items.length) return;
         $.each(symbols, function(k, v) {
             if (!groups[v])
                 groups[v] = [];

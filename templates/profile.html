@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post" class="basic">
+    <h2>Profile settings</h2>
+    <div>
+        <label for="id_email">Alert email</label>
+        <input type="text" name="email" id="id_email" value="{{ form.email }}" size="40"/>
+        {{ form.email.errors }}
+    </div>
+    <div>
+        <label for="id_phone">Alert phone</label>
+        <input type="text" name="phone" id="id_phone" value="{{ form.phone }}"/>
+        {{ form.phone.errors }}
+    </div>
+    {% if form.phone and not form.phone.errors %}
+    <div>
+        {% if phone_verified %}
+            Your phone number is VERIFIED.
+        {% else %}
+            Your phone number is UNVERIFIED.
+            <a href="{% url monitor.views.verify %}?n={{ form.phone }}">Activate now</a>
+        {% endif %}
+    </div>
+    {% endif %}
+    <button type="submit">Edit settings</button>
+</form>
+{% endblock %}

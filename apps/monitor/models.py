@@ -57,6 +57,9 @@ class UserProfile(models.Model):
     plan = models.ForeignKey(SubscriptionPlan)
 
     phone_number = models.CharField(max_length=20, null=True, blank=True)
+    phone_verified = models.BooleanField()
+    phone_activation_string = models.CharField(max_length=10, blank=True)
+
     count_email_alerts = models.IntegerField("Email alerts remaining", default=0)
     count_phone_alerts = models.IntegerField("SMS alerts remaining", default=0)
     received_email_alerts = models.IntegerField("Email alerts received", default=0)

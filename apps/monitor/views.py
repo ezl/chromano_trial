@@ -95,7 +95,26 @@ def register(request, plan_name=''):
     }
 
 
+@login_required
+@render_to('profile.html')
+@menu_item
+def profile(request):
+    """ Edit profile settings """
+    profile = UserProfile.objects.get(user=request.user)
+    return {
+    }
+
+
+@login_required
+@render_to('verify.html')
+@menu_item
+def verify(request):
+    """ Edit profile settings """
+    return {}
+
+
 @render_to('login.html')
+@menu_item
 def signin(request):
     """ Start session """
     if request.method == 'POST':
@@ -110,7 +129,6 @@ def signin(request):
         username, error = '', False
     
     return {
-        'menu': MENU_ITEMS,
         'username': username,
         'error': error,
     }

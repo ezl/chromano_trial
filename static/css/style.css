@@ -34,6 +34,13 @@ body { font-family: Verdana, sans-serif; }
 .register select { font-size: 12px; }
 .register button { margin: 10px; }
 
+/* profile pages */
+.basic { margin: 10px; }
+.basic h2 { font-size: 20px; }
+.basic div { margin: 5px; }
+.basic label { display: block; }
+.basic button { margin: 5px; }
+
 /* plans page */
 .sub-plan { width: 290px; margin: 10px; }
 .sub-plan > div { padding: 10px 15px; }
@@ -67,7 +74,7 @@ body { font-family: Verdana, sans-serif; }
 .plan-status { float: right; padding: 10px; width: 230px; font-size: 12px; }
 .plan-status .ui-icon { float: left; margin-right: 4px; }
 .plan-status div { margin-top: 5px; }
-#warn-limit { font-weight: bold; }
+.plan-status #warn-limit { font-weight: bold; }
 
 /* watch page: item list */
 .grid-watch { width: 515px; padding: 0 20px; overflow: auto; }
