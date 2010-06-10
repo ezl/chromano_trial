@@ -28,10 +28,16 @@ jQuery(function($) {
     // periodic updates
     function updatePrices() {
         var items = $('.grid-watch .symbol'),
-            symbols = items.map(function(k,v) { return $.trim($(v).text()) }).toArray();
+            symbols = items.map(function(k, v) { return $.trim($(v).text()) }).toArray(),
+            groups = {};
+        $.each(symbols, function(k, v) {
+            if (!groups[v])
+                groups[v] = [];
+            groups[v].push(items[k]);
+        });
         $.get('/monitor/check/' + symbols.join(','), function(data) {
             $.each(data.data, function(k, v) {
-                $(items[k]).siblings().find('.price').html(format(v.price));
+                $(groups[v.symbol]).siblings().find('.price').html(format(v.price));
             });
         }, 'json');
     }

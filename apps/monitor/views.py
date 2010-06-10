@@ -125,8 +125,8 @@ def signout(request):
 @ajax_request
 def check(request, symbols=''):
     """ Fetch symbol information """
-    convert = lambda x: dict(symbol=symbol, name=x.name, price=x.last_price)
-    symbols = [s.upper() for s in symbols.split(',')]
+    convert = lambda x: dict(symbol=x.symbol, name=x.name, price=x.last_price)
+    symbols = set([s.upper() for s in symbols.split(',')])
 
     # fetch item records, detect new and expired items
     items = list(FinancialInstrument.objects.filter(symbol__in=symbols))
@@ -150,13 +150,11 @@ def check(request, symbols=''):
                 break
             if item.symbol not in items_map:
                 item.name = info.name
-                items_map[item.symbol] = item
             item.save()
 
     # return values
     if not items:
         return {'error': 'NO_SYMBOL'}
-    items.sort(key=lambda x: symbols.index(x.symbol))  # maintain order
     return {'data': map(convert, items)}
 
 
