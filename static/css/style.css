@@ -40,6 +40,7 @@ body { font-family: Verdana, sans-serif; }
 .basic div { margin: 5px; }
 .basic label { display: block; }
 .basic button { margin: 5px; }
+.basic .errorlist { color: red; }
 
 /* plans page */
 .sub-plan { width: 290px; margin: 10px; }

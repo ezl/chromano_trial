@@ -73,7 +73,7 @@ class Command(NoArgsCommand):
                 profile.save()
         
         # send phone alert
-        if profile.count_phone_alerts and profile.phone_number:
+        if profile.count_phone_alerts and profile.phone_verified:
             # send message
             try:
                 sender = TextSender(self.gvoice.opener, self.gvoice.key)

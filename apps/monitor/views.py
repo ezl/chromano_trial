@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
 from annoying.decorators import render_to, ajax_request
 
-from forms import RegistrationForm
+from forms import RegistrationForm, ProfileForm
 from models import SubscriptionPlan, FinancialInstrument, \
     PriceWatch, UserProfile
 from urls import MENU_ITEMS
@@ -101,7 +101,22 @@ def register(request, plan_name=''):
 def profile(request):
     """ Edit profile settings """
     profile = UserProfile.objects.get(user=request.user)
+    
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save_email(profile.user)
+            form.save_phone(profile)
+    else:
+        form = ProfileForm()
+        form.initial.update({
+            'email': profile.user.email,
+            'phone': profile.phone_number,
+        })
+    
     return {
+        'form': form,
+        'profile': profile,
     }
 
 

@@ -1,8 +1,13 @@
 import re
+import random
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.localflavor.us.forms import USPhoneNumberField
 #from django.utils.dates import MONTHS
+
+from ext.gvoice import GoogleVoiceLogin, TextSender
 
 
 class RegistrationForm(UserCreationForm):
@@ -30,3 +35,39 @@ class RegistrationForm(UserCreationForm):
         if not self.free and not re.match(r'^\s*\S+\s\S+', v):
             raise forms.ValidationError("Enter cardholder name")
         return v
+
+
+class ProfileForm(forms.Form):
+    """ Profile contacts form """
+    email = forms.EmailField(required=False)
+    phone = USPhoneNumberField(required=False)
+
+    def save_email(self, user):
+        # save email record
+        v = self.cleaned_data['email']
+        user.email = v
+        user.save()
+
+    def save_phone(self, profile):
+        # check if phone has changed
+        v = self.cleaned_data['phone']
+        if not v or v == profile.phone_number:
+            return
+
+        # generate random token
+        chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPRSTUVWXY3456789'
+        token = ''.join(random.sample(chars, 6))
+
+        # update profile record
+        profile.phone_number = v
+        profile.phone_verified = False
+        profile.phone_activation_string = token
+        profile.save()
+
+        # send text message
+        user_, pass_ = settings.GOOGLE_VOICE_USER, settings.GOOGLE_VOICE_PASS
+        gvoice = GoogleVoiceLogin(user_, pass_)
+        
+        sender = TextSender(gvoice.opener, gvoice.key)
+        sender.text = 'Your activation key: %s' % token
+        sender.send_text(profile.phone_number)
