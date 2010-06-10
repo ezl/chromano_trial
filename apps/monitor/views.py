@@ -209,12 +209,13 @@ def monitor_add(request):
     symbol = data.get('s').upper()
     lower_bound = data.get('l') or None
     upper_bound = data.get('h') or None
+    error = lambda msg: json_or_redirect(request, {'error': msg})
 
     # verify user subscription
     try:
         profile = UserProfile.objects.get(user=request.user)
         if not profile.count_watches:
-            return json_or_redirect(request, {'error': "Plan limit reached"})
+            return error("Plan limit reached")
     except UserProfile.DoesNotExist:
         pass  # admin account
 
@@ -225,18 +226,18 @@ def monitor_add(request):
     try:
         # validate input
         if not info.price:
-            raise ValueError
+            return error("Symbol %s not found" % symbol)
         if lower_bound is not None:
             lower_bound = float(lower_bound)
             if lower_bound >= info.price:
-                return json_or_redirect(request, {'error': "Check lower limit"})
+                return error("Low alert above current price")
         if upper_bound is not None:
             upper_bound = float(upper_bound)
             if upper_bound <= info.price:
-                return json_or_redirect(request, {'error': "Check upper limit"})
+                return error("High alert below current price")
     except ValueError:
         # output error
-        return json_or_redirect(request, {'error': "Invalid value"})
+        return error("Invalid value")
 
     # create database record (instrument)
     try:
@@ -257,7 +258,7 @@ def monitor_add(request):
         watch.save()
     except IntegrityError:
         # output error
-        return json_or_redirect(request, {'error': "Symbol exists"})
+        return error("Symbol exists")
 
     # output result or redirect
     return json_or_redirect(request, {
@@ -285,9 +286,20 @@ def monitor_edit(request, id=0, field=''):
     item = PriceWatch.objects.get(id=id, user=request.user)
     value = request.GET.get('value')
 
+    # verify user subscription
+    if field == 'active':
+        allow_toggle = True
+        try:
+            profile = UserProfile.objects.get(user=request.user)
+            if not item.active and not profile.count_watches:
+                allow_toggle = False
+        except UserProfile.DoesNotExist:
+            pass  # admin account
+
     # update database record
     if field == 'active':
-        item.active = not item.active
+        if allow_toggle:
+            item.active = not item.active
         value = item.active
     elif field == 'lower':
         item.lower_bound = value and float(value)

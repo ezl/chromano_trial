@@ -71,7 +71,7 @@ class UserProfile(models.Model):
         max_ = self.plan.max_price_watches
         if not max_:
             return 9999
-        qs = PriceWatch.objects.filter(user=self.user)
+        qs = PriceWatch.objects.filter(user=self.user, active=True)
         return max_ - qs.count()
 
     def reset(self):

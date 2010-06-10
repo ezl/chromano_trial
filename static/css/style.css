@@ -59,7 +59,7 @@ body { font-family: Verdana, sans-serif; }
 .icon-no { background: url('../icons/icon_no.png'); }
 
 /* watch page: add form */
-.add-watch { float: left; margin: 10px 5px; position: relative; }
+.add-watch { float: left; margin: 10px 5px; position: relative; width: 150px; }
 .add-watch form { padding: 5px; font-size: 12px; position: relative; }
 .add-watch form > div { float: left; margin: 2px; min-width: 40px; }
 .add-watch form label { display: block; }
@@ -72,13 +72,14 @@ body { font-family: Verdana, sans-serif; }
     display: inline-block; margin-bottom: -2px; }
 .add-watch .ui-widget-shadow { position: absolute; width: 100%; height: 100%; }
 
-.plan-status { float: right; padding: 10px; width: 230px; font-size: 12px; }
+.plan-status { position: absolute; right: 10px; padding: 10px; width: 230px; }
 .plan-status .ui-icon { float: left; margin-right: 4px; }
-.plan-status div { margin-top: 5px; }
+.plan-status div { margin-bottom: 5px; font-size: 12px; }
 .plan-status #warn-limit { font-weight: bold; }
 
 /* watch page: item list */
-.grid-watch { width: 515px; padding: 0 20px; overflow: auto; }
+.grid-watch { padding: 0 20px; overflow: auto; }
+.grid-watch > * { width: 510px; }
 .grid-watch tr>* { text-align: center; }
 .grid-watch th:first-child { text-align: left; }
 .grid-watch tr>*:nth-child(1) { width: 200px; }
@@ -91,12 +92,14 @@ body { font-family: Verdana, sans-serif; }
 
 .grid-watch .header { font-size: 12px; }
 .grid-watch .header th { padding: 2px 4px; }
-.grid-watch li { margin: 5px 0; padding: 0 5px; font-weight: normal; }
-.grid-watch li td { padding: 0 4px; }
+.grid-watch li { margin: 5px 0; padding: 0 5px; position: relative; }
+.grid-watch li td { padding: 0 4px; font-weight: normal; }
 .grid-watch li:hover { background: #ffc; border-color: #cc9; }
 .grid-watch .symbol { font-size: 24px; }
 .grid-watch .editable { color: #999; }
 .grid-watch .price { color: #333; font-weight: bold; text-align: center; }
+.grid-watch .floater { position: absolute; right: -20px; top: 2px; padding: 0 5px;
+    width: 200px; margin-right: -200px; font-weight: normal; border: 3px solid #c66; }
 
 .grid-watch input { width: 70px; text-align: center; border: 1px solid #ccc; }
 .grid-watch .icon { display: inline-block; }

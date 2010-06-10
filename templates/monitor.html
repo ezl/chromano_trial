@@ -8,7 +8,9 @@
 {% block content %}
 <div class="plan-status ui-state-highlight ui-corner-all">
     <span class="ui-icon ui-icon-alert"></span>
-    You have <span id="watch-count">{{ watchcount }}</span> active pricewatches.
+    <div>
+        You have <span id="watch-count">{{ watchcount }}</span> active pricewatches.
+    </div>
     <div id="warn-limit" {% if not near_limit %} style="display: none;" {% endif %}>
         You are nearing your maximum of
         <span id="watch-max">{{ plan.max_price_watches|default:"???" }}</span> pricewatches.

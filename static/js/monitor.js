@@ -72,6 +72,7 @@ jQuery(function($) {
         input.blur(function() {
             var v = parseFloat(this.value) || null;
             if (v < 0) v = null;
+            if (!compareToPrice(v, el)) v = value;
             if (v != value) {
                 var field = el[0].className.split(' ').pop();
                 $.get('/monitor/edit/' + id + '/' + field + '?value=' + (v || '0'));
@@ -84,6 +85,24 @@ jQuery(function($) {
                 this.blur();
         });
     });
+
+    function compareToPrice(value, el) {
+        // compare value to price
+        var item = el.parents('li'),
+            price = parseFloat(item.find('.price').html()),
+            upper = el.hasClass('upper'), lower = !upper;
+        if ((upper && value > price) || (lower && value < price))
+            return true;
+
+        // display floating error
+        var msg = (upper ? 'Value is below the price' : 'Value is above the price'),
+            floater = $('<div>').addClass('floater ui-state-error ui-corner-all')
+            .appendTo(item).css('opacity', 0.9).html(msg);
+        setTimeout(function() {
+            floater.fadeOut('slow', function() { floater.remove() });
+        }, 2000);
+    }
+    window.test = compareToPrice;
 
     // sort columns
     function sortHeader(ev, index, desc) {
@@ -135,6 +154,7 @@ jQuery(function($) {
             if (!data) return;
             link.removeClass('icon-on').removeClass('icon-off')
                 .addClass(data.value ? 'icon-on' : 'icon-off');
+            updateCountLabel(data.value ? 1 : -1);
         }, 'json');
     });
 
@@ -146,7 +166,8 @@ jQuery(function($) {
         $.get(link.attr('href'), function(data) {
             if (!data) return;
             item.fadeOut('slow', function() { item.remove() });
-            updateCountLabel(-1);
+            if (item.find('.icon-on').length)
+                updateCountLabel(-1);
         }, 'json');
     });
 
