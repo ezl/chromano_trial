@@ -10,14 +10,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
 from annoying.decorators import render_to, ajax_request
 
-from forms import RegistrationForm, ProfileForm
+from forms import RegistrationForm, ProfileForm, ActivationForm
 from models import SubscriptionPlan, FinancialInstrument, \
     PriceWatch, UserProfile
 from urls import MENU_ITEMS
 from ext.yfinance import YahooFinance
 
 
-def menu_item(function):
+def site_page(function):
     @wraps(function)
     def wrapper(request, **kwargs):
         res = function(request, **kwargs)
@@ -29,7 +29,7 @@ def menu_item(function):
 
 
 @render_to('main.html')
-@menu_item
+@site_page
 def main(request):
     """ Main page """
     return {}
@@ -37,7 +37,7 @@ def main(request):
 
 @login_required
 @render_to('monitor.html')
-@menu_item
+@site_page
 def monitor(request):
     """ Monitor page """
     qs = PriceWatch.objects.filter(user=request.user)
@@ -56,7 +56,7 @@ def monitor(request):
 
 
 @render_to('plans.html')
-@menu_item
+@site_page
 def plans(request):
     """ Subscription plans page """
     qs = SubscriptionPlan.objects.all()
@@ -66,7 +66,7 @@ def plans(request):
 
 
 @render_to('register.html')
-@menu_item
+@site_page
 def register(request, plan_name=''):
     """ Registration page """
     plan = SubscriptionPlan.objects.get(name__iexact=plan_name or 'free')
@@ -97,7 +97,7 @@ def register(request, plan_name=''):
 
 @login_required
 @render_to('profile.html')
-@menu_item
+@site_page
 def profile(request):
     """ Edit profile settings """
     profile = UserProfile.objects.get(user=request.user)
@@ -122,14 +122,34 @@ def profile(request):
 
 @login_required
 @render_to('verify.html')
-@menu_item
+@site_page
 def verify(request):
     """ Edit profile settings """
+    if request.method == 'POST':
+        form = ActivationForm(request.POST)
+        if form.is_valid():
+            form.profile.phone_verified = True
+            form.profile.save()
+            return HttpResponseRedirect(reverse(profile))
+    else:
+        form = ActivationForm()
+        form.initial['phone'] = request.GET.get('n')
+    
+    return {
+        'form': form,
+    }
+
+
+@login_required
+@render_to('upgrade.html')
+@site_page
+def upgrade(request):
+    """ Upgrade/downgrade subscription plan """
     return {}
 
 
 @render_to('login.html')
-@menu_item
+@site_page
 def signin(request):
     """ Start session """
     if request.method == 'POST':

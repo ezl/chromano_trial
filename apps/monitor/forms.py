@@ -8,6 +8,7 @@ from django.contrib.localflavor.us.forms import USPhoneNumberField
 #from django.utils.dates import MONTHS
 
 from ext.gvoice import GoogleVoiceLogin, TextSender
+from models import UserProfile
 
 
 class RegistrationForm(UserCreationForm):
@@ -71,3 +72,20 @@ class ProfileForm(forms.Form):
         sender = TextSender(gvoice.opener, gvoice.key)
         sender.text = 'Your activation key: %s' % token
         sender.send_text(profile.phone_number)
+
+
+class ActivationForm(forms.Form):
+    """ Profile activation form """
+    token = forms.RegexField(regex=r'^\w+$')
+    phone = USPhoneNumberField(required=False)
+
+    def clean(self):
+        data = self.cleaned_data
+        try:
+            if 'token' in data:
+                self.profile = UserProfile.objects.get(
+                    phone_number=data['phone'],
+                    phone_activation_string=data['token'])
+        except UserProfile.DoesNotExist:
+            raise forms.ValidationError("Confirmation string is incorrect")
+        return data
