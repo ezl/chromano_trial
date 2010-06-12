@@ -11,11 +11,14 @@
     <div>
         You have <span id="watch-count">{{ watchcount }}</span> active pricewatches.
     </div>
-    <div id="warn-limit" {% if not near_limit %} style="display: none;" {% endif %}>
-        You are nearing your maximum of
-        <span id="watch-max">{{ plan.max_price_watches|default:"???" }}</span> pricewatches.
-        <a href="#">Upgrade</a>
+    {% with "style='display:none;'" as hidden %}
+    <div id="warn-limit" {% if not near_limit %}{{ hidden }}{% endif %}>
+        <span id="watch-near" {% if reached_limit %}{{ hidden }}{% endif %}>You are nearing your maximum</span>
+        <span id="watch-limit" {% if not reached_limit %}{{ hidden }}{% endif %}>You have reached your limit</span>
+        of <span id="watch-max">{{ plan.max_price_watches|default:"???" }}</span> pricewatches.
+        <a href="{% url monitor.views.upgrade %}">Upgrade</a>
     </div>
+    {% endwith %}
     <div id="alert-count">
         You have received {{ profile.received_email_alerts }} email alerts
         and {{ profile.received_phone_alerts }} text alerts this month.

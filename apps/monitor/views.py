@@ -46,13 +46,16 @@ def monitor(request):
     qs = PriceWatch.objects.filter(user=request.user)
     try:
         profile = UserProfile.objects.get(user=request.user)
+        count = profile.count_watches
     except UserProfile.DoesNotExist:
         profile = None  # admin account
+        count = 9999
 
     return {
         'watchlist': qs.order_by('-position', '-id'),
         'watchcount': qs.count(),
-        'near_limit': profile and profile.count_watches < 5,
+        'near_limit': count < 5,
+        'reached_limit': not count,
         'plan': profile and profile.plan,
         'profile': profile,
     }

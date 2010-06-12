@@ -27,8 +27,11 @@
             <div class="info ui-corner-all">
             {% if user.is_authenticated %}
                 You are logged in as <b>{{ user }}</b>
+                <a href="{% url monitor.views.profile %}">profile</a>
+                <a href="{% url monitor.views.signout %}">log out</a>
             {% else %}
-                You are not logged in
+                You are not authenticated
+                <a href="{% url monitor.views.signin %}">log in</a>
             {% endif %}
             </div>
         </div>

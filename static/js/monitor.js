@@ -28,9 +28,13 @@ jQuery(function($) {
     // update label and display warning
     function updateCountLabel(delta) {
         var el = $('#watch-count'), value = parseInt(el.html()) + delta,
-            elMax = $('#watch-max'), valueMax = parseInt(elMax.html());
-        if (valueMax)
+            elMax = $('#watch-max'), valueMax = parseInt(elMax.html()),
+            count = valueMax - value;
+        if (valueMax) {
             $('#warn-limit').toggle(valueMax - value < 5);
+            $('#watch-near').toggle(!!count);
+            $('#watch-limit').toggle(!count);
+        }
         el.html(value);
     }
 
