@@ -8,7 +8,9 @@ jQuery(function($) {
     }
     markFree({{ plan_record.free|lower }});
     $('.upgrade input:radio').change(function() {
-        markFree(this.title == 'Free'); // note: name hard-coded (bad?)
+        var price = parseFloat($(this).next().val());
+        markFree(!price);
+        $('#amount').html(price ? '$' + price : 'free');
     });
 });
 </script>
@@ -20,7 +22,9 @@ jQuery(function($) {
     <h2>Upgrade details</h2>
     <div>
         <label>Due amount</label>
-        <b id="amount">{{ profile.plan.billing_period_price|default:"free" }}</b>
+        <b id="amount">{% with plan_record.billing_period_price as amount %}
+            {% if amount %}${{ amount }}{% else %}free{% endif %}
+        {% endwith %}</b>
     </div>
     <div class="cc-data">
         <label for="id_card_holder">Name on card</label>
@@ -38,13 +42,20 @@ jQuery(function($) {
         {{ form.card_expires_year }}
     </div>
     <button type="submit" id="submit">Update subscription</button>
+
+    {# include fields required by form, perhaps this can be implemented better #}
+    <input type="hidden" name="username" value="{{ user.username }}{% now "u" %}"/>
+    <input type="hidden" name="email" value="{{ user.email }}"/>
+    <input type="hidden" name="password1" value="-"/>
+    <input type="hidden" name="password2" value="-"/>
 </div>
 <table>
 {% for plan in plans %}
     <tr>
         <td>
-            <input type="radio" name="plan_id" value="{{ plan.id }}" title="{{ plan.name }}"
+            <input type="radio" name="plan_id" value="{{ plan.id }}"
                 {% if plan_record == plan %} checked="checked" {% endif %} />
+            <input type="hidden" id="p{{ plan.id }}" value="{{ plan.billing_period_price }}"/>
             {% if profile.plan == plan %}
                 <p>This is your current subscription plan.</p>
             {% endif %}

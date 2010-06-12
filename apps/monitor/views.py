@@ -1,12 +1,15 @@
 from datetime import datetime, timedelta
 from functools import wraps
 
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
+from django.template import Context, loader
 from django.utils import simplejson
 from annoying.decorators import render_to, ajax_request
 
@@ -74,19 +77,31 @@ def register(request, plan_name=''):
     if request.method == 'POST':
         form = RegistrationForm(plan.free, data=request.POST)
         if form.is_valid():
+            # save user
             get = lambda k: form.cleaned_data[k]
             user = form.save(commit=False)
             user.email = get('email')
             user.save()
+            # save profile
             profile = UserProfile()
             profile.user = user
             profile.plan = plan
             profile.reset()
+            # send welcome email
+            if user.email:
+                tpl = loader.get_template('email_welcome.txt')
+                ctx = Context({'user': user, 'profile': profile})
+                subject, message = tpl.render(ctx).split('\n', 1)
+                print subject, message
+                send_mail(subject=subject, message=message,
+                    from_email=settings.ALERTS_EMAIL,
+                    recipient_list=[user.email])
+            # log in automatically
             args = dict(username=get('username'), password=get('password1'))
             login(request, authenticate(**args))
             return HttpResponseRedirect(reverse(monitor))
     else:
-        form = RegistrationForm(free)
+        form = RegistrationForm(plan.free)
 
     return {
         'plan': plan,
@@ -151,7 +166,9 @@ def upgrade(request):
         plan = SubscriptionPlan.objects.get(id=request.POST['plan_id'])
         form = RegistrationForm(plan.free, data=request.POST)
         if form.is_valid():
-            pass
+            profile.plan = plan
+            profile.save()
+            return HttpResponseRedirect(reverse(monitor))
     else:
         plan = profile.plan
         form = RegistrationForm(plan.free)

@@ -1,0 +1,4 @@
+Welcome to QuoteSentinel
+
+user: {{ user.username }}
+plan: {{ profile.plan.name }}
