@@ -42,6 +42,12 @@ body { font-family: Verdana, sans-serif; }
 .basic button { margin: 5px; }
 .basic .errorlist { color: red; }
 
+.upgrade td { vertical-align: top; }
+.upgrade td:first-child { width: 110px; padding: 20px 10px; font-size: 10px; }
+.upgrade .cc-info { float: right; }
+.upgrade .cc-info.free .cc-data { opacity: 0.3; }
+.upgrade .errorlist { float: none; margin-left: 120px; }
+
 /* plans page */
 .sub-plan { width: 290px; margin: 10px; }
 .sub-plan > div { padding: 10px 15px; }

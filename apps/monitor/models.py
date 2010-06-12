@@ -14,6 +14,10 @@ class SubscriptionPlan(models.Model):
     billing_period_price = models.IntegerField("Price")
     billing_period_length = models.IntegerField("Period (days)")
 
+    @property
+    def free(self):
+        return not self.billing_period_price
+
     def __unicode__(self):
         return 'Plan: %s' % self.name
 

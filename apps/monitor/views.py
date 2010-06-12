@@ -70,10 +70,9 @@ def plans(request):
 def register(request, plan_name=''):
     """ Registration page """
     plan = SubscriptionPlan.objects.get(name__iexact=plan_name or 'free')
-    free = not plan.billing_period_price
 
     if request.method == 'POST':
-        form = RegistrationForm(free, data=request.POST)
+        form = RegistrationForm(plan.free, data=request.POST)
         if form.is_valid():
             get = lambda k: form.cleaned_data[k]
             user = form.save(commit=False)
@@ -145,7 +144,24 @@ def verify(request):
 @site_page
 def upgrade(request):
     """ Upgrade/downgrade subscription plan """
-    return {}
+    plans = SubscriptionPlan.objects.all().order_by('billing_period_price')
+    profile = UserProfile.objects.get(user=request.user)
+    
+    if request.method == 'POST':
+        plan = SubscriptionPlan.objects.get(id=request.POST['plan_id'])
+        form = RegistrationForm(plan.free, data=request.POST)
+        if form.is_valid():
+            pass
+    else:
+        plan = profile.plan
+        form = RegistrationForm(plan.free)
+
+    return {
+        'plans': plans,
+        'profile': profile,
+        'form': form,
+        'plan_record': plan,
+    }
 
 
 @render_to('login.html')

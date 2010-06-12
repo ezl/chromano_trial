@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+<script>
+jQuery(function($) {
+    function markFree(on) {
+        $('.cc-info').toggleClass('free', on);
+    }
+    markFree({{ plan_record.free|lower }});
+    $('.upgrade input:radio').change(function() {
+        markFree(this.title == 'Free'); // note: name hard-coded (bad?)
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="upgrade">
+<div class="cc-info register">
+    <h2>Upgrade details</h2>
+    <div>
+        <label>Due amount</label>
+        <b id="amount">{{ profile.plan.billing_period_price|default:"free" }}</b>
+    </div>
+    <div class="cc-data">
+        <label for="id_card_holder">Name on card</label>
+        {{ form.card_holder }}
+        {{ form.card_holder.errors }}
+    </div>
+    <div class="cc-data">
+        <label for="id_card_number">Card number</label>
+        {{ form.card_number }}
+        {{ form.card_number.errors }}
+    </div>
+    <div class="cc-data">
+        <label for="id_card_expires_month">Expires on</label>
+        {{ form.card_expires_month }}
+        {{ form.card_expires_year }}
+    </div>
+    <button type="submit" id="submit">Update subscription</button>
+</div>
+<table>
+{% for plan in plans %}
+    <tr>
+        <td>
+            <input type="radio" name="plan_id" value="{{ plan.id }}" title="{{ plan.name }}"
+                {% if plan_record == plan %} checked="checked" {% endif %} />
+            {% if profile.plan == plan %}
+                <p>This is your current subscription plan.</p>
+            {% endif %}
+        </td>
+        <td>
+            {% include "plan_include.html" %}
+        </td>
+    </tr>
+{% endfor %}
+</table>
+</form>
+{% endblock %}
