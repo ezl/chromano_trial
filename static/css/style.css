@@ -1,6 +1,6 @@
 
 /* page layout */
-html { background: #666 url('../images/bg_body.png') repeat-x; }
+html { background: #555 url('../images/background.jpg') repeat-y top center; }
 body { font-family: Verdana, sans-serif; }
 .icon { width: 16px; height: 16px; }
 #container { width: 980px; margin: 0 auto; position: relative; }
