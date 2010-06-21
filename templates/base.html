@@ -4,36 +4,31 @@
     <title>{% block title %}Quote monitor{% endblock %}</title>
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css"/>
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css"/>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz"/>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/cupertino/jquery-ui.css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     {% block extrahead %}{% endblock %}
 </head>
 <body>
     <div id="container">
         <div id="header">
-            <!--<div class="image"></div>-->
-            <h1 class="logo ui-corner-all">Quote Monitor</h1>
-            <ul class="menu ui-buttonset">
+            <h1 class="logo"></h1>
+            <div class="info">
+            {% if user.is_authenticated %}
+                You are logged in as <b>{{ user }}</b><br/>
+                <a href="{% url monitor.views.profile %}">View Profile</a> |
+                <a href="{% url monitor.views.signout %}">Log Out</a>
+            {% else %}
+                You are not authenticated<br/>
+                <a href="{% url monitor.views.signin %}">Log In</a>
+            {% endif %}
+            </div>
+            <ul class="menu">
             {% for view, label in menu %}
-                <li class="ui-button ui-button-text-only
-                    {% ifequal page view %}ui-state-active{% else %}ui-state-default{% endifequal %}
-                    {% if forloop.first %}ui-corner-left{% endif %}
-                    {% if forloop.last %}ui-corner-right{% endif %}">
-                    <a href="/{{ view }}" class="ui-button-text">{{ label }}</a>
+                <li class="{% ifequal page view %}active{% endifequal %}">
+                    <a href="/{{ view }}">{{ label }}</a>
+                    <i></i>
                 </li>
             {% endfor %}
             </ul>
-            <div class="info ui-corner-all">
-            {% if user.is_authenticated %}
-                You are logged in as <b>{{ user }}</b>
-                <a href="{% url monitor.views.profile %}">profile</a>
-                <a href="{% url monitor.views.signout %}">log out</a>
-            {% else %}
-                You are not authenticated
-                <a href="{% url monitor.views.signin %}">log in</a>
-            {% endif %}
-            </div>
         </div>
         <div id="content">
             {% block content %}{% endblock %}
