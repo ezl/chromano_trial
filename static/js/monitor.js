@@ -95,7 +95,7 @@ jQuery(function($) {
         var item = el.parents('li'),
             price = parseFloat(item.find('.price').html()),
             upper = el.hasClass('upper'), lower = !upper;
-        if ((upper && value > price) || (lower && value < price))
+        if ((upper && value > price) || (lower && value < price) || value == null)
             return true;
 
         // display floating error
@@ -125,7 +125,7 @@ jQuery(function($) {
         });
         updatePosition();
     }
-    $('.grid-watch .header th').each(function(k) {
+    $('.grid-watch.header th').each(function(k) {
         var el = $(this), label = el.html(),
             sort_asc = $('<a href="#">')
                 .html(label + ' <small>&#9660;</small>')

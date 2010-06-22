@@ -6,66 +6,69 @@
 {% endblock %}
 
 {% block content %}
-<div class="plan-status ui-state-highlight ui-corner-all">
-    <span class="ui-icon ui-icon-alert"></span>
-    <div>
-        You have <span id="watch-count">{{ watchcount }}</span> active pricewatches.
-    </div>
-    {% with "style='display:none;'" as hidden %}
-    <div id="warn-limit" {% if not near_limit %}{{ hidden }}{% endif %}>
-        <span id="watch-near" {% if reached_limit %}{{ hidden }}{% endif %}>You are nearing your maximum</span>
-        <span id="watch-limit" {% if not reached_limit %}{{ hidden }}{% endif %}>You have reached your limit</span>
-        of <span id="watch-max">{{ plan.max_price_watches|default:"???" }}</span> pricewatches.
-        <a href="{% url monitor.views.upgrade %}">Upgrade</a>
-    </div>
-    {% endwith %}
-    <div id="alert-count">
-        You have received {{ profile.received_email_alerts }} email alerts
-        and {{ profile.received_phone_alerts }} text alerts this month.
-    </div>
-</div>
-
-<div class="add-watch">
-    <div class="ui-widget-shadow ui-corner-all"></div>
-    <form action="{% url monitor.views.monitor_add %}" method="post"
-        class="ui-widget ui-widget-content ui-corner-all">
-        <div>
-            <label for="id_symbol">Symbol</label>
-            <input type="text" name="s" id="id_symbol" size="8"/>
-        </div>
-        <div>
-            <label>Price</label>
-            <span class="price">&nbsp;</span>
-        </div>
-        <br/>
-        <p class="name">&nbsp;</p>
-        <div>
-            <label for="id_low">Low</label>
-            <input type="text" name="l" id="id_low" size="4"/>
-        </div>
-        <div>
-            <label for="id_high">High</label>
-            <input type="text" name="h" id="id_high" size="4"/>
-        </div>
-        <br/>
-        <button type="submit"
-            class="ui-button ui-button-text-only ui-state-default ui-corner-all">
-            <span class="ui-button-text">Add watch</span>
-        </button>
-    </form>
-</div>
-
-<div class="grid-watch">
-    <table class="header ui-widget-content">
+<div class="grid-watch header">
+    <table>
         <th>Symbol</th>
         <th>Lower</th>
         <th>Price</th>
         <th>Upper</th>
         <th></th>
     </table>
+</div>
+
+<div class="grid-side">
+    <div class="add-watch">
+        <h4>ADD STOCK</h4>
+        <form action="{% url monitor.views.monitor_add %}" method="post">
+            <div>
+                <label for="id_symbol">Symbol</label>
+                <input type="text" name="s" id="id_symbol" size="8"/>
+            </div>
+            <div>
+                <label>Price</label>
+                <span class="price">&nbsp;</span>
+            </div>
+            <br/>
+            <p class="name">&nbsp;</p>
+            <div>
+                <label for="id_low">Low</label>
+                <input type="text" name="l" id="id_low" size="4"/>
+            </div>
+            <div>
+                <label for="id_high">High</label>
+                <input type="text" name="h" id="id_high" size="4"/>
+            </div>
+            <br/>
+            <button type="submit">
+                <span>Add watch</span>
+            </button>
+        </form>
+    </div>
+    <div class="plan-status">
+        <h4>STATUS</h4>
+        <span></span>
+        <div>
+            You have <span id="watch-count">{{ watchcount }}</span> active pricewatches.
+        </div>
+        {% with "style='display:none;'" as hidden %}
+        <div id="warn-limit" {% if not near_limit %}{{ hidden }}{% endif %}>
+            <span id="watch-near" {% if reached_limit %}{{ hidden }}{% endif %}>You are nearing your maximum</span>
+            <span id="watch-limit" {% if not reached_limit %}{{ hidden }}{% endif %}>You have reached your limit</span>
+            of <span id="watch-max">{{ plan.max_price_watches|default:"???" }}</span> pricewatches.
+            <a href="{% url monitor.views.upgrade %}">Upgrade</a>
+        </div>
+        {% endwith %}
+        <div id="alert-count">
+            You have received {{ profile.received_email_alerts }} email alerts
+            and {{ profile.received_phone_alerts }} text alerts this month.
+        </div>
+    </div>
+</div>
+
+<div class="grid-watch">
     <ul class="ui-sortable">
     {% for item in watchlist %}
-        <li id="w{{ item.id }}" class="ui-state-default ui-corner-all">
+        <li id="w{{ item.id }}">
             <table>
             <tr>
                 <th scope="row" class="symbol">
