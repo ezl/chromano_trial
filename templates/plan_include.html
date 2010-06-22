@@ -1,6 +1,9 @@
 <div class="sub-plan">
-    <h3 class="ui-state-active ui-corner-top">{{ plan.name }}</h3>
-    <div class="ui-widget-content ui-corner-bottom">
+    <h3>{{ plan.name }}</h3>
+    <div>
+    <div class="price">
+        <big>${{ plan.billing_period_price }}</big>/month
+    </div>
     <ul>
         <li>
             <label>Monitors</label>
@@ -16,18 +19,7 @@
             <div class="icon {% if plan.allow_phone_alerts %}icon-yes{% else %}icon-no{% endif %}"></div>
             {% if plan.limit_phone_alerts %}(max {{ plan.limit_phone_alerts }}){% endif %}
         </li>
-        <li>
-            <label>Price</label>
-            <big>{% if plan.billing_period_price %}
-                ${{ plan.billing_period_price }} <sup>*</sup>
-            {% else %}
-                free
-            {% endif %}</big>
-        </li>
     </ul>
-    {% if plan.billing_period_price %}
-        <div class="note"><sup>*</sup> billing period is {{ plan.billing_period_length }} days.</div>
-    {% endif %}
         {{ plan.description|linebreaks }}
     {% if not form %}
         <a href="{% url monitor.views.register plan.name|slugify %}">Subscribe</a>

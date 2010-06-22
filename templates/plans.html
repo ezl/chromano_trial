@@ -2,8 +2,14 @@
 
 {% block content %}
 <div class="sub-plan-container">
+    <div class="sub-plan-promo">
+        <a href="{% url monitor.views.register 'free' %}">Start your 30-day trial today!</a>
+    </div>
 {% for plan in plans %}
     {% include "plan_include.html" %}
 {% endfor %}
+    <div class="sub-plan-bottom">
+        
+    </div>
 </div>
 {% endblock %}
