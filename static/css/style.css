@@ -4,7 +4,8 @@ html { background: #555 url('../images/background.jpg') repeat-y top center; }
 body { font-family: Verdana, sans-serif; }
 .icon { width: 16px; height: 16px; }
 #container { width: 871px; margin: 0 auto; position: relative; }
-#content { padding: 5px 10px; background: #fff; min-height: 500px; }
+#content { padding: 5px 10px; background: #fff; min-height: 450px;
+    -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 
 #header { overflow: auto; }
 #header .logo { float: left; width: 241px; height: 122px;
@@ -13,6 +14,10 @@ body { font-family: Verdana, sans-serif; }
     text-align: right; color: #eee; font-size: 11px; }
 #header .info a { color: #ccf; text-decoration: none; font-size: 10px; }
 #footer { color: #fff; font-size: 12px; margin: 10px 0; }
+#footer-decor { height: 25px; margin: -15px 0 5px; background-color: #e0e0e0;
+    -moz-border-radius-bottomleft: 5px; -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-left-radius: 5px; -webkit-border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
 
 .menu { float: right; clear: right; overflow: hidden; font-size: 11px; }
 .menu li { float: left; height: 25px; padding-left: 5px; margin: 5px 5px 0 20px;
@@ -68,7 +73,7 @@ body { font-family: Verdana, sans-serif; }
 .sub-plan { margin: 20px; position: relative; }
 .sub-plan h3 { text-transform: uppercase; font-size: 20px; margin-bottom: 5px; }
 .sub-plan > div { width: 225px; height: 267px; position: relative;
-    -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+    -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
     background: url('../images/plans_gradient3.jpg') repeat-x; }
 .sub-plan .price { position: relative; top: 15px; left: -5px; padding: 5px 25px;
     width: 169px; height: 38px; font-size: 14px; color: #333;
@@ -76,7 +81,7 @@ body { font-family: Verdana, sans-serif; }
 .sub-plan big { font-weight: bold; }
 .sub-plan ul { color: #eee; font-size: 13px; }
 .sub-plan li { margin: 15px 20px; }
-.sub-plan label { font-weight: bold; float: left; width: 100px; }
+.sub-plan label { font-weight: bold; float: left; width: 100px; padding: 0; }
 .sub-plan p { padding: 0 20px; color: #ccc; font-size: 12px; }
 .sub-plan a { display: block; width: 197px; height: 36px; margin: 14px;
     font-size: 0; text-indent: -1000px; position: absolute; bottom: 0;
@@ -130,7 +135,7 @@ body { font-family: Verdana, sans-serif; }
     width: 200px; margin-right: -200px; font-weight: normal; border: 3px solid #c66; }
 
 .grid-watch input { width: 70px; text-align: center; border: 1px solid #ccc; }
-.grid-watch .icon { display: inline-block; }
+.grid-watch .icon { display: inline-block; vertical-align: sub; }
 .icon-trash { background: url('../icons/trashcan.gif'); }
-.icon-on { background: url('../icons/power_on.png'); opacity: 0.8; }
-.icon-off { background: url('../icons/power_off.png'); opacity: 0.8; }
+.icon-on { background: url('../images/monitor_enabled.png'); width: 26px; height: 26px; }
+.icon-off { background: url('../icons/monitor_disabled.png'); width: 26px; height: 26px; }
