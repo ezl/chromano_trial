@@ -8,7 +8,7 @@ body { font-family: Verdana, sans-serif; }
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 
 #header { overflow: auto; }
-#header .logo { float: left; width: 400px; height: 64px; margin-top: 20px;
+#header .logo { float: left; width: 400px; height: 64px; margin: 25px 0;
     background: url('../images/logo2.png'); }
 #header .info { float: right; margin: 20px 10px;
     text-align: right; color: #eee; font-size: 11px; }
