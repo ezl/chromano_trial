@@ -14,6 +14,8 @@ class YahooFinance(dict):
     """ Yahoo finance API query """
     def query_multiple(self, symbols):
         """ Download and parse content """
+        if not symbols:
+            return
         url = 'http://finance.yahoo.com/d/quotes.csv?s=%s&f=snl1' % \
             '+'.join(symbols)
         reader = csv.reader(urlopen(url))
