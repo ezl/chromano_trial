@@ -1,0 +1,4 @@
+Trial expires on QuoteSentinel
+
+{{ data.days_passed }} days of your {{ data.days_trial }} day free trial have passed.
+Your credit card will begin to be charged in {{ data.days_left }} days.

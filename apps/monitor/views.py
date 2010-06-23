@@ -95,7 +95,6 @@ def register(request, plan_name=''):
                 tpl = loader.get_template('email_welcome.txt')
                 ctx = Context({'user': user, 'profile': profile})
                 subject, message = tpl.render(ctx).split('\n', 1)
-                print subject, message
                 send_mail(subject=subject, message=message,
                     from_email=settings.ALERTS_EMAIL,
                     recipient_list=[user.email])

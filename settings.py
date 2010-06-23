@@ -62,6 +62,8 @@ MIDDLEWARE_CLASSES = (
 ALERTS_EMAIL = 'pricealert@92.114.206.30'
 GOOGLE_VOICE_USER = 'ezlmail@gmail.com'
 GOOGLE_VOICE_PASS = 'idontcare'
+TRIAL_PERIOD = 30
+TRIAL_WARNING = 21
 
 try:
     from settings_local import *
