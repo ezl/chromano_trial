@@ -25,6 +25,12 @@ class RegistrationForm(UserCreationForm):
         super(RegistrationForm, self).__init__(**kwargs)
         self.free = free
 
+    def clean_email(self):
+        v = self.cleaned_data['email']
+        if not self.free and not v:
+            raise forms.ValidationError("Email is required")
+        return v
+
     def clean_card_number(self):
         v = self.cleaned_data['card_number']
         if not self.free and not re.match(r'^(\d{4}\s?){4}$', v):

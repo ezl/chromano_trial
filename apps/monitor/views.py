@@ -171,10 +171,13 @@ def upgrade(request):
         if form.is_valid():
             profile.plan = plan
             profile.save()
+            request.user.email = form.cleaned_data['email']
+            request.user.save()
             return HttpResponseRedirect(reverse(monitor))
     else:
         plan = profile.plan
-        form = RegistrationForm(plan.free)
+        form = RegistrationForm(plan.free,
+            initial={'email': request.user.email})
 
     return {
         'plans': plans,
