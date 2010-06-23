@@ -244,6 +244,7 @@ def check(request, symbols=''):
             if item.symbol not in items_map:
                 item.name = info.name
             item.save()
+        items.extend(items_update)
 
     # return values
     if not items:
