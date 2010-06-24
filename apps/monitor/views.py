@@ -101,7 +101,7 @@ def register(request, plan_name=''):
                 username=user.email,
                 password=self.cleaned_data['password1'],
             ))
-            return HttpResponseRedirect(reverse(monitor))
+            return HttpResponseRedirect(reverse(start))
     else:
         form = RegistrationForm(plan.free)
 
@@ -209,6 +209,18 @@ def signout(request):
     """ Close session """
     logout(request)
     return HttpResponseRedirect(reverse(main))
+
+
+@render_to('start.html')
+@site_page
+def start(request):
+    return {}
+
+
+@render_to('help.html')
+@site_page
+def help(request):
+    return {}
 
 
 # ----- ajax views -----
