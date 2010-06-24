@@ -29,14 +29,22 @@ body { font-family: Verdana, sans-serif; }
 .menu a { display: block; padding: 5px 10px;
     color: #fff; text-decoration: none; text-transform: uppercase; }
 
-/* login page */
+/* main page */
+.main-column { margin: 10px 20px; }
+.main-column.n1 { float: left; width: 60%; }
+.main-column h2 { font-size: 20px; padding: 10px 0; }
+.main-block { margin: 10px; font-size: 11px; }
+.main-block img { float: left; margin-right: 10px; }
+.main-block h3 { font-size: 18px; padding: 5px; }
+.main-block p { line-height: 20px; margin: 10px 0 20px 0; color: #333; }
+
+/* registration pages */
 .login { width: 250px; margin: 50px auto; padding: 20px; }
 .login div { margin-bottom: 10px; }
 .login label { display: block; font-size: 14px; }
 .login input { font-size: 20px; width: 240px; padding: 2px; }
 .login .error { color: red; font-size: 12px; padding: 5px; }
 
-/* registration page */
 .register .sub-plan { float: right; }
 .register h2 { font-size: 20px; margin: 10px; }
 .register > div { margin: 5px 10px; }
