@@ -13,7 +13,7 @@ from models import UserProfile
 
 class RegistrationForm(UserCreationForm):
     """ Registration processing """
-    email = forms.EmailField(required=False)
+    username = forms.EmailField(required=True)
     card_number = forms.CharField(required=False, max_length=20)
     card_holder = forms.CharField(required=False, max_length=50)
     card_expires_month = forms.ChoiceField(required=False,
@@ -24,12 +24,6 @@ class RegistrationForm(UserCreationForm):
     def __init__(self, free, **kwargs):
         super(RegistrationForm, self).__init__(**kwargs)
         self.free = free
-
-    def clean_email(self):
-        v = self.cleaned_data['email']
-        if not self.free and not v:
-            raise forms.ValidationError("Email is required")
-        return v
 
     def clean_card_number(self):
         v = self.cleaned_data['card_number']
@@ -51,8 +45,7 @@ class ProfileForm(forms.Form):
 
     def save_email(self, user):
         # save email record
-        v = self.cleaned_data['email']
-        user.email = v
+        user.email = self.cleaned_data['email']
         user.save()
 
     def save_phone(self, profile):

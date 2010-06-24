@@ -4,6 +4,9 @@
 <form method="post" class="basic">
     <h2>Profile settings</h2>
     <div>
+        <b>{{ user.username }}</b>
+    </div>
+    <div>
         <label for="id_email">Alert email</label>
         {{ form.email }}
         {{ form.email.errors }}

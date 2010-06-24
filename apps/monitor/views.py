@@ -81,9 +81,8 @@ def register(request, plan_name=''):
         form = RegistrationForm(plan.free, data=request.POST)
         if form.is_valid():
             # save user
-            get = lambda k: form.cleaned_data[k]
             user = form.save(commit=False)
-            user.email = get('email')
+            user.email = form.cleaned_data['username']
             user.save()
             # save profile
             profile = UserProfile()
@@ -91,16 +90,17 @@ def register(request, plan_name=''):
             profile.plan = plan
             profile.reset()
             # send welcome email
-            if user.email:
-                tpl = loader.get_template('email_welcome.txt')
-                ctx = Context({'user': user, 'profile': profile})
-                subject, message = tpl.render(ctx).split('\n', 1)
-                send_mail(subject=subject, message=message,
-                    from_email=settings.ALERTS_EMAIL,
-                    recipient_list=[user.email])
+            tpl = loader.get_template('email_welcome.txt')
+            ctx = Context({'user': user, 'profile': profile})
+            subject, message = tpl.render(ctx).split('\n', 1)
+            send_mail(subject=subject, message=message,
+                from_email=settings.ALERTS_EMAIL,
+                recipient_list=[user.email])
             # log in automatically
-            args = dict(username=get('username'), password=get('password1'))
-            login(request, authenticate(**args))
+            login(request, authenticate(
+                username=user.email,
+                password=self.cleaned_data['password1'],
+            ))
             return HttpResponseRedirect(reverse(monitor))
     else:
         form = RegistrationForm(plan.free)
@@ -131,6 +131,7 @@ def profile(request):
         })
     
     return {
+        'user': request.user,
         'form': form,
         'profile': profile,
     }
@@ -170,13 +171,10 @@ def upgrade(request):
         if form.is_valid():
             profile.plan = plan
             profile.save()
-            request.user.email = form.cleaned_data['email']
-            request.user.save()
             return HttpResponseRedirect(reverse(monitor))
     else:
         plan = profile.plan
-        form = RegistrationForm(plan.free,
-            initial={'email': request.user.email})
+        form = RegistrationForm(plan.free)
 
     return {
         'plans': plans,

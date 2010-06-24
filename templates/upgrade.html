@@ -21,12 +21,6 @@ jQuery(function($) {
 <div class="cc-info register">
     <h2>Upgrade details</h2>
     <div>
-        <label for="id_email">E-mail</label>
-        {{ form.email }}
-        {{ form.email.errors }}
-    </div>
-    <br/>
-    <div>
         <label>Due amount</label>
         <b id="amount">{% with plan_record.billing_period_price as amount %}
             {% if amount %}${{ amount }}{% else %}free{% endif %}
