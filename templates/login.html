@@ -14,5 +14,9 @@
         <div class="error">Incorrect username or password</div>
     {% endif %}
     <button type="submit">Log in</button>
+
+    <small>
+        <a href="{% url django.contrib.auth.views.password_reset %}">forget your password?</a>
+    </small>
 </form>
 {% endblock %}
