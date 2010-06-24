@@ -1,4 +1,16 @@
-Welcome to QuoteSentinel
+Welcome to QuoteSentinel!
 
-user: {{ user.username }}
-plan: {{ profile.plan.name }}
+Hi, and welcome to QuoteSentinel!
+QuoteSentinel watches the stock market and sends you instant notifications when your stocks move.
+
+We're still in pre-release and trying to iron out some features, so we will not be charging your
+credit card.  However, we will still be giving you all the features of the plan you have elected.
+In return, please send any feedback about how we can improve the service to feedback@quotesentinel.com
+
+--------------------
+Your subscription plan: {{ profile.plan.name }}
+Monthly Payment: ${{ profile.plan.billing_period_price }}
+Next Bill Date: n/a
+--------------------
+
+We hope you enjoy using QuoteSentinel!
