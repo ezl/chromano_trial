@@ -192,17 +192,17 @@ def signin(request):
     """ Start session """
     if request.method == 'POST':
         get = lambda k: request.POST[k]
-        args = dict(username=get('username'), password=get('password'))
+        args = dict(username=get('email'), password=get('password'))
         user = authenticate(**args)
         if user:
             login(request, user)
             return HttpResponseRedirect(reverse(monitor))
-        username, error = get('username'), True
+        email, error = get('email'), True
     else:
-        username, error = '', False
+        email, error = '', False
     
     return {
-        'username': username,
+        'email': email,
         'error': error,
     }
 

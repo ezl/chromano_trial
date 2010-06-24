@@ -3,15 +3,15 @@
 {% block content %}
 <form method="post" class="login ui-widget-content ui-corner-all">
     <div>
-        <label for="id_username">Username</label>
-        <input type="text" name="username" id="id_username" value="{{ username }}"/>
+        <label for="id_email">E-mail</label>
+        <input type="text" name="email" id="id_email" value="{{ email }}"/>
     </div>
     <div>
         <label for="id_password">Password</label>
         <input type="password" name="password" id="id_password"/>
     </div>
     {% if error %}
-        <div class="error">Incorrect username or password</div>
+        <div class="error">Incorrect email or password</div>
     {% endif %}
     <button type="submit">Log in</button>
 
