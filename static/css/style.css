@@ -38,6 +38,10 @@ body { font-family: Verdana, sans-serif; }
 .main-block h3 { font-size: 18px; padding: 5px; }
 .main-block p { line-height: 20px; margin: 10px 0 20px 0; color: #333; }
 
+.static { margin: 10px; font-size: 12px; }
+.static h2 { font-size: 18px; }
+.static .errorlist { color: red; }
+
 /* registration pages */
 .login { width: 250px; margin: 50px auto; padding: 20px; }
 .login div { margin-bottom: 10px; }
