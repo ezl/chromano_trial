@@ -99,7 +99,7 @@ def register(request, plan_name=''):
             # log in automatically
             login(request, authenticate(
                 username=user.email,
-                password=self.cleaned_data['password1'],
+                password=form.cleaned_data['password1'],
             ))
             return HttpResponseRedirect(reverse(start))
     else:
