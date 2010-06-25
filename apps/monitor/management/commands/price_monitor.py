@@ -58,7 +58,8 @@ class Command(NoArgsCommand):
                 (item.instrument, price, item.upper_bound)
         
         # send email alert
-        if profile.count_email_alerts and profile.user.email:
+        if profile.count_email_alerts \
+            and profile.user.email and item.alert_email:
             # send message
             try:
                 send_mail(subject=message, message=message,
@@ -73,7 +74,8 @@ class Command(NoArgsCommand):
                 profile.save()
         
         # send phone alert
-        if profile.count_phone_alerts and profile.phone_verified:
+        if profile.count_phone_alerts \
+            and profile.phone_verified and item.alert_phone:
             # send message
             try:
                 sender = TextSender(self.gvoice.opener, self.gvoice.key)

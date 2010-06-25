@@ -162,3 +162,8 @@ body { font-family: Verdana, sans-serif; }
 .grid-side > * { margin: 12px 8px; padding: 8px; border: 1px solid #8ac;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 .grid-side h4 { font-size: 12px; font-weight: bold; padding: 2px 4px; }
+
+.grid-watch .alert-email.false { background: url('../icons/alert_email_off.png'); opacity: 0.5; }
+.grid-watch .alert-email.true { background: url('../icons/alert_email_on.png'); }
+.grid-watch .alert-phone.false { background: url('../icons/alert_phone_off.png'); opacity: 0.5; }
+.grid-watch .alert-phone.true { background: url('../icons/alert_phone_on.png'); }

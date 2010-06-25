@@ -12,7 +12,9 @@ jQuery(function($) {
         var tpl = '<li id="w{{ id }}" class="ui-state-default ui-corner-all">' +
             '<table><tr>' +
             '<th scope="row" class="symbol">' +
-            '<a href="/monitor/edit/{{ id }}/active" class="icon icon-on toggle"></a>' +
+            '<a href="/monitor/edit/{{ id }}/active" class="icon icon-on toggle"></a> ' +
+            '<a href="/monitor/edit/{{ id }}/alert_phone" class="icon alert-phone true"></a>' +
+            '<a href="/monitor/edit/{{ id }}/alert_email" class="icon alert-email true"></a>' +
             ' {{ symbol }}</th>' +
             '<td><div class="editable lower">{{ lower_bound }}</div></td>' +
             '<td><div class="price">{{ price }}</div></td>' +
@@ -159,6 +161,16 @@ jQuery(function($) {
             link.removeClass('icon-on').removeClass('icon-off')
                 .addClass(data.value ? 'icon-on' : 'icon-off');
             updateCountLabel(data.value ? 1 : -1);
+        }, 'json');
+    });
+
+    $('.grid-watch [class*="alert"]').click(function(ev) {
+        ev.preventDefault();
+        var link = $(ev.target);
+        $.get(link.attr('href'), function(data) {
+            if (!data) return;
+            link.removeClass('true').removeClass('false')
+                .addClass(data.value ? 'true' : 'false');
         }, 'json');
     });
 

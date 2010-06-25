@@ -74,6 +74,12 @@
                 <th scope="row" class="symbol">
                     <a href="{% url monitor.views.monitor_edit item.id 'active' %}"
                     class="icon {% if item.active %}icon-on{% else %}icon-off{% endif %} toggle"></a>
+
+                    <a href="{% url monitor.views.monitor_edit item.id 'alert_phone' %}" title="Send phone alert"
+                        class="icon alert-phone {% if item.alert_phone %}true{% else %}false{% endif %}">
+                    </a><a href="{% url monitor.views.monitor_edit item.id 'alert_email' %}" title="Send email alert"
+                        class="icon alert-email {% if item.alert_email %}true{% else %}false{% endif %}">
+                    </a>
                     {{ item.instrument }}
                 </th>
                 <td><div class="editable lower">{{ item.lower_bound|default:"---" }}</div></td>

@@ -374,6 +374,9 @@ def monitor_edit(request, id=0, field=''):
         item.lower_bound = value and float(value)
     elif field == 'upper':
         item.upper_bound = value and float(value)
+    elif field.startswith('alert'):
+        value = not getattr(item, field)
+        setattr(item, field, value)
 
     # output result or redirect
     item.save()

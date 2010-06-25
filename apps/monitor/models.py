@@ -46,6 +46,9 @@ class PriceWatch(models.Model):
     active = models.BooleanField(default=True)
     position = models.IntegerField(default=0)
 
+    alert_email = models.BooleanField(default=True)
+    alert_phone = models.BooleanField(default=True)
+
     class Meta:
         #unique_together = [('user', 'instrument')]
         verbose_name_plural = 'price watches'
