@@ -57,6 +57,10 @@ body { font-family: Verdana, sans-serif; }
 .register select { font-size: 12px; }
 .register button { margin: 10px; }
 
+#header form { padding: 4px 0; }
+#header form input { padding: 2px; width: 100px; }
+#header form button { font-size: 90%; }
+
 /* profile pages */
 .basic { margin: 10px; }
 .basic h2 { font-size: 20px; }

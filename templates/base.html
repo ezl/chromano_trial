@@ -17,8 +17,15 @@
                 <a href="{% url monitor.views.profile %}">View Profile</a> |
                 <a href="{% url monitor.views.signout %}">Log Out</a>
             {% else %}
-                You are not authenticated<br/>
-                <a href="{% url monitor.views.signin %}">Log In</a>
+                {% if page != 'signin' %}
+                    <form method="post" action="{% url monitor.views.signin %}">
+                        <input type="text" name="email"/>
+                        <input type="password" name="password"/>
+                        <button type="submit">Log In</button>
+                    </form>
+                {% else %}
+                    Please log in using the form below.<br/><br/>
+                {% endif %}
             {% endif %}
             </div>
             <ul class="menu">
