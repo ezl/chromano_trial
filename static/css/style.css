@@ -4,7 +4,7 @@ html { background: #555 url('../images/background.jpg') repeat-y top center; }
 body { font-family: Verdana, sans-serif; }
 .icon { width: 16px; height: 16px; }
 #container { width: 871px; margin: 0 auto; position: relative; }
-#content { padding: 5px 10px; background: #fff; min-height: 450px;
+#content { padding: 5px 10px; background: #fff; min-height: 450px; overflow: hidden;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 
 #header { overflow: auto; }
@@ -30,8 +30,7 @@ body { font-family: Verdana, sans-serif; }
     color: #fff; text-decoration: none; text-transform: uppercase; }
 
 /* main page */
-.main-column { margin: 10px 20px; }
-.main-column.n1 { float: left; width: 60%; }
+.main-column { margin: 10px 20px; float: left; width: 45%; }
 .main-column h2 { font-size: 20px; padding: 10px 0; }
 .main-block { margin: 10px; font-size: 11px; }
 .main-block img { float: left; margin-right: 10px; }
