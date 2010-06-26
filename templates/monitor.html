@@ -12,7 +12,8 @@
         <th>Lower</th>
         <th>Price</th>
         <th>Upper</th>
-        <th></th>
+        <th class="nosort">Alerts</th>
+        <th class="nosort"></th>
     </table>
 </div>
 
@@ -74,17 +75,18 @@
                 <th scope="row" class="symbol">
                     <a href="{% url monitor.views.monitor_edit item.id 'active' %}"
                     class="icon {% if item.active %}icon-on{% else %}icon-off{% endif %} toggle"></a>
-
-                    <a href="{% url monitor.views.monitor_edit item.id 'alert_phone' %}" title="Send phone alert"
-                        class="icon alert-phone {% if item.alert_phone %}true{% else %}false{% endif %}">
-                    </a><a href="{% url monitor.views.monitor_edit item.id 'alert_email' %}" title="Send email alert"
-                        class="icon alert-email {% if item.alert_email %}true{% else %}false{% endif %}">
-                    </a>
                     {{ item.instrument }}
                 </th>
                 <td><div class="editable lower">{{ item.lower_bound|default:"---" }}</div></td>
                 <td><div class="price">{{ item.instrument.last_price }}</div></td>
                 <td><div class="editable upper">{{ item.upper_bound|default:"---" }}</div></td>
+                <td>
+                    <a href="{% url monitor.views.monitor_edit item.id 'alert_phone' %}" title="Send phone alert"
+                        class="icon alert-phone {% if item.alert_phone %}true{% else %}false{% endif %}">
+                    </a><a href="{% url monitor.views.monitor_edit item.id 'alert_email' %}" title="Send email alert"
+                        class="icon alert-email {% if item.alert_email %}true{% else %}false{% endif %}">
+                    </a>
+                </td>
                 <td><a href="{% url monitor.views.monitor_del item.id %}" class="icon icon-trash remove"></a></td>
             </tr>
             </table>

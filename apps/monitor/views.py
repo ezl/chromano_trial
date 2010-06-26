@@ -53,7 +53,7 @@ def monitor(request):
 
     return {
         'watchlist': qs.order_by('-position', '-id'),
-        'watchcount': qs.count(),
+        'watchcount': qs.filter(active=True).count(),
         'near_limit': count < 5,
         'reached_limit': not count,
         'plan': profile and profile.plan,

@@ -13,12 +13,12 @@ jQuery(function($) {
             '<table><tr>' +
             '<th scope="row" class="symbol">' +
             '<a href="/monitor/edit/{{ id }}/active" class="icon icon-on toggle"></a> ' +
-            '<a href="/monitor/edit/{{ id }}/alert_phone" class="icon alert-phone true"></a>' +
-            '<a href="/monitor/edit/{{ id }}/alert_email" class="icon alert-email true"></a>' +
             ' {{ symbol }}</th>' +
             '<td><div class="editable lower">{{ lower_bound }}</div></td>' +
             '<td><div class="price">{{ price }}</div></td>' +
             '<td><div class="editable upper">{{ upper_bound }}</div></td>' +
+            '<td><a href="/monitor/edit/{{ id }}/alert_phone" class="icon alert-phone true"></a>' +
+            '<a href="/monitor/edit/{{ id }}/alert_email" class="icon alert-email true"></a></td>' + 
             '<td><a href="/monitor/del/{{ id }}" class="icon icon-trash remove"></a></td>' +
             '</tr></table>' +
             '</li>';
@@ -135,7 +135,7 @@ jQuery(function($) {
             sort_desc = $('<a href="#">')
                 .html(' <small>&#9650;</small>')
                 .click(function(ev) { sortHeader(ev, k, true) });
-        if (label)
+        if (!el.hasClass('nosort'))
             el.html('').append(sort_asc, sort_desc);
     });
 

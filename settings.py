@@ -59,7 +59,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 # operational settings
-ALERTS_EMAIL = 'pricealert@92.114.206.30'
+ALERTS_EMAIL = 'pricealert@quotesentinel.com'
 GOOGLE_VOICE_USER = 'ezlmail@gmail.com'
 GOOGLE_VOICE_PASS = 'idontcare'
 TRIAL_PERIOD = 30
