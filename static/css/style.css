@@ -5,6 +5,9 @@ body { font-family: Verdana, sans-serif; }
 .icon { width: 16px; height: 16px; }
 #container { width: 871px; margin: 0 auto; position: relative; }
 #content { padding: 5px 10px; background: #fff; min-height: 450px; overflow: hidden;
+     -moz-box-shadow: 1px 1px 1em #010101; /* FF3.5+ */
+  -webkit-box-shadow: 1px 1px 1em #010101; /* Saf3.0+, Chrome */
+          box-shadow: 1px 1px 1em #010101; /* Opera 10.5, IE 9.0 */
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 
 #header { overflow: auto; }
