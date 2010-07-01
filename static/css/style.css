@@ -159,9 +159,9 @@ body { font-family: Verdana, sans-serif; }
 .icon-off { background: url('../images/monitor_disabled.png'); width: 26px; height: 26px; }
 
 /* watch page: design update */
-.grid-watch.header { margin: -8px -10px 0; height: 43px; color: #eee;
+.grid-watch.header { color: #eee; margin: -5px -10px 0; overflow: hidden;
     background: url('../images/monitor_header.png') no-repeat; }
-.grid-watch.header table { font-size: 11px; margin-left: 195px; margin-top: 12px; }
+.grid-watch.header table { font-size: 11px; position:relative; left: 195px; height: 3em; }
 .grid-watch.header a { color: inherit; }
 
 .grid-side { float: left; width: 200px; height: 100%; margin-left: -10px;
