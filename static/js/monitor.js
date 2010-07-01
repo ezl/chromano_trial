@@ -95,7 +95,7 @@ jQuery(function($) {
     function compareToPrice(value, el) {
         // compare value to price
         var item = el.parents('li'),
-            price = parseFloat(item.find('.price').html()),
+            price = parseFloat(item.find('.price').val()),
             upper = el.hasClass('upper'), lower = !upper;
         if ((upper && value > price) || (lower && value < price) || value == null)
             return true;
@@ -207,6 +207,7 @@ jQuery(function($) {
     // symbol check
     var checkTimeout = null, checkFailed = {}, checkLast = null,
         priceDisplay = $('.add-watch .price'),
+        priceDisplayLoader = $('.add-watch .price-loader'),
         nameDisplay = $('.add-watch .name'),
         symbolInput = $('#id_symbol');
 
@@ -214,19 +215,22 @@ jQuery(function($) {
         var value = symbolInput.val();
         if (!value.match(/^[\w\.]+$/) || checkFailed[value] || checkLast == value)
             return;
-        priceDisplay.html('<div class="icon price-loader"></div>');
+        priceDisplayLoader.show();
+        priceDisplay.hide();
         nameDisplay.html('&nbsp;');
         $.get('/monitor/check/' + value, function(data) {
             if (symbolInput.val() != value)
                 return;
             if (data.error) {
                 checkFailed[value] = true;
-                priceDisplay.html('&nbsp;');
+                priceDisplay.val('');
             } else {
                 info = data.data[0];
-                priceDisplay.html(format(info.price));
+                priceDisplay.val(format(info.price));
                 nameDisplay.html(info.name);
             }
+            priceDisplayLoader.hide();
+            priceDisplay.show();
             checkLast = value;
         }, 'json');
     }

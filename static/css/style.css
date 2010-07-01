@@ -118,7 +118,7 @@ body { font-family: Verdana, sans-serif; }
 .add-watch form button { margin-top: 4px; }
 .add-watch p.name { clear: left; color: #999; }
 .add-watch p.name em { color: red; }
-.add-watch .price { font-weight: bold; line-height: 20px; padding: 0 2px; }
+.add-watch .price { width: 5em; }
 .add-watch .price-loader { background: url('../images/ajax-loader.gif') no-repeat;
     display: inline-block; margin-bottom: -2px; }
 .add-watch .ui-widget-shadow { position: absolute; width: 100%; height: 100%; }
