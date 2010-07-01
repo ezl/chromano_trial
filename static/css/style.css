@@ -171,6 +171,16 @@ body { font-family: Verdana, sans-serif; }
 .grid-side > * { margin: 12px 8px; padding: 8px; border: 1px solid #8ac;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 .grid-side h4 { font-size: 12px; font-weight: bold; padding: 2px 4px; }
+.grid-side-footer {
+  background-image: -moz-linear-gradient(top, #D0EAEF, #ffffff); /* FF3.6 */
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #D0EAEF),color-stop(1, #ffffff)); /* Saf4+, Chrome */
+            filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#D0EAEF', EndColorStr='#ffffff'); /* IE6,IE7 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#D0EAEF', EndColorStr='#ffffff')"; /* IE8 */
+    border: 0 none;
+    height: 3em;
+    margin: 0;
+    padding: 0;
+}
 
 .grid-watch .alert-email.false { background: url('../icons/alert_email_off.png'); opacity: 0.5; }
 .grid-watch .alert-email.true { background: url('../icons/alert_email_on.png'); }
