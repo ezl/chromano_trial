@@ -162,8 +162,8 @@ body { font-family: Verdana, sans-serif; }
 .grid-watch.header { color: #eee; margin: -5px -10px 0; overflow: hidden;
     background: url('../images/monitor_header.png') no-repeat; }
 .grid-watch.header table { font-size: 11px; position:relative; left: 195px; height: 3em; }
-.grid-watch.header table th { border-left:0 none; }
-.grid-watch.header table th+th { border-left:1px solid #405D63; }
+.grid-watch.header table th { border-left:1px solid #405D63; }
+.grid-watch.header table th:hover { background:#293A3F; }
 .grid-watch.header a { color: inherit; }
 
 .grid-side { float: left; width: 200px; height: 100%; margin-left: -10px;
