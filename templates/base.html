@@ -13,7 +13,11 @@
 <body>
     <section id="container">
         <header>
-            <h1 class="logo"></h1>
+            {% if user.is_authenticated %}
+                <h1 class="logo"><a href="{% url monitor.views.monitor %}">QUOTE SENTINEL</a></h1>
+            {% else %}
+                <h1 class="logo"><a href="{% url monitor.views.main %}">QUOTE SENTINEL</a></h1>
+            {% endif %}
             <div class="info">
             {% if user.is_authenticated %}
                 You are logged in as <strong>{{ user }}</strong><br/>
