@@ -119,7 +119,7 @@ body { font-family: Verdana, sans-serif; }
 .add-watch form > div { float: left; margin: 2px; min-width: 40px; }
 .add-watch form label { display: block; }
 .add-watch form input { padding: 2px; margin: 2px 0; }
-.add-watch form button { margin-top: 4px; }
+.add-watch form button { color:inherit; font-size:12px; font-weight:bold; letter-spacing: 0.05em; margin-top: 4px; padding:0.5em 1em; text-transform:uppercase; }
 .add-watch p.name { clear: left; color: #999; }
 .add-watch p.name em { color: red; }
 .add-watch .price { width: 5em; }
