@@ -22,10 +22,20 @@
             {% else %}
                 {% if page != 'signin' %}
                     <form method="post" action="{% url monitor.views.signin %}">
-                        <input type="text" name="email"/>
-                        <input type="password" name="password"/>
-                        <button type="submit">Log In</button>
+                        <div style="display:inline-block;">
+                        <input type="email" name="email"/><br/>
+                        <label>email</label>
+                        </div>
+                        <div style="display:inline-block;">
+                        <input type="password" name="password"/><br/>
+                        <label>password</label>
+                        </div>
+                        <div style="display:inline-block;">
+                        <button type="submit">Log In</button><br/>
+                        <label>&nbsp;</label>
+                        </div>
                     </form>
+                    <p>Forgot your credentials? <a href="#">Click Here</a></p>
                 {% else %}
                     Please log in using the form below.<br/><br/>
                 {% endif %}
