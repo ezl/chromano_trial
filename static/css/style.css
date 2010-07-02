@@ -1,3 +1,6 @@
+/* HTML5 helpers */
+  article, aside, figure, footer, header, hgroup,
+  menu, nav, section { display: block; }
 
 /* page layout */
 html { background: #555 url('../images/background.jpg') repeat-y top center; }
@@ -10,14 +13,14 @@ body { font-family: Verdana, sans-serif; }
           box-shadow: 1px 1px 1em #010101; /* Opera 10.5, IE 9.0 */
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 
-#header { font-family: Arial; overflow: auto; }
-#header .logo { float: left; width: 400px; height: 64px; margin: 25px 0;
+#container > header { font-family: Arial; overflow: auto; }
+#container > header .logo { float: left; width: 400px; height: 64px; margin: 25px 0;
     background: url('../images/logo2.png'); }
-#header .info { float: right; margin: 20px 10px;
+#container > header .info { float: right; margin: 20px 10px;
     text-align: right; color: #eee; font-size: 11px; }
-#header .info a { color: #ccf; text-decoration: none; font-size: 10px; }
-#header .info strong { font-weight: bold; }
-#footer { color: #fff; font-size: 12px; margin: 10px 0; }
+#container > header .info a { color: #ccf; text-decoration: none; font-size: 10px; }
+#container > header .info strong { font-weight: bold; }
+#container > footer { color: #fff; font-size: 12px; margin: 10px 0; }
 #footer-decor { height: 25px; margin: -15px 0 2em; background-color: #e0e0e0;
     -moz-border-radius-bottomleft: 5px; -moz-border-radius-bottomright: 5px;
     -webkit-border-bottom-left-radius: 5px; -webkit-border-bottom-right-radius: 5px;
@@ -60,9 +63,9 @@ body { font-family: Verdana, sans-serif; }
 .register select { font-size: 12px; }
 .register button { margin: 10px; }
 
-#header form { padding: 4px 0; }
-#header form input { padding: 2px; width: 100px; }
-#header form button { font-size: 90%; }
+#container > header form { padding: 4px 0; }
+#container > header form input { padding: 2px; width: 100px; }
+#container > header form button { font-size: 90%; }
 
 /* profile pages */
 .basic { margin: 10px; }
@@ -161,12 +164,12 @@ body { font-family: Verdana, sans-serif; }
 .icon-off { background: url('../images/monitor_disabled.png'); width: 26px; height: 26px; }
 
 /* watch page: design update */
-.grid-watch.header { color: #eee; margin: -5px -10px 0; overflow: hidden;
+header.grid-watch { color: #eee; margin: -5px -10px 0; overflow: hidden;
     background: url('../images/monitor_header.png') no-repeat; }
-.grid-watch.header table { font-size: 11px; position:relative; left: 195px; height: 3em; }
-.grid-watch.header table th { border-left:1px solid #405D63; }
-.grid-watch.header table th:hover { background:#293A3F; }
-.grid-watch.header a { color: inherit; }
+header.grid-watch table { font-size: 11px; position:relative; left: 195px; height: 3em; }
+header.grid-watch table th { border-left:1px solid #405D63; }
+header.grid-watch table th:hover { background:#293A3F; }
+header.grid-watch a { color: inherit; }
 
 .grid-side { float: left; width: 200px; height: 100%; margin-left: -10px;
     background-color: #d0eaef; }

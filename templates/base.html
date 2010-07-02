@@ -5,11 +5,14 @@
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css"/>
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
     {% block extrahead %}{% endblock %}
 </head>
 <body>
-    <div id="container">
-        <div id="header">
+    <section id="container">
+        <header>
             <h1 class="logo"></h1>
             <div class="info">
             {% if user.is_authenticated %}
@@ -28,22 +31,24 @@
                 {% endif %}
             {% endif %}
             </div>
-            <ul class="menu">
-            {% for view, label in menu %}
-                <li class="{% ifequal page view %}active{% endifequal %}">
-                    <a href="/{{ view }}">{{ label }}</a>
-                    <i></i>
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
+            <nav>
+                <ul class="menu">
+                {% for view, label in menu %}
+                    <li class="{% ifequal page view %}active{% endifequal %}">
+                        <a href="/{{ view }}">{{ label }}</a>
+                        <i></i>
+                    </li>
+                {% endfor %}
+                </ul>
+            </nav>
+        </header>
         <div id="content">
             {% block content %}{% endblock %}
         </div>
-        <div id="footer">
+        <footer>
             <div id="footer-decor"></div>
             &copy; {% now "Y" %} QuoteSentinel.com
-        </div>
-    </div>
+        </footer>
+    </section>
 </body>
 </html>

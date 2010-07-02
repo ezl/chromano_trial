@@ -127,7 +127,7 @@ jQuery(function($) {
         });
         updatePosition();
     }
-    $('.grid-watch.header th').each(function(k) {
+    $('header.grid-watch th').each(function(k) {
         var el = $(this), label = el.html(),
             sort_asc = $('<a href="#">')
                 .html(label + ' <small>&#9660;</small>')
