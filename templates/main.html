@@ -2,10 +2,30 @@
 
 {% block extrahead %}
 <style>
-.main { margin: -5px -10px; height: 313px;
-    position: relative; background: url('/static/images/main_image.jpg') no-repeat; }
-.main-top { width: 100%; height: 3px; top: -3px;
-    position: absolute; background: url('/static/images/main_image_top.png') no-repeat; }
+.main {
+    -moz-border-radius-topleft: 3px;
+    color: white;
+    margin: -5px -10px; height: 313px;
+    position: relative; background: transparent url('/static/images/main_image.jpg') no-repeat scroll 50% -3px; }
+.main > h2 {
+  font-family: Arial;
+  font-size: 28px;
+  font-weight: bold;
+  left: 32px;
+  line-height: 38px;
+  position: absolute;
+  top: 36px;
+  width: 333px;
+}
+.main > h3 {
+  font-family: Arial;
+  font-size: 15px;
+  left: 32px;
+  line-height: 1.5em;
+  position: absolute;
+  top: 132px;
+  width: 318px;
+}
 .main-screen { width: 457px; height: 254px; top: 32px; left: 382px; z-index: 100;
     position: absolute; background: url('/static/images/main_screenshot.jpg') no-repeat; }
 .main-stripe { width: 100%; height: 81px; bottom: 0; left: -12px; padding: 0 12px;
@@ -17,14 +37,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="main">
-    <div class="main-top"></div>
+<section class="main">
+    <h2>The Best Way To Monitor Your Stocks</h2>
+    <h3>QUOTE Sentinel sends you text message or email notifications when your stock moves.</h3>
     <div class="main-screen"></div>
     <div class="main-stripe">
         <a href="{% url monitor.views.register 'free' %}"></a>
         <p style="color:white;">It only takes 30 seconds<br/>and it's 100% FREE !</p>
     </div>
-</div>
+</section>
 
 {% include "main_include.html" %}
 {% endblock %}
