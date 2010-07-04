@@ -192,3 +192,10 @@ header.grid-watch a { color: inherit; }
 .grid-watch .alert-email.true { background: url('../icons/alert_email_on.png'); }
 .grid-watch .alert-phone.false { background: url('../icons/alert_phone_off.png'); opacity: 0.5; }
 .grid-watch .alert-phone.true { background: url('../icons/alert_phone_on.png'); }
+
+/* QA URLs: / /plans */
+.main-stripe { width: 100%; height: 81px; bottom: 0; left: -12px; padding: 0 12px;
+    position: absolute; background: url('/static/images/main_stripe.png') no-repeat; }
+.main-stripe a { width: 164px; height: 44px; margin: 20px 20px 0 40px; float: left;
+    display: block; background: url('/static/images/main_signup.jpg') no-repeat; }
+.main-stripe p { color: #999; font-size: 9px; margin: 30px; }
