@@ -27,8 +27,8 @@ body { font-family: Verdana, sans-serif; }
     -webkit-border-bottom-left-radius: 5px; -webkit-border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
 
-.menu { float: right; clear: right; overflow: hidden; font-size: 11px; }
-.menu li { float: left; height: 25px; padding-left: 5px; margin: 5px 5px 0 20px;
+nav { clear: right; overflow: hidden; font-size: 11px; position:relative; text-align:right; }
+.menu li { display: inline-block; height: 25px; padding-left: 5px; margin: 0 5px 0 20px;
     position: relative; background: url('../images/menu_item.png') left 0; }
 .menu i { display: block; right: -5px; top: 0; width: 5px; height: 100%;
     position: absolute; background: url('../images/menu_item.png') right 0; }
