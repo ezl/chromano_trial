@@ -28,4 +28,9 @@
     {% endif %}
     <button type="submit">Edit settings</button>
 </form>
+
+You are currently subscribed to the {{ user.get_profile.plan.name }} plan for {{ user.get_profile.plan.billing_period_price }} per month. <a href="{% url monitor.views.upgrade %}">Modify your plan</a>.
+<pre>
+allow password change here as well
+</pre>
 {% endblock %}
