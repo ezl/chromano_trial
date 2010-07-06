@@ -14,9 +14,9 @@
     <section id="container">
         <header>
             {% if user.is_authenticated %}
-                <h1 class="logo"><a href="{% url monitor.views.monitor %}">QUOTE SENTINEL</a></h1>
+                <h1 class="logo"><a href="{% url monitor.views.monitor %}">Quote SENTINEL</a></h1>
             {% else %}
-                <h1 class="logo"><a href="{% url monitor.views.main %}">QUOTE SENTINEL</a></h1>
+                <h1 class="logo"><a href="{% url monitor.views.main %}">Quote SENTINEL</a></h1>
             {% endif %}
             <div class="info">
             {% if user.is_authenticated %}
