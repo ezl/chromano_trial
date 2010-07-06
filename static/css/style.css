@@ -201,3 +201,7 @@ header.grid-watch a { color: inherit; }
 .main-stripe a { width: 164px; height: 44px; margin: 14px 20px 0 40px; float: left;
     display: block; background: url('/static/images/main_signup.jpg') no-repeat; }
 .main-stripe p { color: white; font-size: 9px; margin: 24px; }
+
+.main-stripe.plans { height: 50px; position:static; margin: -11px; }
+.main-stripe.plans p { font-size: 15px; line-height: 50px; height: 100%; position:static; margin: 0; text-align: center; white-space:nowrap; }
+.main-stripe.plans p > img { margin: 0 0.5em; vertical-align: -20%; }
