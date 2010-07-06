@@ -12,12 +12,12 @@
         <li>
             <label>Email alerts</label>
             <div class="icon {% if plan.allow_email_alerts %}icon-yes{% else %}icon-no{% endif %}"></div>
-            {% if plan.limit_email_alerts %}(max {{ plan.limit_email_alerts }}){% endif %}
+            {% if plan.limit_email_alerts %}({{ plan.limit_email_alerts }}/mo){% else %}(no limit){% endif %}
         </li>
         <li>
             <label>SMS alerts</label>
             <div class="icon {% if plan.allow_phone_alerts %}icon-yes{% else %}icon-no{% endif %}"></div>
-            {% if plan.limit_phone_alerts %}(max {{ plan.limit_phone_alerts }}){% endif %}
+            {% if plan.limit_phone_alerts %}({{ plan.limit_phone_alerts }}/mo){% else %}(no limit){% endif %}
         </li>
     </ul>
         {{ plan.description|linebreaks }}

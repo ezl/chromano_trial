@@ -7,9 +7,8 @@ MENU_ITEMS_AUTHENTICATED = (
 )
 
 MENU_ITEMS_UNAUTHENTICATED = (
-    ('plans', 'Plans'),
     ('main', 'Tour'),
-    ('plans', 'Sign Up!'),
+    ('plans', 'Plans'),
     ('monitor', 'Log in'),
 )
 

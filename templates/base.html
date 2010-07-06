@@ -21,8 +21,6 @@
             <div class="info">
             {% if user.is_authenticated %}
                 You are logged in as <strong>{{ user }}</strong><br/>
-                <a href="{% url monitor.views.profile %}">View Profile</a> <span style="margin:0 0.5em;">|</span>
-                <a href="{% url monitor.views.signout %}">Log Out</a>
             {% else %}
                 {% if page != 'signin' %}
                     <form method="post" action="{% url monitor.views.signin %}">

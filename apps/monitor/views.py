@@ -70,7 +70,7 @@ def plans(request):
     """ Subscription plans page """
     qs = SubscriptionPlan.objects.all()
     return {
-        'plans': qs.order_by('billing_period_price'),
+        'plans': qs.order_by('-billing_period_price'),
     }
 
 

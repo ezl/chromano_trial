@@ -6,14 +6,16 @@
         <p>Start your free 30-day trial today!</p>
     </div>
 {% for plan in plans %}
-    {% include "plan_include.html" %}
+    {% if plan.name != "Free" %}
+        {% include "plan_include.html" %}
+    {% endif %}
 {% endfor %}
     <div class="sub-plan-bottom">
     </div>
 </div>
 <a href="{% url monitor.views.register 'free' %}">
     <div class="main-stripe plans">
-        <p>Or, choose our Free Personal Plan (10 Monitors, 10 Email, 10 SMS). No credit card required.<img src="{{ MEDIA_URL }}/images/free-plan-arrow.png"/></p>
+        <p>Or, choose our FREE Personal Plan (10 Monitors, 10 Email, 10 SMS). No credit card required.<img src="{{ MEDIA_URL }}/images/free-plan-arrow.png"/></p>
     </div>
 </a>
 <div class="main-column">
