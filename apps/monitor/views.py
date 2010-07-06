@@ -226,6 +226,12 @@ def tour(request):
     return {}
 
 
+@render_to('contact.html')
+@site_page
+def contact(request):
+    return {}
+
+
 @render_to('help.html')
 @site_page
 def help(request):
