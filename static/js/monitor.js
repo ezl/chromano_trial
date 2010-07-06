@@ -185,7 +185,7 @@ jQuery(function($) {
             item.fadeOut('slow', function() {
               item.remove();
               console.log('show help text');
-              if (!$('div.grid-watch ul > li').length) $('div.help-text').fadeIn();
+              if (!$('div.grid-watch ul > li').length) $('#help-text').fadeIn();
             });
             if (item.find('.icon-on').length)
                 updateCountLabel(-1);
@@ -204,7 +204,7 @@ jQuery(function($) {
             form.find('.name, .price').html('&nbsp;');
             form.find(':input').val('') // reset values
                 .first().focus(); // focus first element
-            $('div.help-text').hide();
+            $('#help-text').hide();
             createItem(data);
             updateCountLabel(1);
         }, 'json');
