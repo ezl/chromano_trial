@@ -47,6 +47,7 @@
                 {% for view, label in menu %}
                     <li class="{% ifequal page view %}active{% endifequal %}">
                         <a href="/{{ view }}">{{ label }}</a>
+                    <i></i>
                     </li>
                 {% endfor %}
                 </ul>
