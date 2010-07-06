@@ -58,7 +58,10 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
+AUTH_PROFILE_MODULE = 'monitor.UserProfile'
+
 # operational settings
+ACCOUNTS_EMAIL = 'accounts@quotesentinel.com'
 ALERTS_EMAIL = 'pricealert@quotesentinel.com'
 GOOGLE_VOICE_USER = 'ezlmail@gmail.com'
 GOOGLE_VOICE_PASS = 'idontcare'
