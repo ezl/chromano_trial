@@ -38,6 +38,7 @@ jQuery(function($) {
             $('#watch-limit').toggle(!count);
         }
         el.html(value);
+        return value;
     }
 
     // periodic updates
@@ -181,7 +182,11 @@ jQuery(function($) {
         item.removeClass('ui-state-default').addClass('ui-state-disabled');
         $.get(link.attr('href'), function(data) {
             if (!data) return;
-            item.fadeOut('slow', function() { item.remove() });
+            item.fadeOut('slow', function() {
+              item.remove();
+              console.log('show help text');
+              if (!$('div.grid-watch ul > li').length) $('div.help-text').fadeIn();
+            });
             if (item.find('.icon-on').length)
                 updateCountLabel(-1);
         }, 'json');
@@ -199,6 +204,7 @@ jQuery(function($) {
             form.find('.name, .price').html('&nbsp;');
             form.find(':input').val('') // reset values
                 .first().focus(); // focus first element
+            $('div.help-text').hide();
             createItem(data);
             updateCountLabel(1);
         }, 'json');
