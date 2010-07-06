@@ -41,6 +41,8 @@ nav { clear: right; overflow: hidden; font-size: 11px; position:relative; text-a
 .menu a { display: block; font-weight: bold; padding: 5px 10px;
     color: #fff; text-decoration: none; text-transform: uppercase; }
 
+.btn-image { text-align: left; text-indent: -9999em; } /* buttons that have text as images */
+
 /* main page */
 .main-column { margin: 10px 20px; float: left; width: 45%; }
 .main-column h2 { font-size: 20px; padding: 10px 0; }
