@@ -64,6 +64,12 @@
             You have received {{ profile.received_email_alerts }} email alert{{ profile.received_email_alerts|pluralize}}
             and {{ profile.received_phone_alerts }} text alert{{ profile.received_phone_alerts|pluralize }} this month.
         </div>
+        <div>
+            {% if not request.user.get_profile.phone_verified %}
+            To receive text message alerts, you must first <a href="{% url monitor.views.profile %}">verify your cell phone number in your settings</a>.
+            {% endif %}
+            To receive email alerts, you must <a href="{% url monitor.views.profile %}">set a valid alert email address in your settings</a>.
+        </div>
     </div>
     <div class="grid-side-footer">
     </div>
