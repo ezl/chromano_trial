@@ -18,28 +18,6 @@
             {% else %}
                 <h1 class="logo"><a href="{% url monitor.views.main %}">Quote Sentinel</a></h1>
             {% endif %}
-            <div class="info">
-            {% if user.is_authenticated %}
-                You are logged in as <strong>{{ user }}</strong><br/>
-            {% else %}
-                {% if page != 'signin' %}
-                    <form method="post" action="{% url monitor.views.signin %}">
-                        <div style="display:inline-block;">
-                        <input type="email" name="email" placeholder="email" />
-                        </div>
-                        <div style="display:inline-block;">
-                        <input type="password" name="password" placeholder="password" />
-                        </div>
-                        <div style="display:inline-block;">
-                        <button type="submit">Log In</button>
-                        </div>
-                    </form>
-                    <p>Forgot your credentials? <a href="#">Click Here</a></p>
-                {% else %}
-                    Please log in using the form below.<br/><br/>
-                {% endif %}
-            {% endif %}
-            </div>
             <nav>
                 <ul class="menu">
                 {% for view, label in menu %}
