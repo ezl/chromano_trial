@@ -97,7 +97,7 @@ def register(request, plan_name=''):
             ctx = Context({'user': user, 'profile': profile})
             subject, message = tpl.render(ctx).split('\n', 1)
             send_mail(subject=subject, message=message,
-                from_email=settings.ALERTS_EMAIL,
+                from_email=settings.ACCOUNTS_EMAIL,
                 recipient_list=[user.email])
             # log in automatically
             login(request, authenticate(

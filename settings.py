@@ -61,8 +61,8 @@ MIDDLEWARE_CLASSES = (
 AUTH_PROFILE_MODULE = 'monitor.UserProfile'
 
 # operational settings
-ACCOUNTS_EMAIL = 'accounts@quotesentinel.com'
-ALERTS_EMAIL = 'pricealert@quotesentinel.com'
+ACCOUNTS_EMAIL = 'Accounts@quotesentinel.com'
+ALERTS_EMAIL = 'PriceAlert@quotesentinel.com'
 GOOGLE_VOICE_USER = 'ezlmail@gmail.com'
 GOOGLE_VOICE_PASS = 'idontcare'
 TRIAL_PERIOD = 30
