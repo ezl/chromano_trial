@@ -94,7 +94,7 @@ nav { clear: right; overflow: hidden; font-size: 11px; position:relative; text-a
     color: #fff; text-decoration: none; text-transform: uppercase; }
 
 .sub-plan { margin: 20px; position: relative; }
-.sub-plan h3 { color:white; font-size: 20px; margin-bottom: 5px; }
+.sub-plan h3 { color:white; font-size: 20px; margin-bottom: 5px; text-align: center; }
 .sub-plan > div { width: 225px; height: 267px; position: relative;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
     background: url('../images/plans_gradient3.jpg') repeat-x; }
@@ -107,7 +107,7 @@ nav { clear: right; overflow: hidden; font-size: 11px; position:relative; text-a
 .sub-plan label { font-weight: bold; float: left; width: 100px; padding: 0; }
 .sub-plan p { padding: 0 20px; color: #ccc; font-size: 12px; }
 .sub-plan a { display: block; width: 197px; height: 36px; margin: 14px;
-    color: white; line-height: 36px; font-weight: bold; text-align: center;
+    color: #333; line-height: 36px; font-weight: bold; text-align: center;
     position: absolute; bottom: 0;
     background: transparent url('../images/plans_button-up.png') no-repeat; }
 

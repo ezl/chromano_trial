@@ -4,7 +4,7 @@ MENU_ITEMS = (
     ('main', 'Home'),
     ('monitor', 'Monitor'),
     ('plans', 'Plans'),
-    ('register', 'Register'),
+    ('plans', 'Register'),
 )
 
 urlpatterns = patterns('monitor.views',
