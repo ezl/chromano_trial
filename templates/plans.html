@@ -3,7 +3,7 @@
 {% block content %}
 <div class="sub-plan-container">
     <div class="sub-plan-promo">
-        <a href="{% url monitor.views.register 'free' %}">Start your free 30-day trial today!</a>
+        <p>Start your free 30-day trial today!</p>
     </div>
 {% for plan in plans %}
     {% include "plan_include.html" %}
@@ -11,9 +11,11 @@
     <div class="sub-plan-bottom">
     </div>
 </div>
-<div class="main-stripe plans">
-<p>Or, choose our Free Personal Plan (3 estimates and 1 invoice per month). No credit card required.<img src="{{ MEDIA_URL }}/images/free-plan-arrow.png"/></p>
-</div>
+<a href="{% url monitor.views.register 'free' %}">
+    <div class="main-stripe plans">
+        <p>Or, choose our Free Personal Plan (10 Monitors, 10 Email, 10 SMS). No credit card required.<img src="{{ MEDIA_URL }}/images/free-plan-arrow.png"/></p>
+    </div>
+</a>
 <div class="main-column">
     <div class="main-block">
         <h3>Do I need a credit card to register?</h3>

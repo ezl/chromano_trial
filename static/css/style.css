@@ -42,7 +42,7 @@ nav { clear: right; overflow: hidden; font-size: 11px; position:relative; text-a
 .main-column h2 { font-size: 20px; padding: 10px 0; }
 .main-block { margin: 10px; font-size: 11px; }
 .main-block img { float: left; margin-right: 10px; }
-.main-block h3 { font-size: 18px; padding: 5px; }
+.main-block h3 { font-size: 18px; }
 .main-block p { line-height: 20px; margin: 10px 0 20px 0; color: #333; }
 
 .static { margin: 10px; font-size: 12px; }
@@ -88,13 +88,13 @@ nav { clear: right; overflow: hidden; font-size: 11px; position:relative; text-a
     height: 390px; background: url('../images/plans_gradient1.jpg') repeat-x; }
 .sub-plan-container .sub-plan { float: left; }
 .sub-plan-promo { text-align: center; margin-top: 5px; }
-.sub-plan-promo a { display: inline-block; padding: 8px 50px;
+.sub-plan-promo p { display: inline-block; padding: 8px 50px;
     -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px;
     background-color: #141c1e; font-size: 20px;
     color: #fff; text-decoration: none; text-transform: uppercase; }
 
 .sub-plan { margin: 20px; position: relative; }
-.sub-plan h3 { text-transform: uppercase; font-size: 20px; margin-bottom: 5px; }
+.sub-plan h3 { color:white; font-size: 20px; margin-bottom: 5px; }
 .sub-plan > div { width: 225px; height: 267px; position: relative;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
     background: url('../images/plans_gradient3.jpg') repeat-x; }
@@ -107,8 +107,9 @@ nav { clear: right; overflow: hidden; font-size: 11px; position:relative; text-a
 .sub-plan label { font-weight: bold; float: left; width: 100px; padding: 0; }
 .sub-plan p { padding: 0 20px; color: #ccc; font-size: 12px; }
 .sub-plan a { display: block; width: 197px; height: 36px; margin: 14px;
-    font-size: 0; text-indent: -1000px; position: absolute; bottom: 0;
-    background: url('../images/plans_button.png') no-repeat; }
+    color: white; line-height: 36px; font-weight: bold; text-align: center;
+    position: absolute; bottom: 0;
+    background: transparent url('../images/plans_button-up.png') no-repeat; }
 
 .sub-plan .icon { display: inline-block; }
 .icon-yes { background: url('../icons/icon_yes.png'); }
