@@ -104,7 +104,7 @@ def register(request, plan_name=''):
                 username=user.email,
                 password=form.cleaned_data['password1'],
             ))
-            return HttpResponseRedirect(reverse(start))
+            return HttpResponseRedirect(reverse(getting_started))
     else:
         form = RegistrationForm(plan.free)
 
@@ -214,9 +214,15 @@ def signout(request):
     return HttpResponseRedirect(reverse(main))
 
 
-@render_to('start.html')
+@render_to('getting_started.html')
 @site_page
-def start(request):
+def getting_started(request):
+    return {}
+
+
+@render_to('tour.html')
+@site_page
+def tour(request):
     return {}
 
 

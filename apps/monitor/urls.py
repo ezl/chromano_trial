@@ -7,7 +7,7 @@ MENU_ITEMS_AUTHENTICATED = (
 )
 
 MENU_ITEMS_UNAUTHENTICATED = (
-    ('main', 'Tour'),
+    ('tour', 'Tour'),
     ('plans', 'Plans'),
     ('monitor', 'Log in'),
 )
@@ -22,7 +22,8 @@ urlpatterns = patterns('monitor.views',
     (r'^upgrade/?$', 'upgrade'),
     (r'^login/?$', 'signin'),
     (r'^logout/?$', 'signout'),
-    (r'^start/?$', 'start'),
+    (r'^getting_started/?$', 'getting_started'),
+    (r'^tour/?$', 'tour'),
     (r'^help/?$', 'help'),
     (r'^monitor/check/(?P<symbols>[\w\.,]+)$', 'check'),
     (r'^monitor/add/?$', 'monitor_add'),
