@@ -16,7 +16,7 @@ from annoying.decorators import render_to, ajax_request
 from forms import RegistrationForm, ProfileForm, ActivationForm
 from models import SubscriptionPlan, FinancialInstrument, \
     PriceWatch, UserProfile
-from urls import MENU_ITEMS
+from urls import MENU_ITEMS_AUTHENTICATED, MENU_ITEMS_UNAUTHENTICATED
 from ext.yfinance import YahooFinance
 
 
@@ -25,7 +25,10 @@ def site_page(function):
     def wrapper(request, **kwargs):
         res = function(request, **kwargs)
         if isinstance(res, dict):
-            res['menu'] = MENU_ITEMS
+            if request.user.is_authenticated():
+                res['menu'] = MENU_ITEMS_AUTHENTICATED
+            else:
+                res['menu'] = MENU_ITEMS_UNAUTHENTICATED
             res['page'] = function.__name__
         return res
     return wrapper

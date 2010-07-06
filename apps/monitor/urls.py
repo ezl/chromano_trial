@@ -1,10 +1,19 @@
 from django.conf.urls.defaults import *
 
-MENU_ITEMS = (
+MENU_ITEMS_AUTHENTICATED = (
     ('main', 'Home'),
     ('monitor', 'Monitor'),
+    ('monitor', 'Help'),
+    ('profile', 'Settings'),
+    ('logout', 'Log out'),
+)
+
+MENU_ITEMS_UNAUTHENTICATED = (
+    ('main', 'Home'),
     ('plans', 'Plans'),
-    ('plans', 'Register'),
+    ('main', 'Tour'),
+    ('plans', 'Sign Up!'),
+    ('monitor', 'Log in'),
 )
 
 urlpatterns = patterns('monitor.views',
