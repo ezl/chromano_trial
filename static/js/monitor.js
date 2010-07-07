@@ -104,7 +104,7 @@ jQuery(function($) {
     function compareToPrice(value, el) {
         // compare value to price
         var item = el.parents('li'),
-            price = parseFloat(item.find('.price').val()),
+            price = parseFloat(item.find('.price').html()),
             upper = el.hasClass('upper'), lower = !upper;
         if ((upper && value > price) || (lower && value < price) || value == null)
             return true;
