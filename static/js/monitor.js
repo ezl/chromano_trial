@@ -17,11 +17,12 @@ jQuery(function($) {
             '<td><div class="editable lower">{{ lower_bound }}</div></td>' +
             '<td><div class="price">{{ price }}</div></td>' +
             '<td><div class="editable upper">{{ upper_bound }}</div></td>' +
-            '<td><a href="/monitor/edit/{{ id }}/alert_phone" class="icon alert-phone true"></a>' +
-            '<a href="/monitor/edit/{{ id }}/alert_email" class="icon alert-email true"></a></td>' + 
+            '<td><a href="/monitor/edit/{{ id }}/alert_phone" class="icon alert-phone {{ alert_phone }}"></a>' +
+            '<a href="/monitor/edit/{{ id }}/alert_email" class="icon alert-email {{ alert_email }}"></a></td>' + 
             '<td><a href="/monitor/del/{{ id }}" class="icon icon-trash remove"></a></td>' +
             '</tr></table>' +
             '</li>';
+        $('#help-text').remove();
         var html = tpl.replace(/{{\s*(\w+)\s*}}/g, function(m, k) { return format(data[k]) }, tpl),
             el = $(html).hide().prependTo($('.grid-watch ul')).fadeIn('slow');
         return el;
@@ -93,6 +94,13 @@ jQuery(function($) {
         });
     });
 
+    function displayError(el, message) {
+        var floater = $('<div>').addClass('floater ui-state-error ui-corner-all')
+            .appendTo(el).css('opacity', 0.9).html(message);
+        setTimeout(function() {
+            floater.fadeOut('slow', function() { floater.remove() });
+        }, 2000);
+    }
     function compareToPrice(value, el) {
         // compare value to price
         var item = el.parents('li'),
@@ -102,12 +110,8 @@ jQuery(function($) {
             return true;
 
         // display floating error
-        var msg = (upper ? 'Value is below the price' : 'Value is above the price'),
-            floater = $('<div>').addClass('floater ui-state-error ui-corner-all')
-            .appendTo(item).css('opacity', 0.9).html(msg);
-        setTimeout(function() {
-            floater.fadeOut('slow', function() { floater.remove() });
-        }, 2000);
+        var msg = (upper ? 'Value is below the price' : 'Value is above the price');
+        displayError(item, msg);
     }
     window.test = compareToPrice;
 
@@ -159,6 +163,10 @@ jQuery(function($) {
         var link = $(ev.target);
         $.get(link.attr('href'), function(data) {
             if (!data) return;
+            if (data.breach) {
+                var msg = data.breach + ' boundary is breached';
+                return displayError(link.parents('li'), msg);
+            }
             link.removeClass('icon-on').removeClass('icon-off')
                 .addClass(data.value ? 'icon-on' : 'icon-off');
             updateCountLabel(data.value ? 1 : -1);
@@ -170,6 +178,10 @@ jQuery(function($) {
         var link = $(ev.target);
         $.get(link.attr('href'), function(data) {
             if (!data) return;
+            if (data.alert) {
+                var msg = 'No configured ' + data.alert;
+                return displayError(link.parents('li'), msg);
+            }
             link.removeClass('true').removeClass('false')
                 .addClass(data.value ? 'true' : 'false');
         }, 'json');

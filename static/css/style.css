@@ -99,6 +99,10 @@ nav { clear: right; overflow: hidden; font-size: 11px; position:relative; text-a
 .upgrade .cc-info.free .cc-data { opacity: 0.3; }
 .upgrade .errorlist { float: none; margin-left: 120px; margin-right: 0; }
 
+.pwdch { float: right; width: 300px; font-size: 90%; }
+.pwdch button { margin-left: 0; }
+.pwdch .status { font-weight: bold; color: green; }
+
 /* plans page */
 .sub-plan-container { overflow: auto; margin: -8px -10px; padding: 10px 35px;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;

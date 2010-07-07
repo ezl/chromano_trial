@@ -3,6 +3,7 @@ from functools import wraps
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
@@ -121,22 +122,33 @@ def profile(request):
     """ Edit profile settings """
     profile = UserProfile.objects.get(user=request.user)
     
-    if request.method == 'POST':
+    if 'email' in request.POST:
         form = ProfileForm(request.POST)
         if form.is_valid():
             form.save_email(profile.user)
             form.save_phone(profile)
+            return HttpResponseRedirect('?')
     else:
         form = ProfileForm()
         form.initial.update({
             'email': profile.user.email,
             'phone': profile.phone_number,
         })
+        
+    if 'old_password' in request.POST:
+        form_p = PasswordChangeForm(request.user, request.POST)
+        if form_p.is_valid():
+            form_p.save()
+            return HttpResponseRedirect('?pc=1')
+    else:
+        form_p = PasswordChangeForm(request.user)
     
     return {
         'user': request.user,
         'form': form,
+        'form_p': form_p,
         'profile': profile,
+        'updated_pass': request.GET.get('pc'),
     }
 
 
@@ -301,7 +313,7 @@ def monitor_add(request):
         if not profile.count_watches:
             return error("Plan limit reached")
     except UserProfile.DoesNotExist:
-        pass  # admin account
+        profile = None  # admin account
 
     # load content from yahoo API
     yapi = YahooFinance()
@@ -339,6 +351,7 @@ def monitor_add(request):
         # create database record (watch)
         watch = PriceWatch(user=request.user, instrument=item,
             lower_bound=lower_bound, upper_bound=upper_bound, position=pos)
+        watch.set_alert_flags(profile)
         watch.save()
     except IntegrityError:
         # output error
@@ -351,6 +364,8 @@ def monitor_add(request):
         'lower_bound': lower_bound,
         'upper_bound': upper_bound,
         'price': info.price,
+        'alert_email': watch.alert_email,
+        'alert_phone': watch.alert_phone,
     })
 
 
@@ -370,15 +385,28 @@ def monitor_edit(request, id=0, field=''):
     item = PriceWatch.objects.get(id=id, user=request.user)
     value = request.GET.get('value')
 
-    # verify user subscription
-    if field == 'active':
+    if field == 'active' or field.startswith('alert'):
+        # verify user subscription
         allow_toggle = True
         try:
             profile = UserProfile.objects.get(user=request.user)
             if not item.active and not profile.count_watches:
                 allow_toggle = False
         except UserProfile.DoesNotExist:
-            pass  # admin account
+            profile = None  # admin account
+
+        # verify boundaries
+        price = item.instrument.last_price
+        if item.lower_bound and price < item.lower_bound:
+            return json_or_redirect(request, {'breach': 'Lower'})
+        if item.upper_bound and price > item.upper_bound:
+            return json_or_redirect(request, {'breach': 'Upper'})
+
+        # verify alert options
+        if field == 'alert_email' and profile and not profile.user.email:
+            return json_or_redirect(request, {'alert': 'email'})
+        if field == 'alert_phone' and profile and not profile.phone_verified:
+            return json_or_redirect(request, {'alert': 'phone'})
 
     # update database record
     if field == 'active':

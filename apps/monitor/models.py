@@ -57,6 +57,13 @@ class PriceWatch(models.Model):
         return '%s: (%s<%s<%s)' % (self.user, self.lower_bound or '0',
             self.instrument, self.upper_bound or 'inf')
 
+    def set_alert_flags(self, profile):
+        """ Set alert flags according to profile restrictions """
+        self.alert_email = bool(profile and profile.count_email_alerts
+            and profile.user.email)
+        self.alert_phone = bool(profile and profile.count_phone_alerts
+            and profile.phone_verified)
+
 
 class UserProfile(models.Model):
     """ User resource usage """
