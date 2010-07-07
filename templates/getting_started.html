@@ -3,16 +3,19 @@
 {% block content %}
 <div class="static">
     <h2>Getting Started</h2>
-    <pre>
     welcome to quotesentinel.
 
-    read our short guide or go straight to your pricewatch page.
+<br />
+<br />
+    read our <a href="{% url monitor.views.help %}">reference guide</a> or go straight to your <a href="{% url monitor.views.main %}">dashboard</a>.
+<br />
+<br />
 
+    Quick guide:
     set a pricewatch to bracket stocks you're interested and receive email or SMS alerts anytime your stock trades there.
+<br />
 
     [insert a picture of a pricewatch bar, with arrows describing each element]
 
-
-    </pre>
 </div>
 {% endblock %}
