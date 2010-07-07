@@ -66,10 +66,12 @@
         </div>
         <div>
             {% if not user.get_profile.phone_verified %}
-                To receive text message alerts, you must first <a href="{% url monitor.views.profile %}">verify your cell phone number in your settings</a>.
+                <p>To receive text message alerts, you must first <a href="{% url monitor.views.profile %}">verify your cell phone number in your settings</a>.</p>
             {% endif %}
+        </div>
+        <div>
             {% if not user.email %}
-                To receive email alerts, you must <a href="{% url monitor.views.profile %}">set a valid alert email address in your settings</a>.
+                <p>To receive email alerts, you must <a href="{% url monitor.views.profile %}">set a valid alert email address in your settings</a>.</p>
             {% endif %}
         </div>
     </div>
