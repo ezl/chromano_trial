@@ -50,7 +50,7 @@ nav { clear: right; overflow: hidden; font-size: 11px; position:relative; text-a
 .main-column h2 { font-size: 20px; padding: 10px 0; }
 .main-block { margin: 10px; font-size: 11px; }
 .main-block img { float: left; margin-right: 10px; }
-.main-block h3 { font-size: 18px; }
+.main-block h3 { color:#0350A6; font-size: 18px; }
 .main-block p { line-height: 20px; margin: 10px 0 20px 0; color: #333; }
 
 .static { margin: 10px; font-size: 12px; }
