@@ -4,42 +4,63 @@
 <form method="post" class="register">
     {% include "plan_include.html" %}
 
-    <h2>Registration details</h2>
-    <div>
-        {{ form.username.errors }}
-        <label for="id_username">E-mail</label>
-        {{ form.username }}
-    </div>
-    <div>
-        {{ form.password1.errors }}
-        <label for="id_password1">Password</label>
-        {{ form.password1 }}
-    </div>
-    <div>
-        {{ form.password2.errors }}
-        <label for="id_password2">Password (repeat)</label>
-        {{ form.password2 }}
-    </div>
+    <section>
+      <header>
+        <h2>Registration Details</h2>
+        <h3></h3>
+      </header>
+      <div>
+          {{ form.username.errors }}
+          <label for="id_username">E-mail</label>
+          {{ form.username }}
+      </div>
+      <div>
+          {{ form.password1.errors }}
+          <label for="id_password1">Password</label>
+          {{ form.password1 }}
+      </div>
+      <div>
+          {{ form.password2.errors }}
+          <label for="id_password2">Password (repeat)</label>
+          {{ form.password2 }}
+      </div>
+      <footer></footer>
+    </section>
 
     {% if not form.free %}
-    <h2>Payment details</h2>
-    <div>
-        {{ form.card_holder.errors }}
-        <label for="id_card_holder">Name on card</label>
-        {{ form.card_holder }}
-    </div>
-    <div>
-        {{ form.card_number.errors }}
-        <label for="id_card_number">Card number</label>
-        {{ form.card_number }}
-    </div>
-    <div>
-        <label for="id_card_expires_month">Expires on</label>
-        {{ form.card_expires_month }}
-        {{ form.card_expires_year }}
-    </div>
+    <section>
+      <header>
+        <h2>Payment details</h2>
+        <h3></h3>
+      </header>
+      <div>
+          {{ form.card_holder.errors }}
+          <label for="id_card_holder">Name on card</label>
+          {{ form.card_holder }}
+      </div>
+      <div>
+          {{ form.card_number.errors }}
+          <label for="id_card_number">Card number</label>
+          {{ form.card_number }}
+      </div>
+      <div>
+          <label for="id_card_expires_month">Expires on</label>
+          {{ form.card_expires_month }}
+          {{ form.card_expires_year }}
+      </div>
+      <footer></footer>
+    </section>
     {% endif %}
 
-    <button type="submit">Register account</button>
+    <section>
+      <header>
+        <h2>Confirm Your Account Details</h2>
+        <h3>If everything looks good, click the button below to get started.</h3>
+      </header>
+      <div>
+        <label>Your Plan:</label><span class="confirm-result">{{ plan.name }}</span>
+      </div>
+      <footer><button type="submit">Register account</button></footer>
+    </section>
 </form>
 {% endblock %}
