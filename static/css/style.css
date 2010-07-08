@@ -22,7 +22,7 @@ body { font-family: Verdana, sans-serif; }
 #container > header .info a { color: #ccf; text-decoration: none; font-size: 10px; }
 #container > header .info strong { font-weight: bold; }
 #container > footer { color: #fff; font-size: 12px; margin: 10px 0; }
-#footer-decor { height: 25px; margin: -15px 0 2em; background-color: #e0e0e0;
+#footer-decor { height: 25px; margin: -15px 0 2em; background:url("../images/footer-decor-bg.png") repeat-y scroll 0 0 #E0E0E0;
     -moz-border-radius-bottomleft: 5px; -moz-border-radius-bottomright: 5px;
     -webkit-border-bottom-left-radius: 5px; -webkit-border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
@@ -161,7 +161,10 @@ form strong { font-weight:bold; }
 .add-watch form { padding: 5px; font-size: 12px; position: relative; }
 .add-watch form > div { float: left; margin: 2px; min-width: 40px; }
 .add-watch form label { display: block; }
-.add-watch form input { padding: 2px; margin: 2px 0; }
+.add-watch form input {
+-moz-border-radius: 2px;
+border:1px solid gray;
+padding: 2px; margin: 2px 0; }
 .add-watch form button { color:inherit; font-size:12px; font-weight:bold; letter-spacing: 0.05em; margin-top: 4px; padding:0.5em 1em; text-transform:uppercase; }
 .add-watch p.name { clear: left; color: #999; }
 .add-watch p.name em { color: red; }
