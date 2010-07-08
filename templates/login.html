@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post" class="login ui-widget-content ui-corner-all">
+<form method="post">
+  <section class="center">
+    <header>
+      <h2>Log In</h2>
+      <h3></h3>
+    </header>
     <div>
         <label for="id_email">E-mail</label>
         <input type="text" name="email" id="id_email" value="{{ email }}"/>
@@ -11,13 +16,16 @@
         <input type="password" name="password" id="id_password"/>
     </div>
     {% if error %}
-        <div class="error">Incorrect email or password</div>
+    <div class="error">Incorrect email or password</div>
     {% endif %}
-    <button type="submit">Log in</button>
+    <footer>
+      <button type="submit">Log in</button>
 
-    <small>
-        <a href="{% url django.contrib.auth.views.password_reset %}">forget your password?</a>
-    </small>
+      <small>
+          <a href="{% url django.contrib.auth.views.password_reset %}">forget your password?</a>
+      </small>
+    </footer>
+  </section>
 </form>
 <p>Don't have an account? View our <a href="{% url monitor.views.plans %}">plans and sign up</a>.</p>
 {% endblock %}

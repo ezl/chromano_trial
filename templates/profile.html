@@ -1,23 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post" class="basic pwdch">
-    <br/>
-    <b>Change your password</b>
-    {{ form_p.as_p }}
-    <p>
-        <button type="submit">Submit</button>
-    </p>
-    {% if updated_pass %}
-        <div class="status">Your password was updated</div>
-    {% endif %}
-</form>
 
-<form method="post" class="basic">
-    <h2>Profile settings</h2>
-    <div>
-        <b>{{ user.username }}</b>
-    </div>
+<div class="module right">
+<p>You are currently subscribed to the {{ user.get_profile.plan.name }} plan for {{ user.get_profile.plan.billing_period_price }} per month.
+<a href="{% url monitor.views.upgrade %}">Modify your plan</a>.</p>
+</div>
+
+<form method="post">
+  <section>
+    <header>
+      <h2>Profile settings</h2>
+      <h3>for <strong>{{ user.username }}</strong></h3>
+    </header>
     <div>
         <label for="id_email">Alert email</label>
         {{ form.email }}
@@ -38,11 +33,40 @@
         {% endif %}
     </div>
     {% endif %}
-    <button type="submit">Edit settings</button>
+    <footer>
+      <button type="submit">Edit settings</button>
+    </footer>
+  </section>
+</form>
+<form method="post">
+  <section>
+    <header>
+      <h2>Change your password</h2>
+      <h3>
+{% if updated_pass %}
+        <div class="status">Your password was updated</div>
+{% endif %}
+      </h3>
+    </header>
+    <div>
+        <label for="id_old_password">Old password</label>
+        {{ form_p.old_password }}
+        {{ form_p.old_password.errors }}
+    </div>
+    <div>
+        <label for="new_password1">New password</label>
+        {{ form_p.new_password1 }}
+        {{ form_p.new_password1.errors }}
+    </div>
+    <div>
+        <label for="new_password2">Confirm password</label>
+        {{ form_p.new_password2 }}
+        {{ form_p.new_password2.errors }}
+    </div>
+    <footer>
+      <button type="submit">Submit</button>
+    </footer>
+  </section>
 </form>
 
-You are currently subscribed to the {{ user.get_profile.plan.name }} plan for {{ user.get_profile.plan.billing_period_price }} per month. <a href="{% url monitor.views.upgrade %}">Modify your plan</a>.
-<pre>
-allow password change here as well
-</pre>
 {% endblock %}
