@@ -87,17 +87,18 @@ form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-colo
     form > section  > div { background-color:#E3E9F2; border-bottom: 1px solid #C1CAD5; border-top: 1px solid #F3F6F9; padding: 8px; }
         form > section label { color:#29384C; display:inline-block; font-family:Helvetica,Arial,sans-serif; font-size: 13px; font-weight:bold; line-height:34px; margin-right:0.7em; text-align: right; width: 130px; }
         form > section input { -moz-border-radius:1px; background:white url(../images/background-signup-inputs.png) repeat-x scroll top; border:1px solid #8D9095; color:#29384C; height:20px; padding: 7px 5px 5px; width:426px; }
+        form > section textarea { -moz-border-radius:1px; background:white url(../images/background-signup-inputs.png) repeat-x scroll top; border:1px solid #8D9095; color:#29384C; height:5em; padding: 7px 5px 5px; width:426px; }
         form > section select { font-size: 13px; margin:5px 0; }
     form > section  > footer { min-height: 1em; }
         form > section .confirm-result { color:#29384C; font-size:18px; font-weight:bold; line-height:30px; }
-    form > section  > footer button { color:inherit; font-weight:bold; letter-spacing:0.05em; margin:4px; padding:0.5em 1em; }
+    form > section  > footer button { color:inherit; font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em; }
 .message { background-color:#FFFFE8; }
 .errorlist { color: red; }
 
-.center { margin:0 auto; }
+.center { margin:0 auto; text-align:center; }
 form strong { font-weight:bold; }
 /* this is based on .sub-plan */
-.module { color:white; width: 225px; position: relative;
+.module { color:white; width: 225px; position: relative; margin-bottom:5px;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
     background: url('../images/plans_gradient3.jpg') repeat-x; }
 .module > p { margin: 5px; }
