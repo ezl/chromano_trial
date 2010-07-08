@@ -199,6 +199,23 @@ def upgrade(request):
     }
 
 
+@login_required
+@render_to('close_account.html')
+@site_page
+def close_account(request):
+    """ Mark account as closed """
+    close = 'close' in request.POST
+    if close:
+        user = request.user
+        user.is_active = False
+        user.save()
+        logout(request)
+
+    return {
+        'closed': close,
+    }
+
+
 @render_to('login.html')
 @site_page
 def signin(request):

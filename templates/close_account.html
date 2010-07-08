@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if not closed %}
+<form method="post">
+<section>
+    <header>
+        <h2>Close account</h2>
+        <h3>Are you sure you want to close your account?</h3>
+        <input type="hidden" name="close" value="1"/>
+        <button type="submit">Yes</button>
+        <button type="button" onclick="window.location='/';">No</button>
+    </header>
+</section>
+</form>
+{% else %}
+    Your account was closed.
+{% endif %}
+{% endblock %}

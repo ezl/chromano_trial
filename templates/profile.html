@@ -5,6 +5,7 @@
 <div class="module right">
 <p>You are currently subscribed to the {{ user.get_profile.plan.name }} plan for {{ user.get_profile.plan.billing_period_price }} per month.
 <a href="{% url monitor.views.upgrade %}">Modify your plan</a>.</p>
+<p><a href="{% url monitor.views.close_account %}">Close account</a></p>
 </div>
 
 <form method="post">
