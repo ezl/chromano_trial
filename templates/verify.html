@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post" class="basic">
-    <h2>Phone activation</h2>
-    {{ form.non_field_errors }}
+<form method="post" class="">
+  <section>
+    <head>
+      <h2>Phone activation</h2>
+      <h3>{{ form.non_field_errors }}</h3>
+    </head>
     <div>
         <label for="id_token">Confirmation string</label>
         {{ form.token }}
@@ -14,6 +17,9 @@
         {{ form.phone }}
         {{ form.phone.errors }}
     </div>
+    <footer>
     <button type="submit">Activate number</button>
+    </footer>
+  </section>
 </form>
 {% endblock %}

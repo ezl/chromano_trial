@@ -66,7 +66,7 @@
         </div>
         <div>
             {% if not user.get_profile.phone_verified %}
-                <p>To receive text message alerts, you must first <a href="{% url monitor.views.profile %}">verify your cell phone number in your settings</a>.</p>
+                <p><img class="left" src="{{ MEDIA_URL }}/icons/warning.png">To receive text message alerts, you must first <a href="{% url monitor.views.profile %}">verify your cell phone number in your settings</a>.</p>
             {% endif %}
         </div>
         <div>

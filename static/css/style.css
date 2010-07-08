@@ -91,6 +91,8 @@ form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-colo
     form > section  > footer { min-height: 1em; }
         form > section .confirm-result { color:#29384C; font-size:18px; font-weight:bold; line-height:30px; }
     form > section  > footer button { color:inherit; font-weight:bold; letter-spacing:0.05em; margin:4px; padding:0.5em 1em; }
+.message { background-color:#FFFFE8; }
+.errorlist { color: red; }
 
 .center { margin:0 auto; }
 form strong { font-weight:bold; }

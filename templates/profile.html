@@ -24,7 +24,7 @@
         {{ form.phone.errors }}
     </div>
     {% if profile.phone_number and not form.phone.errors %}
-    <div>
+    <div class="message">
         {% if profile.phone_verified %}
             Your phone number is VERIFIED.
         {% else %}
