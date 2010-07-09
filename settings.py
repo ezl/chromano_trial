@@ -10,7 +10,7 @@ ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
 MANAGERS = ADMINS
-INTERNAL_IPS = ('127.0.0.1',)
+INTERNAL_IPS = ('204.232.204.73',)
 
 # ----- Database settings
 DATABASE_ENGINE = 'sqlite3'

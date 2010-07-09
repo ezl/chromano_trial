@@ -19,6 +19,8 @@ html { background: #555 url('../images/background.jpg') repeat-y top center; }
 body { font-family: Verdana, sans-serif; }
 a { color: #FB9400; }
 a:hover { text-decoration:underline; }
+#content a { color:#2AAFCE; }
+#content .module a { color:#FB9400; } /* .module has a dark background */
 .icon { width: 16px; height: 16px; }
 #container { width: 871px; margin: 0 auto; position: relative; }
 #content { padding: 5px 10px; background: #fff; min-height: 450px;
@@ -35,7 +37,7 @@ a:hover { text-decoration:underline; }
     text-align: right; color: #eee; font-size: 11px; }
 #container > header .info a { color: #ccf; text-decoration: none; font-size: 10px; }
 #container > header .info strong { font-weight: bold; }
-#container > footer { color: #fff; font-size: 12px; margin: 10px 0; }
+#container > footer { color: #fff; font-size: 12px; margin: 10px 0; text-align:center; }
 #footer-decor { height: 25px; margin: -15px 0 2em; background:url("../images/footer-decor-bg.png") repeat-y scroll 0 0 #E0E0E0;
     -moz-border-radius-bottomleft: 5px; -moz-border-radius-bottomright: 5px;
     -webkit-border-bottom-left-radius: 5px; -webkit-border-bottom-right-radius: 5px;
@@ -168,7 +170,7 @@ form strong { font-weight:bold; }
 .sub-plan label { font-weight: bold; float: left; width: 100px; padding: 0; }
 .sub-plan p { padding: 0 20px; color: #ccc; font-size: 12px; }
 .sub-plan a { display: block; width: 197px; height: 36px; margin: 14px;
-    color: #333; line-height: 36px; font-weight: bold; text-align: center;
+    color: #333 !important; line-height: 36px; font-weight: bold; text-align: center;
     position: absolute; bottom: 0;
     background: transparent url('../images/plans_button-up.png') no-repeat; }
 
