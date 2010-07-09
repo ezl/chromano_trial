@@ -71,7 +71,7 @@
         </div>
         <div>
             {% if not user.email %}
-                <p>To receive email alerts, you must <a href="{% url monitor.views.profile %}">set a valid alert email address in your settings</a>.</p>
+                <p><img class="left" src="{{ MEDIA_URL }}/icons/warning.png">To receive email alerts, you must <a href="{% url monitor.views.profile %}">set a valid alert email address in your settings</a>.</p>
             {% endif %}
         </div>
     </div>
