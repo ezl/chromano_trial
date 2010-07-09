@@ -2,8 +2,9 @@
 
 {% block content %}
 <form method="post">
-  <section class="center">
+  <section class="center down">
     <header>
+      <small class="right" style="padding-right:8px;"><a href="{% url django.contrib.auth.views.password_reset %}">forget your password?</a></small>
       <h2>Log In</h2>
       <h3></h3>
     </header>
@@ -19,13 +20,11 @@
     <div class="error">Incorrect email or password</div>
     {% endif %}
     <footer>
-      <button type="submit">Log in</button>
-
       <small>
-          <a href="{% url django.contrib.auth.views.password_reset %}">forget your password?</a>
       </small>
+      <button type="submit">Log in</button>
     </footer>
   </section>
 </form>
-<p class="center">Don't have an account? View our <a href="{% url monitor.views.plans %}">plans and sign up</a>.</p>
+<p class="center" style="margin-top:1em;">Don't have an account? View our <a href="{% url monitor.views.plans %}">plans and sign up</a>.</p>
 {% endblock %}

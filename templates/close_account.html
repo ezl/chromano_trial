@@ -3,14 +3,19 @@
 {% block content %}
 {% if not closed %}
 <form method="post">
-<section>
+<section class="center down">
     <header>
         <h2>Close account</h2>
+        <h3></h3>
+    </header>
+    <div>
         <h3>Are you sure you want to close your account?</h3>
+    </div>
+    <footer>
         <input type="hidden" name="close" value="1"/>
         <button type="submit">Yes</button>
         <button type="button" onclick="window.location='/';">No</button>
-    </header>
+    </footer>
 </section>
 </form>
 {% else %}
