@@ -201,22 +201,20 @@ padding: 2px; margin: 2px 0; }
 
 /* watch page: item list */
 .grid-watch { padding: 0 20px; overflow: auto; }
-.grid-watch > * { width: 500px; }
-.grid-watch tr>* { text-align: center; }
-.grid-watch tr>.tab-active { width: 30px; }
+.grid-watch tr>* { border-left:1px solid transparent; border-right:1px solid transparent; text-align: center; }
+.grid-watch tr>.tab-active { width: 45px; }
 .grid-watch tr>.tab-symbol { text-align: left; width: 170px; }
 .grid-watch tr>.tab-lower { width: 75px; }
 .grid-watch tr>.tab-price { width: 150px; }
 .grid-watch tr>.tab-upper { width: 75px; }
 .grid-watch tr>.tab-alerts { width: 40px; }
-.grid-watch tr>.tab-remove { width: 20px; }
+.grid-watch tr>.tab-remove { width: 50px; }
 .grid-watch th a { text-decoration: none; }
 .grid-watch th a:hover { color: #99f; }
 
 .grid-watch ul { margin: 5px 0; }
 .grid-watch li { margin: 5px -10px; padding: 5px 5px; position: relative;
     border: 1px solid #eee; border-width: 1px 0; }
-.grid-watch li td { padding: 0 4px; font-weight: normal; }
 .grid-watch li:hover { background: #ffc; border-color: #cc9; }
 .grid-watch .symbol { font-size: 24px; }
 .grid-watch .editable { color: #999; }
@@ -234,11 +232,11 @@ padding: 2px; margin: 2px 0; }
 header.grid-watch { color: #eee; margin: -5px -10px 0; overflow: hidden;
     background: url('../images/monitor_header.png') no-repeat; }
 header.grid-watch table { font-size: 11px; position:relative; left: 195px; height: 3em; }
-header.grid-watch table th { border-left:0 none; }
-header.grid-watch table th+th { border-left:1px solid #405D63; }
+header.grid-watch table th { border-left:1px solid #405D63; border-right:1px solid #405D63; }
 header.grid-watch table th:hover { background:#293A3F; }
+header.grid-watch table th.nosort:hover { background:transparent; }
 header.grid-watch table .tab-symbol > a:first-child { padding-left:5px; }
-header.grid-watch table .tab-active,header.grid-watch table .tab-remove  { visibility:hidden; }
+/*header.grid-watch table .tab-active  { visibility:hidden; }*/
 header.grid-watch a { color: inherit; }
 
 .grid-side { float: left; width: 200px; height: 100%; margin-left: -10px;
