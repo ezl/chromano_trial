@@ -3,6 +3,7 @@ from django.conf.urls.defaults import *
 MENU_ITEMS_AUTHENTICATED = (
     ('monitor', 'Monitor'),
     ('profile', 'Settings'),
+    ('help', 'Help'),
     ('logout', 'Log out'),
 )
 
