@@ -224,7 +224,7 @@ def signin(request):
         get = lambda k: request.POST[k]
         args = dict(username=get('email'), password=get('password'))
         user = authenticate(**args)
-        if user:
+        if user and user.is_active:
             login(request, user)
             return HttpResponseRedirect(reverse(monitor))
         email, error = get('email'), True
