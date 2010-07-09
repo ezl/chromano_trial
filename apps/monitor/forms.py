@@ -51,7 +51,7 @@ class ProfileForm(forms.Form):
     def save_phone(self, profile):
         # check if phone has changed
         v = self.cleaned_data['phone']
-        if not v or v == profile.phone_number:
+        if v == profile.phone_number:
             return
 
         # generate random token
