@@ -69,7 +69,6 @@ nav { clear: right; overflow: hidden; font-size: 11px; margin-top:13px; position
 
 .static { margin: 10px; font-size: 12px; }
 .static h2 { font-size: 18px; }
-.static .errorlist { color: red; }
 
 /* registration pages */
 .login { width: 250px; margin: 50px auto; padding: 20px; }
@@ -94,6 +93,7 @@ form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-colo
         form > section .confirm-result { color:#29384C; font-size:18px; font-weight:bold; line-height:30px; }
     form > section  > footer button { color:inherit; font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em; }
     form > section a { color: #0350A6; }
+    form > section .errorlist { text-align:left; }
 .message { background-color:#FFFFE8; }
 .errorlist { color: red; }
 
