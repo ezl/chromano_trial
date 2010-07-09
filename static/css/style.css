@@ -1,3 +1,15 @@
+/*
+ * COLORS
+ *
+ * green    : #0AF305
+ * orange   : #FB9400
+ * dark blue: #0350A6
+ * deep blue: #011934
+ * turqoise : #2AAFCE
+ *
+ */
+
+
 /* HTML5 helpers */
   article, aside, figure, footer, header, hgroup,
   menu, nav, section { display: block; }
@@ -5,9 +17,11 @@
 /* page layout */
 html { background: #555 url('../images/background.jpg') repeat-y top center; }
 body { font-family: Verdana, sans-serif; }
+a { color: #FB9400; }
+a:hover { text-decoration:underline; }
 .icon { width: 16px; height: 16px; }
 #container { width: 871px; margin: 0 auto; position: relative; }
-#content { padding: 5px 10px; background: #fff; min-height: 450px; overflow: hidden;
+#content { padding: 5px 10px; background: #fff; min-height: 450px;
      -moz-box-shadow: 1px 1px 1em #010101; /* FF3.5+ */
   -webkit-box-shadow: 1px 1px 1em #010101; /* Saf3.0+, Chrome */
           box-shadow: 1px 1px 1em #010101; /* Opera 10.5, IE 9.0 */
@@ -40,7 +54,7 @@ nav { clear: right; overflow: hidden; font-size: 11px; margin-top:13px; position
 .menu .active:hover i { background-image: url('../images/menu_active.png'); }
 .menu a { display: block; font-weight: bold; padding: 5px 10px;
     color: #fff; text-decoration: none; text-transform: uppercase; }
-
+.clear { clear:both; }
 .btn-image { text-align: left; text-indent: -9999em; } /* buttons that have text as images */
 .left { float:left; }
 .right { float:right; }
@@ -79,8 +93,24 @@ form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-colo
     form > section  > footer { min-height: 1em; text-align:left; }
         form > section .confirm-result { color:#29384C; font-size:18px; font-weight:bold; line-height:30px; }
     form > section  > footer button { color:inherit; font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em; }
+    form > section a { color: #0350A6; }
 .message { background-color:#FFFFE8; }
 .errorlist { color: red; }
+
+.grid-600 { width:600px } /* for aligning with form > section */
+h1 { font-size:1.5em;  }
+.stripe {
+  background-image: -moz-linear-gradient(top, #27A9C8, #0F91B0); /* FF3.6 */
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #27A9C8),color-stop(1, #0F91B0)); /* Saf4+, Chrome */
+            filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#27A9C8', EndColorStr='#0F91B0'); /* IE6,IE7 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#27A9C8', EndColorStr='#0F91B0')"; /* IE8 */
+  color:#333;
+  display:inline-block;
+  padding:0.3em 4em 0.3em 0.5em;
+  margin: 10px 0;
+  position:relative;
+  left:-20px;
+}
 
 .center { margin:0 auto; text-align:center; }
 form strong { font-weight:bold; }
@@ -166,6 +196,7 @@ padding: 2px; margin: 2px 0; }
 .plan-status .ui-icon { float: left; margin-right: 4px; }
 .plan-status div { margin: 0.5em 5px 1em; font-size: 11px; color: #333; }
 .plan-status #warn-limit { font-weight: bold; }
+.plan-status a { color:#2AAFCE; }
 
 /* watch page: item list */
 .grid-watch { padding: 0 20px; overflow: auto; }
@@ -250,7 +281,7 @@ header.grid-watch a { color: inherit; }
 
 /* Tour page: /tour */
 #tour section { clear:both; margin:0 0 1em; padding:0 0 2em; }
-#tour section > header { background-image: -moz-linear-gradient(top, #eeeeee, #ffffff); border-top:thin solid #bbb; height:3em; margin: 0 -9em; }
+#tour section > header { background-image: -moz-linear-gradient(top, #eeeeee, #ffffff); border-top:thin solid #bbb; height:3em; margin: 0 -20px; }
 #tour h3 { color:#0350A6; font-size: 2em; margin-bottom: 0.5em; }
 #tour p { line-height:1.5em; margin-bottom:1.5em; }
 #tour img { padding:0 20px; }

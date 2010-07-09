@@ -94,7 +94,7 @@
                         <a href="{% url monitor.views.monitor_edit item.id 'active' %}"
                         class="icon {% if item.active %}icon-on{% else %}icon-off{% endif %} toggle"></a>
                     </th>
-                    <td scope="row" class="symbol tab-symbol">
+                    <td class="symbol tab-symbol">
                         {{ item.instrument }}
                     </td>
                     <td class="tab-lower"><div class="editable lower">{{ item.lower_bound|default:"---" }}</div></td>
