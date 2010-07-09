@@ -9,17 +9,18 @@ jQuery(function($) {
         return v;
     }
     function createItem(data) {
-        var tpl = '<li id="w{{ id }}" class="ui-state-default ui-corner-all">' +
+        var tpl = '<li id="w{{ id }}">' +
             '<table><tr>' +
-            '<th scope="row" class="symbol">' +
+            '<th scope="row" class="tab-active">' +
             '<a href="/monitor/edit/{{ id }}/active" class="icon icon-on toggle"></a> ' +
-            ' {{ symbol }}</th>' +
-            '<td><div class="editable lower">{{ lower_bound }}</div></td>' +
-            '<td><div class="price">{{ price }}</div></td>' +
-            '<td><div class="editable upper">{{ upper_bound }}</div></td>' +
-            '<td><a href="/monitor/edit/{{ id }}/alert_phone" class="icon alert-phone {{ alert_phone }}"></a>' +
+            '</th>' +
+            '<td class="symbol tab-symbol">{{ symbol }}</td>' +
+            '<td class="tab-lower"><div class="editable lower">{{ lower_bound }}</div></td>' +
+            '<td class="tab-price"><div class="price">{{ price }}</div></td>' +
+            '<td class="tab-upper"><div class="editable upper">{{ upper_bound }}</div></td>' +
+            '<td class="tab-alerts"><a href="/monitor/edit/{{ id }}/alert_phone" class="icon alert-phone {{ alert_phone }}"></a>' +
             '<a href="/monitor/edit/{{ id }}/alert_email" class="icon alert-email {{ alert_email }}"></a></td>' + 
-            '<td><a href="/monitor/del/{{ id }}" class="icon icon-trash remove"></a></td>' +
+            '<td class="tab-remove"><a href="/monitor/del/{{ id }}" class="icon icon-trash remove"></a></td>' +
             '</tr></table>' +
             '</li>';
         $('#help-text').remove();
