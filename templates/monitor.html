@@ -80,12 +80,10 @@
 </div>
 
 <div class="grid-watch">
-   {% if not watchlist %}
-       <div id="help-text">
-           <p>Set a QuoteAlert by filling in the form on the left.</p>
-           <p>To find out more, read our short <a href="">"Getting Started" guide</a> on how to effectively manage your QuoteAlerts.</p>
-       </div>
-   {% endif %}
+   <div id="help-text" {% if watchlist %}style="display:none;"{% endif %}>
+       <p>Set a QuoteAlert by filling in the form on the left.</p>
+       <p>To find out more, read our short <a href="">"Getting Started" guide</a> on how to effectively manage your QuoteAlerts.</p>
+   </div>
     <ul class="ui-sortable">
         {% for item in watchlist %}
             <li id="w{{ item.id }}">

@@ -196,7 +196,6 @@ jQuery(function($) {
             if (!data) return;
             item.fadeOut('slow', function() {
               item.remove();
-              console.log('show help text');
               if (!$('div.grid-watch ul > li').length) $('#help-text').fadeIn();
             });
             if (item.find('.icon-on').length)
