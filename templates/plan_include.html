@@ -1,5 +1,5 @@
 <div class="sub-plan">
-    <div>
+  <div class="module">
     <h3>{{ plan.name }}</h3>
     <div class="price">
         <big>${{ plan.billing_period_price }}</big>/month
@@ -24,5 +24,5 @@
     {% if not form %}
         <a href="{% url monitor.views.register plan.name|slugify %}">Choose Plan</a>
     {% endif %}
-    </div>
+  </div>
 </div>
