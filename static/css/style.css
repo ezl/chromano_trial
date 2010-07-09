@@ -67,7 +67,7 @@ nav { clear: right; overflow: hidden; font-size: 11px; margin-top:13px; position
 .main-block { margin: 10px; font-size: 11px; }
 .main-block img { float: left; margin-right: 10px; }
 .main-block h3 { color:#0350A6; font-size: 18px; }
-.main-block p { line-height: 20px; margin: 10px 0 20px 0; color: #333; }
+.main-block p { line-height: 20px; margin: 10px 0 20px 0; color: #333; text-align:justify; }
 
 .static { margin: 10px; font-size: 12px; }
 .static h2 { font-size: 18px; }
@@ -103,6 +103,9 @@ form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-colo
 
 h1 { color:#0350A6; font-size:1.5em; font-weight:bold; }
 h2 { margin: 0.2em 0; }
+button { font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em; }
+a.btn:hover { text-decoration:none; }
+
 .stripe {
   background-image: -moz-linear-gradient(top, #27A9C8, #0F91B0); /* FF3.6 */
   background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #27A9C8),color-stop(1, #0F91B0)); /* Saf4+, Chrome */
@@ -271,20 +274,20 @@ header.grid-watch a { color: inherit; }
 /* QA URLs: / /plans */
 .main-stripe {
   border-top: 1px solid #556c71;
-  width: 100%; height: 74px; bottom: 0; left: -12px; padding: 0 12px;
+  width: 100%; height: 74px; bottom: 0; left: -12px; padding: 0 10px;
     position: absolute; background: url('/static/images/main_stripe_bg.png') repeat-x; }
 .main-stripe a { width: 164px; height: 44px; margin: 14px 20px 0 40px; float: left;
     display: block; background: url('/static/images/main_signup.jpg') no-repeat; }
 .main-stripe p { color: white; font-size: 9px; margin: 24px; }
 
-.main-stripe.plans { height: 50px; position:static; margin: -11px; }
+.main-stripe.plans { height: 50px; position:static; margin: 0 -10px; }
 .main-stripe.plans p { font-size: 15px; line-height: 50px; height: 100%; position:static; margin: 0; text-align: center; white-space:nowrap; }
 .main-stripe.plans p > img { margin: 0 0.5em; vertical-align: -20%; }
 
 
 /* Tour page: /tour */
 #tour section { clear:both; margin:0 0 1em; padding:0 0 2em; }
-#tour section > header { background-image: -moz-linear-gradient(top, #eeeeee, #ffffff); border-top:thin solid #bbb; height:3em; margin: 0 -20px; }
+#tour section > header { background-image: -moz-linear-gradient(top, #eeeeee, #ffffff); border-top:thin solid #bbb; height:3em; margin: 0 -10px; }
 #tour h3 { color:#0350A6; font-size: 2em; margin-bottom: 0.5em; }
-#tour p { line-height:1.5em; margin-bottom:1.5em; }
-#tour img { padding:0 20px; }
+#tour section p { line-height:1.5em; margin-bottom:1.5em; text-align:justify; }
+#tour section img { padding:0 20px; }

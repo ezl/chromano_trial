@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="tour" class="static">
-    <h2>Tour</h2>
+<div id="tour">
+    <h1>Tour</h1>
 
 <pre>Copy the <a href="http://www.chompstack.com/features/">chompstack tour</a> for the general layout.
 Throw a big button to the convince them to register at the bottom like on <a href="http://www.getballpark.com/tour.php">ballpark</a>.</pre>
@@ -33,10 +33,11 @@ Throw a big button to the convince them to register at the bottom like on <a hre
 <p>Each stock you're interested in is managed by a pricewatch.  Here you set whether you want to receive text or email alerts from QuoteSentinel.  If your pricewatch is triggered, QuoteSentinel sends you an alert and turns off your PriceWatch.  You can then adjust the trigger prices and turn your PriceWatch back on.</p>
 </section>
 <section>
-<header></header>
-<button>now put a button down here...</button>
-
-<p>Try QuoteSentinel Free for 30 days!</p>
 </section>
+<a class="btn" href="#">
+<div class="main-stripe plans">
+<p>Try QuoteSentinel Free for 30 days!<img src="/static//images/free-plan-arrow.png"></p>
+</div>
+</a>
 </div>
 {% endblock %}
