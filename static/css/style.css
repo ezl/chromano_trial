@@ -207,7 +207,7 @@ padding: 2px; margin: 2px 0; }
 .plan-status a { color:#2AAFCE; }
 
 /* watch page: item list */
-.grid-watch { padding: 0 20px; overflow: auto; }
+.grid-watch { float:left; padding: 0 20px; }
 .grid-watch tr>* { border-left:1px solid transparent; border-right:1px solid transparent; text-align: center; }
 .grid-watch tr>.tab-active { width: 45px; }
 .grid-watch tr>.tab-symbol { text-align: left; width: 170px; }
@@ -236,7 +236,7 @@ padding: 2px; margin: 2px 0; }
 .icon-off { background: url('../images/monitor_disabled.png'); width: 26px; height: 26px; }
 
 /* watch page: design update */
-header.grid-watch { color: #eee; margin: -5px -10px 0; overflow: hidden;
+header.grid-watch { color: #eee; margin: -5px -10px 0; overflow: hidden; width:100%;
     background: url('../images/monitor_header.png') no-repeat; }
 header.grid-watch table { font-size: 11px; position:relative; left: 195px; height: 3em; }
 header.grid-watch table th { border-left:1px solid #405D63; border-right:1px solid #405D63; }
@@ -246,7 +246,7 @@ header.grid-watch table .tab-symbol > a:first-child { padding-left:5px; }
 /*header.grid-watch table .tab-active  { visibility:hidden; }*/
 header.grid-watch a { color: inherit; }
 
-.grid-side { float: left; width: 200px; height: 100%; margin-left: -10px;
+.grid-side { clear:both; float: left; width: 200px; height: 100%; margin-left: -10px;
     background-color: #F1F7FE; }
 .grid-side > * { margin: 12px 8px; padding: 8px; border: 1px solid #8ac;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
