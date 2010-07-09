@@ -8,12 +8,13 @@
 {% block content %}
 <header class="grid-watch">
     <table>
-        <th>Symbol</th>
-        <th>Lower</th>
-        <th>Price</th>
-        <th>Upper</th>
-        <th class="nosort">Alerts</th>
-        <th class="nosort"></th>
+        <th class="tab-active nosort"></th>
+        <th class="tab-symbol">Symbol</th>
+        <th class="tab-lower">Lower</th>
+        <th class="tab-price">Price</th>
+        <th class="tab-upper">Upper</th>
+        <th class="tab-alerts nosort">Alerts</th>
+        <th class="tab-remove nosort"></th>
     </table>
 </header>
 
@@ -89,22 +90,24 @@
             <li id="w{{ item.id }}">
                 <table>
                 <tr>
-                    <th scope="row" class="symbol">
+                    <th scope="row" class="tab-active">
                         <a href="{% url monitor.views.monitor_edit item.id 'active' %}"
                         class="icon {% if item.active %}icon-on{% else %}icon-off{% endif %} toggle"></a>
-                        {{ item.instrument }}
                     </th>
-                    <td><div class="editable lower">{{ item.lower_bound|default:"---" }}</div></td>
-                    <td><div class="price">{{ item.instrument.last_price }}</div></td>
-                    <td><div class="editable upper">{{ item.upper_bound|default:"---" }}</div></td>
-                    <td>
+                    <td scope="row" class="symbol tab-symbol">
+                        {{ item.instrument }}
+                    </td>
+                    <td class="tab-lower"><div class="editable lower">{{ item.lower_bound|default:"---" }}</div></td>
+                    <td class="tab-price"><div class="price">{{ item.instrument.last_price }}</div></td>
+                    <td class="tab-upper"><div class="editable upper">{{ item.upper_bound|default:"---" }}</div></td>
+                    <td class="tab-alerts">
                         <a href="{% url monitor.views.monitor_edit item.id 'alert_phone' %}" title="Send phone alert"
                             class="icon alert-phone {% if item.alert_phone %}true{% else %}false{% endif %}">
                         </a><a href="{% url monitor.views.monitor_edit item.id 'alert_email' %}" title="Send email alert"
                             class="icon alert-email {% if item.alert_email %}true{% else %}false{% endif %}">
                         </a>
                     </td>
-                    <td><a href="{% url monitor.views.monitor_del item.id %}" class="icon icon-trash remove"></a></td>
+                    <td class="tab-remove"><a href="{% url monitor.views.monitor_del item.id %}" class="icon icon-trash remove"></a></td>
                 </tr>
                 </table>
             </li>
