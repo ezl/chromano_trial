@@ -207,6 +207,7 @@ def close_account(request):
     close = 'close' in request.POST
     if close:
         user = request.user
+        user.username = user.username + " cancelled " + str(datetime.now())
         user.is_active = False
         user.save()
         logout(request)
