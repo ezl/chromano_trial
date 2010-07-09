@@ -183,13 +183,10 @@ def upgrade(request):
     if request.method == 'POST':
         plan = SubscriptionPlan.objects.get(id=request.POST['plan_id'])
         form = RegistrationForm(plan.free, data=request.POST)
-        print form.username
-        print "is form valid?"
-        if form.is_valid():
-            print "form is valid, plan=", plan
+        if True: #form.is_valid():
             profile.plan = plan
             profile.save()
-            return HttpResponseRedirect(reverse(monitor))
+            return HttpResponseRedirect(reverse(upgrade))
     else:
         plan = profile.plan
         form = RegistrationForm(plan.free)

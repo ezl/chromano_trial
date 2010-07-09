@@ -44,7 +44,8 @@ jQuery(function($) {
     <button type="submit" id="submit">Update subscription</button>
 
     {# include fields required by form, perhaps this can be implemented better #}
-    <input type="hidden" name="username" value="{{ user.username }}{% now "u" %}"/>
+    <input type="hidden" name="username" value="{{ user.username }}"/>
+    {#<input type="hidden" name="username" value="{{ user.username }}{% now "u" %}"/> #}
     <input type="hidden" name="password1" value="-"/>
     <input type="hidden" name="password2" value="-"/>
 </div>
