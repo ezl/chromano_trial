@@ -3,6 +3,7 @@ import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+# DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False, 'SHOW_TOOLBAR_CALLBACK': lambda x: True}
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 # ----- Administration settings
@@ -10,7 +11,7 @@ ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
 MANAGERS = ADMINS
-INTERNAL_IPS = ('204.232.204.73',)
+INTERNAL_IPS = ('76.29.38.47',)
 
 # ----- Database settings
 DATABASE_ENGINE = 'sqlite3'
