@@ -121,6 +121,7 @@ a.btn:hover { text-decoration:none; }
 
 .center { margin:0 auto; text-align:center; }
 .down { margin-top: 38px; }
+em { font-style:italic; }
 form strong { font-weight:bold; }
 /* this is based on .sub-plan */
 .module { color:white; width: 225px; position: relative; margin-bottom:5px;
