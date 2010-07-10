@@ -249,6 +249,12 @@ def signout(request):
     return HttpResponseRedirect(reverse(main))
 
 
+@render_to('privacy.html')
+@site_page
+def privacy(request):
+    return {}
+
+
 @render_to('tour.html')
 @site_page
 def tour(request):
