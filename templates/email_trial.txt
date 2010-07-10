@@ -1,4 +1,14 @@
-Trial expires on QuoteSentinel
+Hey there,
 
-{{ data.days_passed }} days of your {{ data.days_trial }} day free trial have passed.
-Your credit card will begin to be charged in {{ data.days_left }} days.
+Hope you've been getting some use out of QuoteSentinel so far!
+Your 30-Day FREE Trial expires on QuoteSentinel in {{ data.days_left }}.
+
+As of today, {{ data.days_passed }} days of your {{ data.days_trial }} day free trial have passed.
+Your first credit card payment will be in {{ data.days_left }} days.
+
+If you have any suggestions or recommendations that we can use to make the
+service better, please let us know!  If you feel like you haven't really had
+enough time to try out the service, send us at email at
+support@quotesentinel.com, and we can can consider extending your free
+trial.
+
