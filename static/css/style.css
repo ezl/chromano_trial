@@ -288,6 +288,6 @@ header.grid-watch a { color: inherit; }
 /* Tour page: /tour */
 #tour section { clear:both; margin:0 0 1em; padding:0 0 2em; }
 #tour section > header { background-image: -moz-linear-gradient(top, #eeeeee, #ffffff); border-top:thin solid #bbb; height:3em; margin: 0 -10px; }
-#tour h3 { color:#0350A6; font-size: 2em; margin-bottom: 0.5em; }
-#tour section p { line-height:1.5em; margin-bottom:1.5em; text-align:justify; }
+#tour h3 { color:#0350A6; font-size: 18px; margin:0 10px 0.5em; }
+#tour section p { font-size:11px; line-height:1.5em; margin:0 10px 1.5em; text-align:justify; }
 #tour section img { padding:0 20px; }
