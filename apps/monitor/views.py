@@ -373,11 +373,11 @@ def monitor_add(request):
         if lower_bound is not None:
             lower_bound = float(lower_bound)
             if lower_bound >= info.price:
-                return error("Low alert above current price")
+                return error("Low alert must be below current price")
         if upper_bound is not None:
             upper_bound = float(upper_bound)
             if upper_bound <= info.price:
-                return error("High alert below current price")
+                return error("High alert must be above current price")
     except ValueError:
         # output error
         return error("Invalid value")
