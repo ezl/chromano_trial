@@ -94,8 +94,13 @@ def register(request, plan_name=''):
             profile.plan = plan
             profile.reset()
             # send welcome email
-            tpl = loader.get_template('email_welcome.txt')
-            ctx = Context({'user': user, 'profile': profile})
+            if plan.billing_period_price:
+                tpl = loader.get_template('email_welcome_paid.txt')
+            else:
+                tpl = loader.get_template('email_welcome_free.txt')
+            first_charge_date = datetime.now().date() + timedelta(days=30)
+            ctx = Context({'user': user, 'profile': profile,
+                           'first_charge_date': first_charge_date,})
             subject, message = tpl.render(ctx).split('\n', 1)
             send_mail(subject=subject, message=message,
                 from_email=settings.ACCOUNTS_EMAIL,

@@ -1,0 +1,19 @@
+Welcome to QuoteSentinel!
+
+Hi, and welcome to QuoteSentinel!
+QuoteSentinel watches the stock market and sends you instant notifications when your stocks move.
+
+We want to make sure you have the best experience possible, so we would
+love any feedback.  If you have compliments, complaints, suggestions or just
+want to voice your opinion, let us know at feedback@quotesentinel.com
+
+We'll send you an email reminder 7 days and 3 days before your first
+payment, so the charges won't sneak up on you.
+
+--------------------
+Your subscription plan: {{ profile.plan.name }}
+Monthly Payment: ${{ profile.plan.billing_period_price }}
+First Bill Date: {{ first_charge_date|date:"M d Y" }}
+--------------------
+
+We hope you enjoy using QuoteSentinel!
