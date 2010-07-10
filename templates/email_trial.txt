@@ -1,3 +1,5 @@
+{{ data.days_left }} days left in your QuoteSentinel free trial
+
 Hey there,
 
 Hope you've been getting some use out of QuoteSentinel so far!
