@@ -4,62 +4,63 @@
 <div id="tour">
     <h1>Help</h1>
 <section>
-<header></header>
-<h3>Creating PriceWatches</h3>
-<p><div class="center"><img src="{{ MEDIA_URL }}/images/help-1.png" alt=""/></div></p>
-<p><b>Symbol</b> &mdash; type the ticker symbol for the stock you are interested in watching.  The adjacent price field should update with the current price of the stock.</p>
-<p><b>Low</b> &mdash; decide on a price below the current price of the stock. you will receive noticication if the stock trades that level. <em>(Optional)</em></p>
-<p><b>High</b> &mdash; decide on a price above the current price of the stock. you will receive notification if the stock trades that level. <em>(Optional)</em></p>
-<p><b>Low</b> and <b>High</b> boundaries are optional. You may set both, one, or neither.</p>
-<p>If there are multiple price levels to the upside or downside that you are interested in for a given stock, you may create multiple PriceWatches for the same symbol.</p>
+    <header></header>
+    <h3>Creating PriceWatches</h3>
+    <p><div class="left"><img src="{{ MEDIA_URL }}/images/help-1.png" alt="screenshot"/></div></p>
+    <p><b>Symbol</b> &mdash; type the ticker symbol for the stock you are interested in watching.  The adjacent price field should update with the current price of the stock.</p>
+    <p><b>Low</b> &mdash; decide on a price below the current price of the stock. you will receive noticication if the stock trades that level. <em>(Optional)</em></p>
+    <p><b>High</b> &mdash; decide on a price above the current price of the stock. you will receive notification if the stock trades that level. <em>(Optional)</em></p>
+    <p><b>Low</b> and <b>High</b> boundaries are optional. You may set both, one, or neither.</p>
+    <p>If there are multiple price levels to the upside or downside that you are interested in for a given stock, you may create multiple PriceWatches for the same symbol.</p>
+</section>
+<section>
+    <header></header>
+    <h3>Understanding the PriceWatch bar</h3>
+    <p><div class="center"><img src="{{ MEDIA_URL }}/images/help-2.png" alt="screenshot"/></div></p>
+    <p><b>1. Active</b> --a green or red circle indicates whether the watch is active.  if it is green, the watch is being monitored by quotesentinel.  if it is red, you will not receive any notifications for this watch.  all newly created pricewatches are active by default.</p>
 
+    <p><b>2. Price</b> -- each bar displays the current price of the security</p>
+
+    <p><b>3. Lower/Upper</b> -- these are thresholds you defined.  if the stock touches one of these values, you will receive a notification from quotesentinel for whichever alerts you've set).</p>
+
+    <p><b>4. SMS alerts</b> -- receive an SMS alert whenever this pricewatch is triggered.  if the cell phone icon is on, it will send a text message to the verified cell phone contact number in your profile.  you must enter and verify your cell phone number in order to receive messages.</p>
+
+    <p><b>5. email alerts</b> -- receive an email alert whenever this pricewatch is triggered. if the email icon is on, quotesentinel will send a text message to your alert email address on file.  this can be different from your login email if you choose.</p>
+
+    <p><b>6. Delete Button</b> -- delete any pricewatch by clicking the X on the far right of each price bar.</p>
 </section>
 <section>
 <header></header>
-<h3>Understanding the PriceWatch bar</h3>
-<p><b>Active</b> --a green or red circle indicates whether the watch is active.  if it is green, the watch is being monitored by quotesentinel.  if it is red, you will not receive any notifications for this watch.  all newly created pricewatches are active by default.</p>
-
-<p><b>Price</b> -- each bar displays the current price of the security</p>
-
-<p><b>Lower/Upper</b> -- these are thresholds you defined.  if the stock touches one of these values, you will receive a notification from quotesentinel for whichever alerts you've set).</p>
-
-<p><b>SMS alerts</b> -- receive an SMS alert whenever this pricewatch is triggered.  if the cell phone icon is on, it will send a text message to the verified cell phone contact number in your profile.  you must enter and verify your cell phone number in order to receive messages.</p>
-
-<p><b>email alerts</b> -- receive an email alert whenever this pricewatch is triggered. if the email icon is on, quotesentinel will send a text message to your alert email address on file.  this can be different from your login email if you choose.</p>
-
-<p><b>Delete Button</b> -- delete any pricewatch by clicking the X on the far right of each price bar.</p>
+    <h3>Sorting PriceWatches</h3>
+    <p><div class="center"><img src="{{ MEDIA_URL }}/images/help-3.png" alt="screenshot"/></div></p>
+    <p>There are many ways to sort your pricewatches. You may manually click and drag any price bar to a new location or you can click on the sort buttons in the header to sort by symbol, current stock price, lower threshold, or upper threshold. QuoteSentinel will remember your preferences between sessions.</p>
 </section>
 <section>
-<header></header>
-  <h3>Sorting PriceWatches</h3>
-  <p>there are many ways to sort your pricewatches.  you may manually click and drag any price bar to a new location or you can click on the sort buttons in the header to sort by symbol, current stock price, lower threshold, or upper threshold.  quotesentinel will remember your preferences between sessions.</p>
+    <header></header>
+    <h3>Activate your cell phone</h3>
+    <p>In order to receive text message alerts from QuoteSentinel, you must verify that you are the cell phone owner.  To do so, follow these steps:</p>
+    <ol>
+    <li>Enter and save your cell phone number in your <a href="{% url monitor.views.profile %}">Settings</a></li>
+    <li>{% if request.user.get_profile.phone_number and not request.user.get_profile.phone_verified %}<a href="{% url monitor.views.send_phone_activation %}">Request an activation key</a>{% else %}Request an activation key{% endif %}</li>.  A text message containing a short, unique code will be sent to your phone within 5 minutes.
+    <li><a href="{% url monitor.views.verify %}?n={{ profile.phone_number }}">Enter your activation key</a> into the verification form.</li>
+    <li>If your entered key matches our records, your phone will be marked VERIFIED and you will be able to receive text message alerts</li>
+    </ol>
 </section>
 <section>
-<header></header>
-  <h3>Activate your cell phone</h3>
-  <p>In order to receive text message alerts from QuoteSentinel, you must verify that you are the cell phone owner.  To do so, follow these steps:</p>
-  <ol>
-  <li>Enter and save your cell phone number in your <a href="{% url monitor.views.profile %}">Settings</a></li>
-  <li>{% if request.user.get_profile.phone_number and not request.user.get_profile.phone_verified %}<a href="{% url monitor.views.send_phone_activation %}">Request an activation key</a>{% else %}Request an activation key{% endif %}</li>.  A text message containing a short, unique code will be sent to your phone within 5 minutes.
-  <li><a href="{% url monitor.views.verify %}?n={{ profile.phone_number }}">Enter your activation key</a> into the verification form.</li>
-  <li>If your entered key matches our records, your phone will be marked VERIFIED and you will be able to receive text message alerts</li>
-  </ol>
+    <header></header>
+    <h3>Modifying PriceWatches</h3>
+    <p>by clicking on the low or high barriers, you can modify the price.</p>
 </section>
 <section>
-<header></header>
-  <h3>Modifying PriceWatches</h3>
-  <p>by clicking on the low or high barriers, you can modify the price.</p>
-</section>
-<section>
-<header></header>
+    <header></header>
 
-other help topics:
-<br />
-changing/closing account
-<br />
-adding a phone
-<br />
-using a different email address than your login account
+    other help topics:
+    <br />
+    changing/closing account
+    <br />
+    adding a phone
+    <br />
+    using a different email address than your login account
 </section>
 
 </div>
