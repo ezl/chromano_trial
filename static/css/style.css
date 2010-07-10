@@ -246,7 +246,7 @@ header.grid-watch table th:hover { background:#293A3F; }
 header.grid-watch table th.nosort:hover { background:transparent; }
 header.grid-watch table .tab-symbol > a:first-child { padding-left:5px; }
 /*header.grid-watch table .tab-active  { visibility:hidden; }*/
-header.grid-watch a { color: inherit; }
+header.grid-watch a { color: inherit !important; }
 
 .grid-side { clear:both; float: left; width: 200px; height: 100%; margin-left: -10px;
     background-color: #F1F7FE; }

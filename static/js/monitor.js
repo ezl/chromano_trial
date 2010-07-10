@@ -174,7 +174,7 @@ jQuery(function($) {
         }, 'json');
     });
 
-    $('.grid-watch [class*="alert"]').click(function(ev) {
+    $('.grid-watch [class^="alert-"]').click(function(ev) {
         ev.preventDefault();
         var link = $(ev.target);
         $.get(link.attr('href'), function(data) {
