@@ -21,3 +21,6 @@ legend{color:#000;}
 a,del,ins{text-decoration:none;}
 
 
+/* HTML5 helpers */
+  article, aside, figure, footer, header, hgroup,
+  menu, nav, section { display: block; }
