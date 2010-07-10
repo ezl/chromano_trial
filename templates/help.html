@@ -35,6 +35,17 @@
 </section>
 <section>
 <header></header>
+  <h3>Activate your cell phone</h3>
+  <p>In order to receive text message alerts from QuoteSentinel, you must verify that you are the cell phone owner.  To do so, follow these steps:</p>
+  <ol>
+  <li>Enter and save your cell phone number in your <a href="{% url monitor.views.profile %}">Settings</a></li>
+  <li>{% if request.user.get_profile.phone_number and not request.user.get_profile.phone_verified %}<a href="{% url monitor.views.send_phone_activation %}">Request an activation key</a>{% else %}Request an activation key{% endif %}</li>.  A text message containing a short, unique code will be sent to your phone within 5 minutes.
+  <li><a href="{% url monitor.views.verify %}?n={{ profile.phone_number }}">Enter your activation key</a> into the verification form.</li>
+  <li>If your entered key matches our records, your phone will be marked VERIFIED and you will be able to receive text message alerts</li>
+  </ol>
+</section>
+<section>
+<header></header>
   <h3>Modifying PriceWatches</h3>
   <p>by clicking on the low or high barriers, you can modify the price.</p>
 </section>

@@ -27,11 +27,11 @@
     {% if profile.phone_number and not form.phone.errors %}
     <div class="message">
         {% if profile.phone_verified %}
-            Your phone number is  VERIFIED.
+            Your phone number is VERIFIED.
         {% else %}
-            Your phone number is UNVERIFIED. You must verify it in order to receive text message alerts.
-
-            <a href="{% url monitor.views.send_phone_activation %}">Request an activation key</a>|<a href="{% url monitor.views.verify %}?n={{ profile.phone_number }}">Enter activation key</a>
+            <p>Your phone number is UNVERIFIED. You must verify it in order to receive text message alerts.</p>
+            <p><a href="{% url monitor.views.send_phone_activation %}">Request an activation key</a> | <a href="{% url monitor.views.verify %}?n={{ profile.phone_number }}">Enter activation key</a></p>
+            <p>Read the <a href="{% url monitor.views.help %}">guide</a> for more help with activating your cell phone.</p>
         {% endif %}
     </div>
     {% endif %}
