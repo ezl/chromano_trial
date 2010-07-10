@@ -1,9 +1,8 @@
 # Django settings
 import os
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
-# DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False, 'SHOW_TOOLBAR_CALLBACK': lambda x: True}
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 # ----- Administration settings
@@ -49,14 +48,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.admin',
     'django_extensions',
-    'debug_toolbar',
     'monitor',
 )
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 AUTH_PROFILE_MODULE = 'monitor.UserProfile'
