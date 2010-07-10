@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="module right">
-<p>You are currently subscribed to the {{ user.get_profile.plan.name }} plan for ${{ user.get_profile.plan.billing_period_price }} per month.</p>
+<p>You have the {{ user.get_profile.plan.name }} plan for ${{ user.get_profile.plan.billing_period_price }}/month.</p>
 <p class="center"><a href="{% url monitor.views.upgrade %}">Modify your plan</a></p>
 <p class="center"><a href="{% url monitor.views.close_account %}">Close account</a></p>
 </div>
@@ -27,10 +27,11 @@
     {% if profile.phone_number and not form.phone.errors %}
     <div class="message">
         {% if profile.phone_verified %}
-            Your phone number is VERIFIED.
+            Your phone number is  VERIFIED.
         {% else %}
-            Your phone number is UNVERIFIED.
-            <a href="{% url monitor.views.verify %}?n={{ profile.phone_number }}">Activate now</a>
+            Your phone number is UNVERIFIED. You must verify it in order to receive text message alerts.
+
+            <a href="{% url monitor.views.send_phone_activation %}">Request an activation key</a>|<a href="{% url monitor.views.verify %}?n={{ profile.phone_number }}">Enter activation key</a>
         {% endif %}
     </div>
     {% endif %}

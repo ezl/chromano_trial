@@ -19,6 +19,8 @@ from models import SubscriptionPlan, FinancialInstrument, \
     PriceWatch, UserProfile
 from urls import MENU_ITEMS_AUTHENTICATED, MENU_ITEMS_UNAUTHENTICATED
 from ext.yfinance import YahooFinance
+from ext.gvoice import GoogleVoiceLogin, TextSender
+import random
 
 
 def site_page(function):
@@ -318,6 +320,28 @@ def json_or_redirect(request, data):
         return HttpResponse(simplejson.dumps(data))
     else:
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@login_required
+def send_phone_activation(request):
+    profile = UserProfile.objects.get(user=request.user)
+
+    # generate random token
+    chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPRSTUVWXY3456789'
+    token = ''.join(random.sample(chars, 6))
+
+    profile.phone_activation_string = token
+    profile.phone_verified = False
+    profile.save()
+
+    # send text message
+    user_, pass_ = settings.GOOGLE_VOICE_USER, settings.GOOGLE_VOICE_PASS
+    gvoice = GoogleVoiceLogin(user_, pass_)
+
+    sender = TextSender(gvoice.opener, gvoice.key)
+    sender.text = 'Your activation key: %s' % token
+    sender.send_text(profile.phone_number)
+    return json_or_redirect(request, {})
 
 
 @login_required
