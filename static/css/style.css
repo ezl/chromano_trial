@@ -235,8 +235,8 @@ padding: 2px; margin: 2px 0; }
 .grid-watch input { width: 50px; padding: 2px; text-align: center; border: 1px solid #ccc; }
 .grid-watch .icon { display: inline-block; vertical-align: sub; }
 .icon-trash { background: url('../images/monitor_remove.png'); }
-.icon-on { background: url('../images/monitor_enabled.png'); width: 26px; height: 26px; }
-.icon-off { background: url('../images/monitor_disabled.png'); width: 26px; height: 26px; }
+.icon-on { background: url('../images/monitor.png') no-repeat 50% 0; width: 26px; height: 26px; }
+.icon-off { background: url('../images/monitor.png') no-repeat 50% 100%; width: 26px; height: 26px; }
 
 /* watch page: design update */
 header.grid-watch { color: #eee; margin: -5px -10px 0; overflow: hidden; width:100%;
