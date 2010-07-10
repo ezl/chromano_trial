@@ -269,6 +269,7 @@ header.grid-watch a { color: inherit; }
 .grid-watch .alert-phone.false { background: url('../icons/alert_phone_off.png'); opacity: 0.5; }
 .grid-watch .alert-phone.true { background: url('../icons/alert_phone_on.png'); }
 
+#help-text { width:600px; }
 #help-text p {
   margin: 1em 0;
 }
