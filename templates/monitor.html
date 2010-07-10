@@ -83,7 +83,7 @@
 <div class="grid-watch">
    <div id="help-text" {% if watchlist %}style="display:none;"{% endif %}>
        <p>Set a QuoteAlert by filling in the form on the left.</p>
-       <p>To find out more, read our short <a href="">"Getting Started" guide</a> on how to effectively manage your QuoteAlerts.</p>
+       <p>To find out more, read our short <a href="{% url monitor.views.help %}">"Getting Started" guide</a> on how to effectively manage your QuoteAlerts.</p>
    </div>
     <ul class="ui-sortable">
         {% for item in watchlist %}
