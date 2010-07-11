@@ -30,7 +30,11 @@
             Your phone number is VERIFIED.
         {% else %}
             <p>Your phone number is UNVERIFIED. You must verify it in order to receive text message alerts.</p>
-            <p><a href="{% url monitor.views.send_phone_activation %}">Request an activation key</a> | <a href="{% url monitor.views.verify %}?n={{ profile.phone_number }}">Enter activation key</a></p>
+            <ul class="instruction">
+              <li>1. <a href="{% url monitor.views.send_phone_activation %}">Request an activation key</a></li>
+              <li>2. Wait for text message.</li>
+              <li>3. <a href="{% url monitor.views.verify %}?n={{ profile.phone_number }}">Enter activation key</a></li>
+            </ul>
             <p>Read the <a href="{% url monitor.views.help %}">guide</a> for more help with activating your cell phone.</p>
         {% endif %}
     </div>
