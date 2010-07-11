@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}QuoteSentinel{% endblock %}</title>
+    <title>Quote Sentinel{% if title %} : {{ title }}{% endif %}</title>
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css"/>
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>

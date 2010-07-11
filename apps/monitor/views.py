@@ -63,6 +63,7 @@ def monitor(request):
         'near_limit': count < 5,
         'reached_limit': not count,
         'plan': profile and profile.plan,
+        'title': 'Dashboard',
         'profile': profile,
     }
 
@@ -74,6 +75,7 @@ def plans(request):
     qs = SubscriptionPlan.objects.all()
     return {
         'plans': qs.order_by('-billing_period_price'),
+        'title': 'Plans & Pricing',
     }
 
 
@@ -118,6 +120,7 @@ def register(request, plan_name=''):
 
     return {
         'plan': plan,
+        'title': 'Sign up!',
         'form': form,
     }
 
@@ -154,6 +157,7 @@ def profile(request):
         'user': request.user,
         'form': form,
         'form_p': form_p,
+        'title': 'Settings',
         'profile': profile,
         'updated_pass': request.GET.get('pc'),
     }
@@ -176,6 +180,7 @@ def verify(request):
     
     return {
         'form': form,
+        'title': 'Activate Phone',
     }
 
 
@@ -203,6 +208,7 @@ def upgrade(request):
         'profile': profile,
         'form': form,
         'plan_record': plan,
+        'title': 'Modify your plan',
     }
 
 
@@ -221,6 +227,7 @@ def close_account(request):
 
     return {
         'closed': close,
+        'title': 'Close Account',
     }
 
 
@@ -242,6 +249,7 @@ def signin(request):
     return {
         'email': email,
         'error': error,
+        'title': 'Log in',
     }
 
 
@@ -254,25 +262,25 @@ def signout(request):
 @render_to('privacy.html')
 @site_page
 def privacy(request):
-    return {}
+    return {'title': 'Privacy policy'}
 
 
 @render_to('tour.html')
 @site_page
 def tour(request):
-    return {}
+    return {'title': 'Feature tour'}
 
 
 @render_to('contact.html')
 @site_page
 def contact(request):
-    return {}
+    return {'title': 'Get in touch'}
 
 
 @render_to('help.html')
 @site_page
 def help(request):
-    return {}
+    return {'title': 'Help'}
 
 
 # ----- ajax views -----
