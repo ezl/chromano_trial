@@ -14,6 +14,7 @@
           {{ form.username.errors }}
           <label for="id_username">E-mail</label>
           {{ form.username }}
+          We hate spam as much as you do.  We will never share your email with any third party. Read our <a href="{% url monitor.views.privacy %}">privacy policy</a>.
       </div>
       <div>
           {{ form.password1.errors }}
