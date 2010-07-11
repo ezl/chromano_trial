@@ -10,8 +10,8 @@ MENU_ITEMS_AUTHENTICATED = (
 MENU_ITEMS_UNAUTHENTICATED = (
     ('tour', 'Feature Tour'),
     ('plans', 'Plans & Pricing'),
-    ('register', 'Sign up!'),
-    ('monitor', 'Log in'),
+    ('register', 'Sign Up'),
+    ('monitor', 'Log In'),
 )
 
 urlpatterns = patterns('monitor.views',
