@@ -9,7 +9,7 @@
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
     {% block extrahead %}{% endblock %}
-    {% include "google_analytics.html" %}
+    {% if not debug%}{% include "google_analytics.html" %}{% endif %}
 </head>
 <body>
     <section id="container">
