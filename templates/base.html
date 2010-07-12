@@ -33,10 +33,12 @@
         <div id="content">
             {% block content %}{% endblock %}
         </div>
+        {% block footer %}
         <footer>
             <div id="footer-decor"></div>
             &copy; {% now "Y" %} QuoteSentinel.com | <a href="{% url monitor.views.help %}">Help / Documentation</a> | <a href="{% url monitor.views.contact %}">Contact</a> | <a href="{% url monitor.views.privacy %}">Privacy policy</a> | Email: <a href="mailto:support@quotesentinel.com">support@quotesentinel.com</a> | Phone: (312) 555-1212
         </footer>
+        {% endblock footer %}
     </section>
 </body>
 </html>
