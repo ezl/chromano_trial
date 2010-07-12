@@ -23,7 +23,7 @@ jQuery(function($) {
             '<td class="tab-remove"><a href="/monitor/del/{{ id }}" class="icon icon-trash remove"></a></td>' +
             '</tr></table>' +
             '</li>';
-        $('#help-text').remove();
+        $('#help-text').hide();
         var html = tpl.replace(/{{\s*(\w+)\s*}}/g, function(m, k) { return format(data[k]) }, tpl),
             el = $(html).hide().prependTo($('.grid-watch ul')).fadeIn('slow');
         return el;
@@ -189,7 +189,7 @@ jQuery(function($) {
     });
 
     // symbol delete
-    $('.grid-watch .remove').live('click', function(ev) {
+    $('.grid-watch a.remove').live('click', function(ev) {
         ev.preventDefault();
         var link = $(ev.target), item = link.parents('li');
         item.removeClass('ui-state-default').addClass('ui-state-disabled');

@@ -255,7 +255,7 @@ padding: 2px; margin: 2px 0; }
     border: 1px solid #eee; border-width: 1px 0; }
 .grid-watch li:hover { background: #ffc; border-color: #cc9; }
 .grid-watch .symbol { font-size: 24px; }
-.grid-watch .editable { color: #999; }
+.grid-watch .editable { color: #999; cursor:pointer; }
 .grid-watch .price { color: #333; font-weight: bold; text-align: center; }
 .grid-watch .floater { position: absolute; right: -20px; top: 5px; padding: 0 5px;
     width: 100px; margin-right: -100px; font-size: 10px; border: 2px solid #c66; }
@@ -299,7 +299,7 @@ header.grid-watch a { color: inherit !important; }
 .grid-watch .alert-phone.false { background: url('../icons/alert_phone_off.png'); opacity: 0.5; }
 .grid-watch .alert-phone.true { background: url('../icons/alert_phone_on.png'); }
 
-#help-text { width:600px; }
+#help-text { font-size:13px; padding:1em 0; width:600px; }
 #help-text p {
   margin: 1em 0;
 }
