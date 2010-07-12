@@ -147,11 +147,37 @@ form strong { font-weight:bold; }
 .basic button { margin: 5px; }
 .basic .errorlist { color: red; }*/
 
-.upgrade td { vertical-align: top; }
-.upgrade td:first-child { width: 110px; padding: 20px 10px; font-size: 10px; }
-.upgrade .cc-info { float: right; }
+/* /upgrade */
 .upgrade .cc-info.free .cc-data { opacity: 0.3; }
 .upgrade .errorlist { float: none; margin-left: 120px; margin-right: 0; }
+#planGrid {
+background:url("../images/plans_gradient1.jpg") repeat-x scroll 0 0 transparent;
+color: #aaa;
+font-size:14px;
+}
+#planGrid td,#planGrid th { padding:4px 8px; text-align:center;
+}
+#planGrid th {
+  background: #0F91B0;
+  color: black;
+  font-weight:bold;
+}
+#planGrid td { vertical-align:top; }
+#planGrid h3 { color:white; font-weight:bold; }
+#planGrid .currentPlan h3 { color:black; }
+#planGrid .currentPlan { background:#ffe; color:#333; }
+#planGrid .icon { margin:4px auto; }
+
+#planGrid tr > * { border:1px solid #aaa; }
+#planGrid tr > *.currentPlan { border-color:#333; }
+#planGrid > thead tr > * { border-top:0 none; }
+#planGrid > tfoot tr > * { border-bottom:0 none; }
+/* testing
+#planGrid .currentPlan { border:2px solid green; }
+#planGrid > thead th.currentPlan { border-bottom:0 none; }
+#planGrid > tbody td.currentPlan { border-bottom:0 none; border-top:0 none; }
+#planGrid > tfoot td.currentPlan { border-top:0 none; }
+*/
 
 /* DEPRECATED.pwdch { float: right; width: 300px; font-size: 90%; }
 .pwdch button { margin-left: 0; }

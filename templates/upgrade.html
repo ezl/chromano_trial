@@ -7,19 +7,89 @@ jQuery(function($) {
         $('.cc-info').toggleClass('free', on);
     }
     markFree({{ plan_record.free|lower }});
-    $('.upgrade input:radio').change(function() {
+    $('#planGrid > tfoot input:radio').change(function() {
         var price = parseFloat($(this).next().val());
         markFree(!price);
         $('#amount').html(price ? '$' + price : 'free');
+    });
+    $('#planGrid td').click(function(){
+      $('#planGrid > tfoot input:radio').get($(this).prevAll().length-1).click();
     });
 });
 </script>
 {% endblock %}
 
 {% block content %}
+<h1 class="center">Modify Your Plan</h1>
 <form method="post" class="upgrade">
-<div class="cc-info register">
-    <h2>Upgrade details</h2>
+
+<table id="planGrid" class="center">
+    <thead>
+        <tr>
+            <th>Plan</th>
+{% for plan in plans %}
+            <td {% if profile.plan == plan %} class="currentPlan"{% endif %}><h3>{{ plan.name }}</h3></td>
+{% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Price</th>
+{% for plan in plans %}
+        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+            <big>${{ plan.billing_period_price }}</big>/month
+        </td>
+{% endfor %}
+      </tr>
+      <tr>
+        <th>Monitors</th>
+{% for plan in plans %}
+        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+            {% if plan.max_price_watches %}{{ plan.max_price_watches }}{% else %}unlimited{% endif %}
+        </td>
+{% endfor %}
+      </tr>
+      <tr>
+        <th>Email Alerts</th>
+{% for plan in plans %}
+        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+            <div class="icon {% if plan.allow_email_alerts %}icon-yes{% else %}icon-no{% endif %}"></div>
+            {% if plan.limit_email_alerts %}{{ plan.limit_email_alerts }}/mo{% else %}no limit{% endif %}
+        </td>
+{% endfor %}
+      </tr>
+      <tr>
+        <th>SMS Alerts</th>
+{% for plan in plans %}
+        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+            <div class="icon {% if plan.allow_phone_alerts %}icon-yes{% else %}icon-no{% endif %}"></div>
+            {% if plan.limit_phone_alerts %}{{ plan.limit_phone_alerts }}/mo{% else %}no limit{% endif %}
+        </td>
+{% endfor %}
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th></th>
+{% for plan in plans %}
+        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+          <input type="radio" id="p{{ plan.id }}-cb" name="plan_id" value="{{ plan.id }}"
+              {% if plan_record == plan %} checked="checked" {% endif %} />
+          <input type="hidden" id="p{{ plan.id }}" value="{{ plan.billing_period_price }}"/>
+          {% if profile.plan == plan %}
+              <p>Current</p>
+          {% endif %}
+        </td>
+{% endfor %}
+      </tr>
+    </tfoot>
+</table>
+
+  <section class="cc-info register down">
+    <header>
+      <h2>Upgrde details</h2>
+      <h3></h3>
+    </header>
     <div>
         <label>Due amount</label>
         <b id="amount">{% with plan_record.billing_period_price as amount %}
@@ -41,30 +111,14 @@ jQuery(function($) {
         {{ form.card_expires_month }}
         {{ form.card_expires_year }}
     </div>
-    <button type="submit" id="submit">Update subscription</button>
-
+    <footer>
+      <button type="submit" id="submit">Update subscription</button>
+    </footer>
     {# include fields required by form, perhaps this can be implemented better #}
     <input type="hidden" name="username" value="{{ user.username }}"/>
     {#<input type="hidden" name="username" value="{{ user.username }}{% now "u" %}"/> #}
     <input type="hidden" name="password1" value="-"/>
     <input type="hidden" name="password2" value="-"/>
-</div>
-<table>
-{% for plan in plans %}
-    <tr>
-        <td>
-            <input type="radio" name="plan_id" value="{{ plan.id }}"
-                {% if plan_record == plan %} checked="checked" {% endif %} />
-            <input type="hidden" id="p{{ plan.id }}" value="{{ plan.billing_period_price }}"/>
-            {% if profile.plan == plan %}
-                <p>This is your current subscription plan.</p>
-            {% endif %}
-        </td>
-        <td>
-            {% include "plan_include.html" %}
-        </td>
-    </tr>
-{% endfor %}
-</table>
+  </section>
 </form>
 {% endblock %}
