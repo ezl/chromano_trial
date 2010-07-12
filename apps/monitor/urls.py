@@ -19,6 +19,8 @@ urlpatterns = patterns('monitor.views',
     (r'^monitor/?$', 'monitor'),
     (r'^plans/?$', 'plans'),
     (r'^register/(?P<plan_name>\w*)/?$', 'register'),
+    (r'^register/?$', 'register'),
+    # TODO: hacky.  set it so that register/ defaults to a particular plan, but can also take an input.
     (r'^profile/?$', 'profile'),
     (r'^verify/?$', 'verify'),
     (r'^upgrade/?$', 'upgrade'),
