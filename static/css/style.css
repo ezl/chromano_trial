@@ -340,14 +340,11 @@ header.grid-watch a { color: inherit !important; }
   padding: 10px;
 }
 #comingSoon .list {
-     -moz-box-shadow: 2px 2px 0px #000; /* FF3.5+ */
-  -webkit-box-shadow: 2px 2px 0px #000; /* Saf3.0+, Chrome */
-          box-shadow: 2px 2px 0px #000; /* Opera 10.5, IE 9.0 */
      -moz-border-radius: 4px; /* FF1+ */
   -webkit-border-radius: 4px; /* Saf3+, Chrome */
           border-radius: 4px; /* Opera 10.5, IE 9 */
-background: #FFFFE4;
-border: 1px solid black;
+background: #F1F7FE;
+border: 1px solid #7EA5D5;
 font-size:1.2em;
 margin: 1em auto;
 padding:2px;
@@ -381,3 +378,4 @@ text-indent: 24px;
 #comingSoon input[type=submit]:hover {
   background-color: #fecb44;
 }
+#ss-form { margin-bottom: 2em; }
