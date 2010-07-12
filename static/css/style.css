@@ -100,6 +100,7 @@ form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-colo
 .errorlist { color: red; }
 
 .grid-600 { width:600px } /* for aligning with form > section */
+.grid-200 { width:212px } /* for aligning with form > section */
 
 h1 { color:#0350A6; font-size:1.5em; font-weight:bold; }
 #content h1 { margin-bottom:0.5em; }
@@ -326,6 +327,18 @@ header.grid-watch a { color: inherit !important; }
 #tour section img { padding:0 20px; }
 
 /* coming soon */
+#comingSoon .main {
+  border-right: 1px solid #999;
+  padding-right: 1em;
+}
+#comingSoon .side {
+     -moz-border-radius: 4px; /* FF1+ */
+  -webkit-border-radius: 4px; /* Saf3+, Chrome */
+          border-radius: 4px; /* Opera 10.5, IE 9 */
+  background: #F1F7FE;
+  min-height: 400px;
+  padding: 10px;
+}
 #comingSoon .list {
      -moz-box-shadow: 2px 2px 0px #000; /* FF3.5+ */
   -webkit-box-shadow: 2px 2px 0px #000; /* Saf3.0+, Chrome */
@@ -340,14 +353,31 @@ margin: 1em auto;
 padding:2px;
 width:80%;
 }
+#comingSoon input {
+     -moz-border-radius: 3px; /* FF1+ */
+  -webkit-border-radius: 3px; /* Saf3+, Chrome */
+          border-radius: 3px; /* Opera 10.5, IE 9 */
+  border:1px solid gray;
+
+}
 #comingSoon input[type=email] {
- -moz-border-radius: 2px;
- background:url(../icons/alert_email_on.png) no-repeat 3px 50%;
-border:1px solid gray;
-padding: 2px 2px 2px 2px; margin: 2px 0;
-text-indent: 22px;
+ background:url(../icons/alert_email_on.png) no-repeat 4px 50%;
+font-size: 15px;
+height: 27px;
+ margin: 10px 0;
+ padding: 2px;
+text-indent: 24px;
  width: 300px;
 }
+#comingSoon input[type=email]:focus {
+  background-color: #F1F7FE;
+}
 #comingSoon input[type=submit] {
-  color:inherit; font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em;
+  color:inherit; font-weight:bold; letter-spacing:0.05em; margin:10px;
+  padding:5px 10px; 
+  height: 33px;
+  background: #FB9400;
+}
+#comingSoon input[type=submit]:hover {
+  background-color: #fecb44;
 }
