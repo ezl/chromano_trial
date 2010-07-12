@@ -14,7 +14,7 @@ from django.template import Context, loader
 from django.utils import simplejson
 from annoying.decorators import render_to, ajax_request
 
-from forms import RegistrationForm, ProfileForm, ActivationForm
+from forms import RegistrationForm, ProfileForm, ActivationForm, UpgradeForm
 from models import SubscriptionPlan, FinancialInstrument, \
     PriceWatch, UserProfile
 from urls import MENU_ITEMS_AUTHENTICATED, MENU_ITEMS_UNAUTHENTICATED
@@ -194,14 +194,14 @@ def upgrade(request):
     
     if request.method == 'POST':
         plan = SubscriptionPlan.objects.get(id=request.POST['plan_id'])
-        form = RegistrationForm(plan.free, data=request.POST)
-        if True: #form.is_valid():
+        form = UpgradeForm(plan.free, data=request.POST)
+        if form.is_valid():
             profile.plan = plan
             profile.save()
             return HttpResponseRedirect(reverse(upgrade))
     else:
         plan = profile.plan
-        form = RegistrationForm(plan.free)
+        form = UpgradeForm(plan.free)
 
     return {
         'plans': plans,
