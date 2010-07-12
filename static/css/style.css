@@ -324,3 +324,30 @@ header.grid-watch a { color: inherit !important; }
 #tour h3 { color:#0350A6; font-size: 18px; margin:0 10px 0.5em; }
 #tour section p { font-size:11px; line-height:1.5em; margin:0 10px 1.5em; text-align:justify; }
 #tour section img { padding:0 20px; }
+
+/* coming soon */
+#comingSoon .list {
+     -moz-box-shadow: 2px 2px 0px #000; /* FF3.5+ */
+  -webkit-box-shadow: 2px 2px 0px #000; /* Saf3.0+, Chrome */
+          box-shadow: 2px 2px 0px #000; /* Opera 10.5, IE 9.0 */
+     -moz-border-radius: 4px; /* FF1+ */
+  -webkit-border-radius: 4px; /* Saf3+, Chrome */
+          border-radius: 4px; /* Opera 10.5, IE 9 */
+background: #FFFFE4;
+border: 1px solid black;
+font-size:1.2em;
+margin: 1em auto;
+padding:2px;
+width:80%;
+}
+#comingSoon input[type=email] {
+ -moz-border-radius: 2px;
+ background:url(../icons/alert_email_on.png) no-repeat 3px 50%;
+border:1px solid gray;
+padding: 2px 2px 2px 2px; margin: 2px 0;
+text-indent: 22px;
+ width: 300px;
+}
+#comingSoon input[type=submit] {
+  color:inherit; font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em;
+}
