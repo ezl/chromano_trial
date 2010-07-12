@@ -293,10 +293,11 @@ def check(request, symbols=''):
 
     # fetch item records, detect new and expired items
     items = list(FinancialInstrument.objects.filter(symbol__in=symbols))
-    items_insert, items_update = set(), set()
+    items_insert, items_update, items_map = set(), set(), set()
     for item in items:
         if datetime.now() - item.last_update >= timedelta(minutes=1):
             items_update.add(item)
+        items_map.add(item.symbol)
     for symbol in symbols:
         if symbol not in items_map:
             items_insert.add(FinancialInstrument(symbol=symbol))
@@ -311,7 +312,7 @@ def check(request, symbols=''):
             item.last_price = info.price
             if not info.price:
                 break
-            if item.symbol not in items_map:
+            if item.symbol in items_insert:
                 item.name = info.name
                 items.append(item)
             item.save()
