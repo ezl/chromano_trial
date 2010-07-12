@@ -315,7 +315,7 @@
   model: monitor.subscriptionplan
   pk: 2
 - fields: {allow_email_alerts: true, allow_phone_alerts: true, billing_period_length: 30,
-    billing_period_price: 7, description: '', limit_email_alerts: 50, limit_phone_alerts: 20,
+    billing_period_price: 8, description: '', limit_email_alerts: 50, limit_phone_alerts: 20,
     max_price_watches: 20, name: Investor}
   model: monitor.subscriptionplan
   pk: 3
