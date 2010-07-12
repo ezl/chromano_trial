@@ -212,7 +212,7 @@ jQuery(function($) {
         var form = $(this);
         $.post(form.attr('action'), form.serialize(), function(data) {
             if (data.error)
-                return $('p', form).html('<em>' + data.error + '</em>');
+                return $('p', form).html('<div class="errorlist">' + data.error + '</div>');
             form.find('.name, .price').html('&nbsp;');
             form.find(':input').val('') // reset values
                 .first().focus(); // focus first element
