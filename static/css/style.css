@@ -226,7 +226,6 @@ border:1px solid gray;
 padding: 2px; margin: 2px 0; }
 .add-watch form button { color:inherit; font-size:12px; margin:4px 0 0; text-transform:uppercase; }
 .add-watch p.name { clear: left; color: #999; }
-.add-watch p.name em { color: red; }
 .add-watch .price { background-color:#eee; width: 5em; }
 .add-watch .price-loader { background: url('../images/ajax-loader.gif') no-repeat;
     display: inline-block; margin-bottom: -2px; }

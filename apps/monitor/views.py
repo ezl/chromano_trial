@@ -14,7 +14,7 @@ from django.template import Context, loader
 from django.utils import simplejson
 from annoying.decorators import render_to, ajax_request
 
-from forms import RegistrationForm, ProfileForm, ActivationForm
+from forms import RegistrationForm, ProfileForm, ActivationForm, UpgradeForm
 from models import SubscriptionPlan, FinancialInstrument, \
     PriceWatch, UserProfile
 from urls import MENU_ITEMS_AUTHENTICATED, MENU_ITEMS_UNAUTHENTICATED
@@ -194,14 +194,14 @@ def upgrade(request):
     
     if request.method == 'POST':
         plan = SubscriptionPlan.objects.get(id=request.POST['plan_id'])
-        form = RegistrationForm(plan.free, data=request.POST)
-        if True: #form.is_valid():
+        form = UpgradeForm(plan.free, data=request.POST)
+        if form.is_valid():
             profile.plan = plan
             profile.save()
             return HttpResponseRedirect(reverse(upgrade))
     else:
         plan = profile.plan
-        form = RegistrationForm(plan.free)
+        form = UpgradeForm(plan.free)
 
     return {
         'plans': plans,
@@ -293,28 +293,29 @@ def check(request, symbols=''):
 
     # fetch item records, detect new and expired items
     items = list(FinancialInstrument.objects.filter(symbol__in=symbols))
-    items_update, items_map = [], {}
+    items_insert, items_update, items_map = set(), set(), set()
     for item in items:
         if datetime.now() - item.last_update >= timedelta(minutes=1):
-            items_update.append(item)
-        items_map[item.symbol] = item
+            items_update.add(item)
+        items_map.add(item.symbol)
     for symbol in symbols:
         if symbol not in items_map:
-            items_update.append(FinancialInstrument(symbol=symbol))
+            items_insert.add(FinancialInstrument(symbol=symbol))
 
     # load content from yahoo API
-    if items_update:
+    items_query = items_update.union(items_insert)
+    if items_query:
         yapi = YahooFinance()
-        yapi.query_multiple([x.symbol for x in items_update])
-        for item in items_update:
+        yapi.query_multiple([x.symbol for x in items_query])
+        for item in items_query:
             info = yapi[item.symbol]
             item.last_price = info.price
             if not info.price:
                 break
-            if item.symbol not in items_map:
+            if item.symbol in items_insert:
                 item.name = info.name
+                items.append(item)
             item.save()
-        items.extend(items_update)
 
     # return values
     if not items:

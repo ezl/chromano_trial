@@ -7,7 +7,7 @@ jQuery(function($) {
         $('.cc-info').toggleClass('free', on);
     }
     markFree({{ plan_record.free|lower }});
-    $('#planGrid > tfoot input:radio').change(function() {
+    $('#planGrid > tfoot input:radio').click(function() {
         var price = parseFloat($(this).next().val());
         markFree(!price);
         $('#amount').html(price ? '$' + price : 'free');
@@ -114,11 +114,6 @@ jQuery(function($) {
     <footer>
       <button type="submit" id="submit">Update subscription</button>
     </footer>
-    {# include fields required by form, perhaps this can be implemented better #}
-    <input type="hidden" name="username" value="{{ user.username }}"/>
-    {#<input type="hidden" name="username" value="{{ user.username }}{% now "u" %}"/> #}
-    <input type="hidden" name="password1" value="-"/>
-    <input type="hidden" name="password2" value="-"/>
   </section>
 </form>
 {% endblock %}
