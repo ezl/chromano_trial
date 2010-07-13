@@ -20,9 +20,11 @@
             {% if plan.limit_phone_alerts %}({{ plan.limit_phone_alerts }}/mo){% else %}(no limit){% endif %}
         </li>
     </ul>
-        {{ plan.description|linebreaks }}
+    {{ plan.description|linebreaks }}
+      <footer>
     {% if not form %}
         <a href="{% url monitor.views.register plan.name|slugify %}">Choose Plan</a>
     {% endif %}
+      </footer>
   </div>
 </div>

@@ -6,6 +6,7 @@
 <p>You have the {{ user.get_profile.plan.name }} plan for ${{ user.get_profile.plan.billing_period_price }}/month.</p>
 <p class="center"><a href="{% url monitor.views.upgrade %}">Modify your plan</a></p>
 <p class="center"><a href="{% url monitor.views.close_account %}">Close account</a></p>
+<footer></footer>
 </div>
 
 <form method="post">
