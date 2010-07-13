@@ -20,7 +20,7 @@ a:hover { text-decoration:underline; }
 #content .module a { color:#FB9400; } /* .module has a dark background */
 .icon { width: 16px; height: 16px; }
 #container { width: 871px; margin: 0 auto; position: relative; }
-#content { padding: 5px 10px; background: #fff; min-height: 450px;
+#content { padding: 10px; background: white; min-height: 450px;
      -moz-box-shadow: 1px 1px 1em #010101; /* FF3.5+ */
   -webkit-box-shadow: 1px 1px 1em #010101; /* Saf3.0+, Chrome */
           box-shadow: 1px 1px 1em #010101; /* Opera 10.5, IE 9.0 */
@@ -74,7 +74,7 @@ form strong { font-weight:bold; }
 .static { margin: 10px; font-size: 12px; }
 .static h2 { font-size: 18px; }
 
-.register .sub-plan { margin: 5px 0; } /* override .sub-plan */
+.register .sub-plan { margin: 0; } /* override .sub-plan */
 .register .errorlist { float: right; color: red; font-size: 12px; margin-right: 50px; }
 .register button { margin: 10px; }
 
@@ -159,7 +159,7 @@ form > section .message { padding:0; }
 }
 
 /* plans page */
-.sub-plan-container { overflow: auto; margin: -8px -10px; padding: 10px 35px;
+.sub-plan-container { overflow: auto; margin: -12px -10px; padding: 10px 35px;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
     height: 390px; background: url('../images/plans_gradient1.jpg') repeat-x; }
 .sub-plan-container .sub-plan { float: left; }
@@ -241,7 +241,7 @@ padding: 2px; margin: 2px 0; }
 .icon-off { background: url('../images/monitor.png') no-repeat 50% 100%; width: 26px; height: 26px; }
 
 /* watch page: design update */
-header.grid-watch { color: #eee; margin: -5px -10px 0; overflow: hidden; width:100%;
+header.grid-watch { color: #eee; margin: -10px -10px 0; overflow: hidden; width:100%;
     background: url('../images/monitor_header.png') no-repeat; }
 header.grid-watch table { font-size: 11px; position:relative; left: 195px; height: 3em; }
 header.grid-watch table th { border-left:1px solid #405D63; border-right:1px solid #405D63; }
