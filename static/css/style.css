@@ -30,11 +30,6 @@ a:hover { text-decoration:underline; }
 #container > header .logo { float: left; width: 300px; height: 64px;
     background: transparent url('../images/logo3.png') no-repeat scroll 0 50%; }
 #container > header .logo > a { display: block; width: 100%; height: 100%; text-indent:-9999em; }
-/*  DEPRECATED
-#container > header .info { float: right; margin: 20px 10px;
-    text-align: right; color: #eee; font-size: 11px; }
-#container > header .info a { color: #ccf; text-decoration: none; font-size: 10px; }
-#container > header .info strong { font-weight: bold; } */
 #container > footer { color: #fff; font-size: 12px; margin: 10px 0; text-align:center; }
 #footer-decor { height: 25px; margin: -15px 0 2em; background:url("../images/footer-decor-bg.png") repeat-y scroll 0 0 #E0E0E0;
     -moz-border-radius-bottomleft: 5px; -moz-border-radius-bottomright: 5px;
@@ -58,10 +53,19 @@ nav { clear: right; overflow: hidden; font-size: 11px; margin-top:13px; position
 .btn-image { text-align: left; text-indent: -9999em; } /* buttons that have text as images */
 .left { float:left; }
 .right { float:right; }
+.grid-600 { width:600px } /* for aligning with form > section */
+.grid-200 { width:212px } /* for aligning with form > section */
+h1 { color:#0350A6; font-size:1.5em; font-weight:bold; }
+h2 { margin: 0.2em 0; }
+button { cursor:pointer; font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em; }
+a.btn:hover { text-decoration:none; }
+.center { margin:0 auto; text-align:center; }
+.down { margin-top: 38px; }
+em { font-style:italic; }
+form strong { font-weight:bold; }
 
 /* main page */
 .main-column { margin: 10px 20px; float: left; width: 45%; }
-/* DEPRECATED .main-column h2 { font-size: 20px; padding: 10px 0; } */
 .main-block { margin: 10px; font-size: 11px; }
 .main-block img { float: left; margin-right: 10px; }
 .main-block h3 { color:#0350A6; font-size: 18px; }
@@ -69,11 +73,6 @@ nav { clear: right; overflow: hidden; font-size: 11px; margin-top:13px; position
 
 .static { margin: 10px; font-size: 12px; }
 .static h2 { font-size: 18px; }
-
-/* registration pages DEPRECATED
-.login { width: 250px; margin: 50px auto; padding: 20px; }
-.login div { margin-bottom: 10px; }
-.login .error { color: red; font-size: 12px; padding: 5px; } */
 
 .register .sub-plan { margin: 5px 0; } /* override .sub-plan */
 .register .errorlist { float: right; color: red; font-size: 12px; margin-right: 50px; }
@@ -94,38 +93,15 @@ form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-colo
     form > section  > footer button { color:inherit; font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em; }
     form > section a { color: #0350A6; }
     form > section .errorlist { text-align:left; }
-.message { background-color:#FFFFE8; }
-.message > p,.message > ul { font-size: 12px; margin: 0.5em 0; }
+form > section .message { padding:0; }
+#content .message { background-color:#FCFCCF; }
+#content .message > p,.message > ul { border-color:#FFFFF7 #EAEAC3 #EAEAC3 #FFFFF7; border-style:solid; border-width:1px; font-size:12px; margin:0; padding:0.5em 1em; }
 .instruction > li { display:inline-block; margin:4px 10px; }
 .errorlist { color: red; }
 
-.grid-600 { width:600px } /* for aligning with form > section */
-.grid-200 { width:212px } /* for aligning with form > section */
-
-h1 { color:#0350A6; font-size:1.5em; font-weight:bold; }
 #content h1 { margin-bottom:0.5em; }
 #content p { margin-bottom:0.5em; }
-h2 { margin: 0.2em 0; }
-button { cursor:pointer; font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em; }
-a.btn:hover { text-decoration:none; }
 
-.stripe.DELETEME {
-  background-image: -moz-linear-gradient(top, #27A9C8, #0F91B0); /* FF3.6 */
-  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #27A9C8),color-stop(1, #0F91B0)); /* Saf4+, Chrome */
-            filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#27A9C8', EndColorStr='#0F91B0'); /* IE6,IE7 */
-        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#27A9C8', EndColorStr='#0F91B0')"; /* IE8 */
-  color:#333;
-  display:inline-block;
-  padding:0.3em 4em 0.3em 0.5em;
-  margin: 10px 0;
-  position:relative;
-  left:-20px;
-}
-
-.center { margin:0 auto; text-align:center; }
-.down { margin-top: 38px; }
-em { font-style:italic; }
-form strong { font-weight:bold; }
 /* this is based on .sub-plan */
 .module { color:white; width: 225px; position: relative; margin-bottom:5px;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
@@ -133,20 +109,6 @@ form strong { font-weight:bold; }
 .module > h2,.module > h3 { padding-top:5px; text-align:center; }
 .module > p { margin: 5px; }
 .module a { color:inherit; }
-
-/* deprecated
-#container > header form { padding: 4px 0; }
-#container > header form input { padding: 2px; width: 100px; }
-#container > header form button { font-size: 90%; }
-*/
-
-/* profile pages DEPRECATED
-.basic { margin: 10px; }
-.basic h2 { font-size: 20px; }
-.basic div { margin: 5px; }
-.basic label { display: block; }
-.basic button { margin: 5px; }
-.basic .errorlist { color: red; }*/
 
 /* /upgrade */
 .upgrade .cc-info.free .cc-data {
@@ -195,10 +157,6 @@ form strong { font-weight:bold; }
 #planGrid .icon {
 	margin: 4px auto;
 }
-
-/* DEPRECATED.pwdch { float: right; width: 300px; font-size: 90%; }
-.pwdch button { margin-left: 0; }
-.pwdch .status { font-weight: bold; color: green; } */
 
 /* plans page */
 .sub-plan-container { overflow: auto; margin: -8px -10px; padding: 10px 35px;
