@@ -149,36 +149,52 @@ form strong { font-weight:bold; }
 .basic .errorlist { color: red; }*/
 
 /* /upgrade */
-.upgrade .cc-info.free .cc-data { opacity: 0.3; }
-.upgrade .errorlist { float: none; margin-left: 120px; margin-right: 0; }
+.upgrade .cc-info.free .cc-data {
+	opacity: 0.3;
+}
+.upgrade .errorlist {
+	float: none;
+	margin-left: 120px;
+	margin-right: 0;
+}
 #planGrid {
-background:url("../images/plans_gradient1.jpg") repeat-x scroll 0 0 transparent;
-color: #aaa;
-font-size:14px;
+  border: 1px solid #B0BCC1;
+	background: url("../images/plans_gradient1.jpg") repeat-x scroll 0 0 transparent;
+	color: #aaa;
+	font-size: 14px;
+  border-collapse: separate;
 }
-#planGrid td,#planGrid th { padding:4px 8px; text-align:center;
+#planGrid tr > * {
+  border-color:#EEEEEE #ccc #ccc #FEFEFE;
+  border-style:solid;
+  border-width:1px;
+	padding: 4px 10px;
+	text-align: center;
 }
-#planGrid th {
-  background: #0F91B0;
-  color: black;
-  font-weight:bold;
+#planGrid tr > th {
+  border-color:#56676F #2B3C43 #2B3C43 #56676F ;
+	font-weight: bold;
 }
-#planGrid td { vertical-align:top; }
-#planGrid h3 { color:white; font-weight:bold; }
-#planGrid .currentPlan h3 { color:black; }
-#planGrid .currentPlan { background:#ffe; color:#333; }
-#planGrid .icon { margin:4px auto; }
+#planGrid thead > tr > td {
+  border-bottom-color:#8B9AA0;
+}
 
-#planGrid tr > * { border:1px solid #aaa; }
-#planGrid tr > *.currentPlan { border-color:#333; }
-#planGrid > thead tr > * { border-top:0 none; }
-#planGrid > tfoot tr > * { border-bottom:0 none; }
-/* testing
-#planGrid .currentPlan { border:2px solid green; }
-#planGrid > thead th.currentPlan { border-bottom:0 none; }
-#planGrid > tbody td.currentPlan { border-bottom:0 none; border-top:0 none; }
-#planGrid > tfoot td.currentPlan { border-top:0 none; }
-*/
+#planGrid td {
+  background-color: #F5F5F5;
+  color: #333;
+	vertical-align: top;
+}
+#planGrid h3 {
+	color: black;
+	font-weight: bold;
+}
+#planGrid .currentPlan {
+	background: #ffe;
+	color: #333;
+}
+#planGrid .icon {
+	margin: 4px auto;
+}
 
 /* DEPRECATED.pwdch { float: right; width: 300px; font-size: 90%; }
 .pwdch button { margin-left: 0; }
