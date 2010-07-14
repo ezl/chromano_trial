@@ -185,7 +185,9 @@ form > section .message { padding:0; }
 .sub-plan p { padding: 0 20px; color: #ccc; font-size: 12px; }
 .sub-plan a { display: block; width: 197px; height: 36px; margin: 14px;
     color: #333 !important; line-height: 36px; font-weight: bold; text-align: center;
-    background: transparent url('../images/plans_button-up.png') no-repeat; }
+    background: transparent url('../images/plans_button.png') no-repeat 0 0; }
+.sub-plan a:hover { text-decoration:none; background-position:0 50%; }
+.sub-plan a:active { background-position:0 100%; }
 .sub-plan .icon { display: inline-block; }
 .icon-yes { background: url('../icons/icon_yes.png'); }
 .icon-no { background: url('../icons/icon_no.png'); }
