@@ -1,5 +1,16 @@
 {% extends "base.html" %}
-
+{% block extrahead %}
+<script>
+$(function(){
+  $('#ss-form').submit(function(){
+    $('#hidden_iframe').load(function(){
+      $('#ss-form').hide();
+      $('#ss-form-feedback').show();
+    });
+  });
+});
+</script>
+{% endblock %}
 {% block content %}
 <div id="comingSoon" class="static">
   <div class="right grid-200">
@@ -22,19 +33,23 @@
       immediately so you can be the first to take action!</p>
 
       <h1>Sign up to become a beta tester and get one month of service FREE.</h1>
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+      <form action="https://spreadsheets.google.com/formResponse?formkey=dFFOT2d5WGtkb3QtZ0tKbVNGSllVNnc6MQ&amp;ifq" method="POST" id="ss-form" target="hidden_iframe">
+        <div class="errorbox-good">
+        <div class="ss-item  ss-text"><div class="ss-form-entry"><label class="ss-q-title" for="entry_0">Your email address
+        </label>
+        <input type="email" name="entry.0.single" value="" class="ss-q-short" id="entry_0"><input type="submit" name="submit" value="Submit"></div></div></div>
+        <label class="ss-q-help" for="entry_0">Don&#39;t worry! We will never share this information with anyone.  </label>
+        <br/>
+        <input type="hidden" name="pageNumber" value="0">
+        <input type="hidden" name="backupCache" value="">
 
-      <form action="https://spreadsheets.google.com/formResponse?formkey=dFFOT2d5WGtkb3QtZ0tKbVNGSllVNnc6MQ&amp;ifq" method="POST" id="ss-form">
-      <div class="errorbox-good">
-      <div class="ss-item  ss-text"><div class="ss-form-entry"><label class="ss-q-title" for="entry_0">Your email address
-      </label>
-      <input type="email" name="entry.0.single" value="" class="ss-q-short" id="entry_0"><input type="submit" name="submit" value="Submit"></div></div></div>
-      <label class="ss-q-help" for="entry_0">Don&#39;t worry! We will never share this information with anyone.  </label>
-      <br/>
-      <input type="hidden" name="pageNumber" value="0">
-      <input type="hidden" name="backupCache" value="">
-
-      <div class="ss-item ss-navigate"><div class="ss-form-entry">
-      </div></div></form>
+        <div class="ss-item ss-navigate"><div class="ss-form-entry">
+        </div></div>
+      </form>
+      <div id="ss-form-feedback" class="message" style="display:none; margin-bottom:2em;">
+        <p>Thanks for signing up!</p>
+      </div>
     </div>
   </div>
 </div>
