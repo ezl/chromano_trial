@@ -3,7 +3,7 @@ import re
 from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.localflavor.us.forms import USPhoneNumberField
+from django.contrib.localflavor.us.forms import USPhoneNumberField, USZipCodeField
 #from django.utils.dates import MONTHS
 
 from models import UserProfile
@@ -18,6 +18,7 @@ class RegistrationForm(UserCreationForm):
         choices=[(n, '%02d' % n) for n in xrange(1, 13)])
     card_expires_year = forms.ChoiceField(required=False,
         choices=[(n, n) for n in xrange(2010, 2020)])
+    billing_zip_code = USZipCodeField(required=False)
 
     def __init__(self, free, **kwargs):
         super(RegistrationForm, self).__init__(**kwargs)
@@ -83,6 +84,7 @@ class UpgradeForm(forms.Form):
         choices=[(n, '%02d' % n) for n in xrange(1, 13)])
     card_expires_year = forms.ChoiceField(required=False,
         choices=[(n, n) for n in xrange(2010, 2020)])
+    billing_zip_code = USZipCodeField(required=False)
 
     def __init__(self, free, **kwargs):
         super(UpgradeForm, self).__init__(**kwargs)
