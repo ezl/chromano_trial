@@ -12,7 +12,7 @@ jQuery(function($) {
         var tpl = '<li id="w{{ id }}">' +
             '<table><tr>' +
             '<th scope="row" class="tab-active">' +
-            '<a href="/monitor/edit/{{ id }}/active" class="icon icon-on toggle"></a> ' +
+            '<a href="/monitor/edit/{{ id }}/active" class="icon icon-on toggle"></a>' +
             '</th>' +
             '<td class="symbol tab-symbol">{{ symbol }}</td>' +
             '<td class="tab-lower"><div class="editable lower">{{ lower_bound }}</div></td>' +
@@ -133,16 +133,13 @@ jQuery(function($) {
         });
         updatePosition();
     }
-    $('header.grid-watch th').each(function(k) {
-        var el = $(this), label = el.html(),
-            sort_asc = $('<a href="#">')
-                .html(label + ' <small>&#9660;</small>')
+    $('header.grid-watch th:not(.nosort)').each(function(k) {
+        var el = $(this), label = el.text(),
+            sort_asc = $('<a href="#">' + label + ' <small>&#9660;</small></a>')
                 .click(function(ev) { sortHeader(ev, k) }),
-            sort_desc = $('<a href="#">')
-                .html(' <small>&#9650;</small>')
+            sort_desc = $('<a href="#"> <small>&#9650;</small></a>')
                 .click(function(ev) { sortHeader(ev, k, true) });
-        if (!el.hasClass('nosort'))
-            el.html('').append(sort_asc, sort_desc);
+        el.html('').append(sort_asc, sort_desc);
     });
 
     // symbol position
@@ -187,7 +184,6 @@ jQuery(function($) {
                 .addClass(data.value ? 'true' : 'false');
         }, 'json');
     });
-
     // symbol delete
     $('.grid-watch a.remove').live('click', function(ev) {
         ev.preventDefault();
@@ -195,7 +191,7 @@ jQuery(function($) {
         item.removeClass('ui-state-default').addClass('ui-state-disabled');
         $.get(link.attr('href'), function(data) {
             if (!data) return;
-            item.fadeOut('slow', function() {
+            item.fadeOut('medium', function() {
               item.remove();
               if (!$('div.grid-watch ul > li').length) $('#help-text').fadeIn();
             });
@@ -213,10 +209,9 @@ jQuery(function($) {
         $.post(form.attr('action'), form.serialize(), function(data) {
             if (data.error)
                 return $('p', form).html('<div class="errorlist">' + data.error + '</div>');
-            form.find('.name, .price').html('&nbsp;');
+            form.find('.name, .price').html('');
             form.find(':input').val('') // reset values
                 .first().focus(); // focus first element
-            $('#help-text').hide();
             createItem(data);
             updateCountLabel(1);
         }, 'json');
