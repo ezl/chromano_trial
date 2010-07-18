@@ -240,8 +240,14 @@ padding: 2px; margin: 2px 0; }
 .icon-off { background: url('../images/monitor.png') no-repeat 50% 100%; width: 26px; height: 26px; }
 
 /* watch page: design update */
-header.grid-watch { color: #eee; margin: -10px -10px 0; overflow: hidden; width:100%;
-    background: url('../images/monitor_header.png') no-repeat; }
+header.grid-watch {
+
+     -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+          border-radius: 5px 5px 0 0;
+
+color: #eee; margin: -10px -10px 0; overflow: hidden; width:831px;
+    background: url('../images/monitor_header.png') repeat-x; }
 header.grid-watch table { font-size: 11px; position:relative; left: 195px; height: 3em; }
 header.grid-watch table th { border-left:1px solid #405D63; border-right:1px solid #405D63; }
 header.grid-watch table th.nosort { color:#aaa; }
