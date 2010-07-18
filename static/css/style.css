@@ -14,6 +14,7 @@
 /* page layout */
 html { background: #555 url('../images/background.jpg') repeat-y top center; }
 body { font-family: Verdana, sans-serif; }
+small { font-size: 0.7em; }
 a { color: #FB9400; }
 a:hover { text-decoration:underline; }
 #content a { color:#2AAFCE; }
@@ -83,7 +84,7 @@ form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-colo
         form > section h3 { color: #011934; font-size: 11px; margin: 0 10px 10px; }
         form > section p { font-size: 11px; margin-left: 145px; }
     form > section  > div { background-color:#E3E9F2; border-bottom: 1px solid #C1CAD5; border-top: 1px solid #F3F6F9; padding: 8px; }
-        form > section label { color:#29384C; display:inline-block; font-family:Helvetica,Arial,sans-serif; font-size: 13px; font-weight:bold; line-height:34px; margin-right:0.7em; text-align: right; width: 130px; }
+        form > section label { color:#29384C; float:left; font-family:Helvetica,Arial,sans-serif; font-size: 13px; font-weight:bold; line-height:34px; margin-right:0.7em; text-align: right; width: 130px; }
         form > section input,form > section textarea { -moz-border-radius:1px; background:white url(../images/background-signup-inputs.png) repeat-x scroll top; border:1px solid #8D9095; color:#29384C; height:20px; padding: 7px 5px 5px; width:426px; }
         form > section textarea { height:5em; vertical-align:top; }
         form > section select { font-size: 13px; margin:5px 0; }
@@ -159,7 +160,7 @@ form > section .message { padding:0; }
 }
 
 /* plans page */
-.sub-plan-container { overflow: auto; margin: -12px -10px; padding: 10px 35px;
+.sub-plan-container { overflow: hidden; margin: -12px -10px; padding: 10px 35px;
     -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
     height: 390px; background: url('../images/plans_gradient1.jpg') repeat-x; }
 .sub-plan-container .sub-plan { float: left; }
@@ -176,15 +177,16 @@ form > section .message { padding:0; }
     background: url('../images/plans_stripe.png') no-repeat; }
 .sub-plan big { font-weight: bold; }
 .sub-plan ul { color: #eee; font-size: 13px; }
-.sub-plan li { margin: 15px; white-space:nowrap; }
-.sub-plan label { font-weight: bold; display:inline-block; width: 100px; }
+.sub-plan li { clear:both; margin:15px; }
+.sub-plan li > * { float:left; }
+.sub-plan label { font-weight: bold; width: 100px; }
 .sub-plan p { padding: 0 20px; color: #ccc; font-size: 12px; }
 .sub-plan a { display: block; width: 197px; height: 36px; margin: 14px;
     color: #333 !important; line-height: 36px; font-weight: bold; text-align: center;
     background: transparent url('../images/plans_button.png') no-repeat 0 0; }
 .sub-plan a:hover { text-decoration:none; background-position:0 50%; }
 .sub-plan a:active { background-position:0 100%; }
-.sub-plan .icon { display: inline-block; }
+.sub-plan .icon { display: block; margin-right:9px; }
 .icon-yes { background: url('../icons/icon_yes.png'); }
 .icon-no { background: url('../icons/icon_no.png'); }
 
@@ -194,12 +196,16 @@ form > section .message { padding:0; }
 .add-watch form > div { float: left; margin: 2px; min-width: 40px; }
 .add-watch form label { display: block; }
 .add-watch form input {
--moz-border-radius: 2px;
-border:1px solid gray;
-padding: 2px; margin: 2px 0; }
+     -moz-border-radius: 2px; /* FF1+ */
+  -webkit-border-radius: 2px; /* Saf3+, Chrome */
+          border-radius: 2px; /* Opera 10.5, IE 9 */
+  border:1px solid gray;
+  padding: 2px; margin: 2px 0; }
+#id_symbol { width: 68px; }
+#id_low,#id_high { width: 44px; }
 .add-watch form button { color:inherit; font-size:12px; margin:4px 0 0; text-transform:uppercase; }
 .add-watch p.name { clear: left; color: #999; }
-.add-watch .price { background-color:#eee; width: 5em; }
+.add-watch .price { background-color:#eee; width: 60px; }
 .add-watch .price-loader { background: url('../images/ajax-loader.gif') no-repeat;
     display: inline-block; margin-bottom: -2px; }
 .add-watch .ui-widget-shadow { position: absolute; width: 100%; height: 100%; }
