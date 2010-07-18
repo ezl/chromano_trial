@@ -38,19 +38,15 @@ a:hover { text-decoration:underline; }
     border: 1px solid #D2D2D2;
 }
 
-nav { clear: right; overflow: hidden; font-size: 11px; margin-top:13px; position:relative; text-align:right; }
-.menu li { display: inline-block; height: 25px; padding-left: 5px; margin: 0 5px 0 20px;
-    position: relative; background: transparent left 0; }
-.menu i { display: block; right: -5px; top: 0; width: 5px; height: 100%;
-    position: absolute; background: transparent no-repeat scroll right 0; }
-.menu li:hover { background-image: url('../images/menu_item.png'); }
-.menu li:hover i { background-image: url('../images/menu_item.png'); }
-.menu .active { background-image: url('../images/menu_active.png'); }
-.menu .active i { background-image: url('../images/menu_active.png'); }
-.menu .active:hover { background-image: url('../images/menu_active.png'); }
-.menu .active:hover i { background-image: url('../images/menu_active.png'); }
-.menu a { display: block; font-weight: bold; padding: 5px 10px;
-    color: #fff; text-decoration: none; text-transform: uppercase; }
+nav { clear: right; overflow: hidden; font-size: 11px; height:40px; margin-top:13px; position:relative; text-align:right; }
+.menu { position:absolute; right:0; }
+.menu li { background:none no-repeat scroll 0 50% transparent; float:left; height:25px; margin:0 5px 0 20px; padding-left:5px; position:relative; }
+.menu li > i { background:none no-repeat scroll 100% 50% transparent; display:block; height:100%; position:absolute; right:-5px; top:0; width:5px; }
+.menu li:hover { background-image:url('../images/menu_item.png'); }
+.menu li:hover > i { background-image:url('../images/menu_item.png'); }
+.menu .active { background-image:url('../images/menu_active.png'); }
+.menu .active > i { background-image:url('../images/menu_active.png'); }
+.menu a { color:#fff; font-weight:bold; line-height:25px; padding:0 10px; text-decoration:none; text-transform:uppercase; }
 .clear { clear:both; }
 .btn-image { text-align: left; text-indent: -9999em; } /* buttons that have text as images */
 .left { float:left; }
@@ -253,7 +249,7 @@ header.grid-watch table th:hover { background:#293A3F; }
 header.grid-watch table th.nosort:hover { background:transparent; }
 header.grid-watch table .tab-symbol > a:first-child { padding-left:5px; }
 /*header.grid-watch table .tab-active  { visibility:hidden; }*/
-header.grid-watch a { color: inherit !important; }
+#content header.grid-watch a { color: #eee; }
 
 .grid-side { clear:both; float: left; width: 200px; height: 100%; margin-left: -10px;
     background-color: #F1F7FE; }
