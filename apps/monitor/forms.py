@@ -7,6 +7,7 @@ from django.contrib.localflavor.us.forms import USPhoneNumberField, USZipCodeFie
 #from django.utils.dates import MONTHS
 
 from models import UserProfile
+from pycheddar import CheddarGetter as CG, Plan, Customer
 
 
 class RegistrationForm(UserCreationForm):
@@ -35,6 +36,14 @@ class RegistrationForm(UserCreationForm):
         if not self.free and not re.match(r'^\s*\S+\s\S+', v):
             raise forms.ValidationError("Enter cardholder name")
         return v
+
+    def save(self, user, plan):
+        """ Create remote Customer instance """
+        authorize_gateway()
+        customer = Customer(code=user.id, email=user.email,
+            first_name=user.first_name, last_name=user.last_name,
+            plan_code=plan.code)
+        customer.save()
 
 
 class ProfileForm(forms.Form):
@@ -101,4 +110,17 @@ class UpgradeForm(forms.Form):
         if not self.free and not re.match(r'^\s*\S+\s\S+', v):
             raise forms.ValidationError("Enter cardholder name")
         return v
-    
+
+    def save(self, user, plan):
+        """ Update remote Customer instance """
+        authorize_gateway()
+        customer = Customer.get(user.id)
+        sub = customer.subscription
+        sub.plan = plan.get(plan.code)
+        sub.save()
+
+
+def authorize_gateway():
+    """ Initialize CheddarGetter """
+    CG.auth(settings.CHEDDAR_GETTER_USER, settings.CHEDDAR_GETTER_PASS)
+    CG.set_product_code(settings.CHEDDAR_GETTER_PRODUCT)

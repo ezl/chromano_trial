@@ -22,6 +22,5 @@ class Command(NoArgsCommand):
 
         # compare by name
         for plan in plans_local:
-            plan_code = plan.name.upper()
-            is_match = plan_code in plans_map
+            is_match = plan.code in plans_map
             print plan.name, '..', 'match' if is_match else 'NO MATCH'
