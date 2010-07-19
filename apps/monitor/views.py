@@ -92,6 +92,8 @@ def register(request, plan_name=''):
             user = form.save(commit=False)
             user.email = form.cleaned_data['username']
             user.save()
+            # save subscription
+            form.subscribe(user, plan)
             # save profile
             profile = UserProfile()
             profile.user = user
@@ -196,6 +198,9 @@ def upgrade(request):
         plan = SubscriptionPlan.objects.get(id=request.POST['plan_id'])
         form = UpgradeForm(plan.free, data=request.POST)
         if form.is_valid():
+            # save subscription
+            form.subscribe(request.user, plan)
+            # save profile
             profile.plan = plan
             profile.save()
             return HttpResponseRedirect(reverse(upgrade))

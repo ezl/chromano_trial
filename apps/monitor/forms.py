@@ -7,7 +7,7 @@ from django.contrib.localflavor.us.forms import USPhoneNumberField, USZipCodeFie
 #from django.utils.dates import MONTHS
 
 from models import UserProfile
-from pycheddar import CheddarGetter as CG, Plan, Customer
+from pycheddar import CheddarGetter as CG, Plan, Customer, Subscription
 
 
 class RegistrationForm(UserCreationForm):
@@ -37,12 +37,15 @@ class RegistrationForm(UserCreationForm):
             raise forms.ValidationError("Enter cardholder name")
         return v
 
-    def save(self, user, plan):
+    def subscribe(self, user, plan):
         """ Create remote Customer instance """
         authorize_gateway()
         customer = Customer(code=user.id, email=user.email,
-            first_name=user.first_name, last_name=user.last_name,
-            plan_code=plan.code)
+            first_name=user.first_name, last_name=user.last_name)
+        sub = Subscription(plan=Plan.get(plan.code))
+        if not self.free:
+            update_subscription(sub, self.cleaned_data, save=True)
+        customer.subscription = sub
         customer.save()
 
 
@@ -111,12 +114,14 @@ class UpgradeForm(forms.Form):
             raise forms.ValidationError("Enter cardholder name")
         return v
 
-    def save(self, user, plan):
+    def subscribe(self, user, plan):
         """ Update remote Customer instance """
         authorize_gateway()
         customer = Customer.get(user.id)
         sub = customer.subscription
-        sub.plan = plan.get(plan.code)
+        sub.plan = Plan.get(plan.code)
+        if not self.free:
+            update_subscription(sub, save=False)
         sub.save()
 
 
@@ -124,3 +129,7 @@ def authorize_gateway():
     """ Initialize CheddarGetter """
     CG.auth(settings.CHEDDAR_GETTER_USER, settings.CHEDDAR_GETTER_PASS)
     CG.set_product_code(settings.CHEDDAR_GETTER_PRODUCT)
+
+
+def update_subscription(sub, data, save=False):
+    """ Update credit card information """
