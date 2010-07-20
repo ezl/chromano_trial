@@ -26,7 +26,11 @@
           <label for="id_password2">Password (repeat)</label>
           {{ form.password2 }}
       </div>
-      <footer></footer>
+      <footer>
+          <div class="errorlist">
+          {{ form.errors.CC }}
+          </div>
+      </footer>
     </section>
 
     {% if not form.free %}

@@ -41,11 +41,11 @@ class RegistrationForm(UserCreationForm):
         """ Create remote Customer instance """
         authorize_gateway()
         customer = Customer(code=user.id, email=user.email,
-            first_name=user.first_name, last_name=user.last_name)
-        sub = Subscription(plan=Plan.get(plan.code))
+            first_name=user.first_name or '-', last_name=user.last_name or '-')
+        sub = customer.subscription
+        sub.plan = Plan.get(plan.code)
         if not self.free:
-            update_subscription(sub, self.cleaned_data, save=True)
-        customer.subscription = sub
+            update_subscription(sub, self.cleaned_data, user)
         customer.save()
 
 
@@ -121,7 +121,7 @@ class UpgradeForm(forms.Form):
         sub = customer.subscription
         sub.plan = Plan.get(plan.code)
         if not self.free:
-            update_subscription(sub, save=False)
+            update_subscription(sub, self.cleaned_data, user)
         sub.save()
 
 
@@ -131,5 +131,17 @@ def authorize_gateway():
     CG.set_product_code(settings.CHEDDAR_GETTER_PRODUCT)
 
 
-def update_subscription(sub, data, save=False):
+def update_subscription(sub, data, user):
     """ Update credit card information """
+    first_name, last_name = data['card_holder'].split(' ', 1)
+    sub.cc_number = data['card_number'].replace(' ', '')
+    sub.cc_first_name = first_name
+    sub.cc_last_name = last_name
+    sub.cc_expiration = '%02d/%s' % \
+        (int(data['card_expires_month']), data['card_expires_year'])
+    sub.cc_zip = data['billing_zip_code']
+    sub.cc_card_code = '000'
+    if user.first_name != first_name or user.last_name != last_name:
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
