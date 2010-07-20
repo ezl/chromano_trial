@@ -79,6 +79,7 @@ form strong { font-weight:bold; }
 .register .sub-plan { margin: 0; } /* override .sub-plan */
 .register .errorlist { float: right; color: red; font-size: 12px; margin-right: 50px; }
 .register button { margin: 10px; }
+#id_card_cvv { width: 100px; }
 
 /* generic forms style */
 form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-color: #8F9AA7 #C1CAD5 #C1CAD5; border-right: 1px solid #C1CAD5; border-style: solid; border-width: 1px; margin-bottom: 20px; width: 600px; }
