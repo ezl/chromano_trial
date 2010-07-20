@@ -27,9 +27,6 @@
           {{ form.password2 }}
       </div>
       <footer>
-          <div class="errorlist">
-          {{ form.errors.CC }}
-          </div>
       </footer>
     </section>
 
@@ -63,7 +60,11 @@
           <label for="id_card_expires_month">Billing zip code</label>
           {{ form.billing_zip_code }}
       </div>
-      <footer></footer>
+      <footer>
+          <div class="errorlist">
+          {{ form.errors.CC }}
+          </div>
+      </footer>
     </section>
     {% endif %}
 
