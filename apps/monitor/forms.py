@@ -19,7 +19,7 @@ class RegistrationForm(UserCreationForm):
         choices=[(n, '%02d' % n) for n in xrange(1, 13)])
     card_expires_year = forms.ChoiceField(required=False,
         choices=[(n, n) for n in xrange(2010, 2020)])
-    card_cvv = forms.SmallIntegerField(required=False)
+    card_cvv = forms.IntegerField(required=False)
     billing_zip_code = USZipCodeField(required=False)
 
     def __init__(self, free, **kwargs):
@@ -97,7 +97,7 @@ class UpgradeForm(forms.Form):
         choices=[(n, '%02d' % n) for n in xrange(1, 13)])
     card_expires_year = forms.ChoiceField(required=False,
         choices=[(n, n) for n in xrange(2010, 2020)])
-    card_cvv = forms.SmallIntegerField(required=False)
+    card_cvv = forms.IntegerField(required=False)
     billing_zip_code = USZipCodeField(required=False)
 
     def __init__(self, free, **kwargs):
