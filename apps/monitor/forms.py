@@ -142,7 +142,7 @@ def update_subscription(sub, data, user):
     sub.cc_expiration = '%02d/%s' % \
         (int(data['card_expires_month']), data['card_expires_year'])
     sub.cc_zip = data['billing_zip_code']
-    sub.cc_card_code = data['card_cvv']
+    sub.cc_card_code = '%03d' % data['card_cvv']
     if user.first_name != first_name or user.last_name != last_name:
         user.first_name = first_name
         user.last_name = last_name
