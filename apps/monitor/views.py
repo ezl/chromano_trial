@@ -94,7 +94,7 @@ def register(request, plan_name=''):
             user = form.save(commit=False)
             user.email = form.cleaned_data['username']
             user.first_name, user.last_name = \
-                form.cleaned_data.get('card_holder', ' ').split(' ', 1)
+                (form.cleaned_data.get('card_holder') or ' ').split(' ', 1)
             user.save()
             # save subscription
             try:
