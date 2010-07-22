@@ -85,16 +85,16 @@ jQuery(function($) {
     </tfoot>
 </table>
 
-  <section class="cc-info register down">
+  <section class="cc-info register down center">
     <header>
       <h2>New subscription details</h2>
       <h3></h3>
     </header>
     <div>
         <label>Due amount</label>
-        <b id="amount">{% with plan_record.billing_period_price as amount %}
+        <strong id="amount">{% with plan_record.billing_period_price as amount %}
             {% if amount %}${{ amount }}{% else %}free{% endif %}
-        {% endwith %}</b>
+        {% endwith %}</strong>
     </div>
     <div class="cc-data">
         <label for="id_card_holder">Name on card</label>
