@@ -15,7 +15,7 @@ MENU_ITEMS_UNAUTHENTICATED = (
 )
 
 urlpatterns = patterns('monitor.views',
-    (r'^beta/$', 'main'),
+    (r'^$', 'main'),
     (r'^monitor/$', 'monitor'),
     (r'^plans/$', 'plans'),
     (r'^register/(?P<plan_name>\w*)/?$', 'register'),
@@ -42,5 +42,5 @@ urlpatterns = patterns('monitor.views',
 urlpatterns += patterns('',
     url(r'^refund/$', 'django.views.generic.simple.direct_to_template',
         {'template': 'refund.html'}, name='refund',),
-    url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'coming_soon.html'},),
+#    url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'coming_soon.html'},),
 )
