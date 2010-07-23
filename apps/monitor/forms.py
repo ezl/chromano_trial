@@ -29,13 +29,13 @@ class RegistrationForm(UserCreationForm):
     def clean_card_number(self):
         v = self.cleaned_data['card_number']
         if not self.free and not re.match(r'^(\d{4}\s?){4}$', v):
-            raise forms.ValidationError("Card number is incorrect")
+            raise forms.ValidationError("Oops! Your credit card number doesn't seem valid. Please review our credit card options.")
         return v
 
     def clean_card_holder(self):
         v = self.cleaned_data['card_holder']
         if not self.free and not re.match(r'^\s*\S+\s\S+', v):
-            raise forms.ValidationError("Enter cardholder name")
+            raise forms.ValidationError("You must enter the name as it appears on the credit card.")
         return v
 
     def subscribe(self, user, plan):
@@ -85,7 +85,7 @@ class ActivationForm(forms.Form):
                     phone_number=data['phone'],
                     phone_activation_string=data['token'])
         except UserProfile.DoesNotExist:
-            raise forms.ValidationError("Confirmation string is incorrect")
+            raise forms.ValidationError("The confirmation code doesn't match our records.  Please try again or request a new confirmation code.")
         return data
 
 
@@ -107,13 +107,13 @@ class UpgradeForm(forms.Form):
     def clean_card_number(self):
         v = self.cleaned_data['card_number']
         if not self.free and not re.match(r'^(\d{4}\s?){4}$', v):
-            raise forms.ValidationError("Card number is incorrect")
+            raise forms.ValidationError("Oops! Your credit card number doesn't seem valid. Please review our credit card options.")
         return v
 
     def clean_card_holder(self):
         v = self.cleaned_data['card_holder']
         if not self.free and not re.match(r'^\s*\S+\s\S+', v):
-            raise forms.ValidationError("Enter cardholder name")
+            raise forms.ValidationError("You must enter the name as it appears on the credit card.")
         return v
 
     def subscribe(self, user, plan):
