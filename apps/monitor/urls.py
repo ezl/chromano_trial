@@ -40,5 +40,7 @@ urlpatterns = patterns('monitor.views',
 )
 
 urlpatterns += patterns('',
+    url(r'^refund/$', 'django.views.generic.simple.direct_to_template',
+        {'template': 'refund.html'}, name='refund',),
     url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'coming_soon.html'},),
 )
