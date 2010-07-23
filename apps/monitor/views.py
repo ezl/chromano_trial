@@ -14,12 +14,14 @@ from django.template import Context, loader
 from django.utils import simplejson
 from annoying.decorators import render_to, ajax_request
 
-from forms import RegistrationForm, ProfileForm, ActivationForm, UpgradeForm
+from forms import RegistrationForm, ProfileForm, ActivationForm, UpgradeForm, \
+    authorize_gateway, Customer
 from models import SubscriptionPlan, FinancialInstrument, \
     PriceWatch, UserProfile
 from urls import MENU_ITEMS_AUTHENTICATED, MENU_ITEMS_UNAUTHENTICATED
 from ext.yfinance import YahooFinance
 from ext.gvoice import GoogleVoiceLogin, TextSender
+from pycheddar.exceptions import MouseTrap
 import random
 
 
@@ -91,7 +93,16 @@ def register(request, plan_name=''):
             # save user
             user = form.save(commit=False)
             user.email = form.cleaned_data['username']
+            user.first_name, user.last_name = \
+                (form.cleaned_data.get('card_holder') or ' ').split(' ', 1)
             user.save()
+            # save subscription
+            try:
+                form.subscribe(user, plan)
+            except MouseTrap, e:
+                form._errors['CC'] = str(e)
+                user.delete()
+        if form.is_valid():
             # save profile
             profile = UserProfile()
             profile.user = user
@@ -196,6 +207,9 @@ def upgrade(request):
         plan = SubscriptionPlan.objects.get(id=request.POST['plan_id'])
         form = UpgradeForm(plan.free, data=request.POST)
         if form.is_valid():
+            # save subscription
+            form.subscribe(request.user, plan)
+            # save profile
             profile.plan = plan
             profile.save()
             return HttpResponseRedirect(reverse(upgrade))
@@ -219,10 +233,18 @@ def close_account(request):
     """ Mark account as closed """
     close = 'close' in request.POST
     if close:
+        # update database (do not actually delete)
         user = request.user
         user.username = user.username + " cancelled " + str(datetime.now())
         user.is_active = False
         user.save()
+        # remove from remote storage
+        try:
+            authorize_gateway()
+            Customer.get(user.id).delete()
+        except MouseTrap:
+            pass
+        # logout user
         logout(request)
 
     return {

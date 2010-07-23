@@ -18,6 +18,10 @@ class SubscriptionPlan(models.Model):
     def free(self):
         return not self.billing_period_price
 
+    @property
+    def code(self):
+        return self.name.upper()
+
     def __unicode__(self):
         return 'Plan: %s' % self.name
 
