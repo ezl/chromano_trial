@@ -17,18 +17,23 @@
     <footer>
         <input type="hidden" name="close" value="1"/>
         <button type="submit">Yes</button>
-        <button type="button" onclick="window.location='/';">No</button>
+        <a class="simple" href="{% url monitor.views.profile %}"><button type="button">No</button></a>
     </footer>
 </section>
 </form>
 {% else %}
+<form>
 <section class="center down">
     <header>
         <h2>Your account was closed.</h2>
-    <header>
+        <h3></h3>
+    </header>
     <div>
         <h3>We're sorry to see you go!  Please consider <a href="{% url monitor.views.contact %}">giving us some feedback</a> about what you thought the service was lacking or why you decided Quote Sentinel wasn't for you.</h3>
     </div>
+    <footer>
+    </footer>
 </section>
+</form>
 {% endif %}
 {% endblock %}

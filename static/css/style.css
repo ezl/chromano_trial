@@ -17,6 +17,8 @@ body { font-family: Verdana, sans-serif; }
 small { font-size: 0.7em; }
 a { color: #FB9400; }
 a:hover { text-decoration:underline; }
+#content a.simple { color:inherit; }
+a.simple:hover { text-decoration: none; }
 #content a { color:#2AAFCE; }
 #content .module a { color:#FB9400; } /* .module has a dark background */
 .icon { width: 16px; height: 16px; }
