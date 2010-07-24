@@ -1,4 +1,16 @@
 {% extends "base.html" %}
+{% block extrahead %}
+<script>
+$(function(){
+  $('#contact-form').submit(function(){
+    $('#hidden_iframe').load(function(){
+      $('#contact-form').hide();
+      $('#contact-form-feedback').show();
+    });
+  });
+});
+</script>
+{% endblock %}
 
 {% block content %}
     <div class="left grid-600 center">
@@ -21,7 +33,8 @@
         <footer></footer>
       </div>
     </div>
-    <form style="clear:left;">
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    <form id="contact-form" style="clear:left;" target="hidden_iframe">
       <section>
         <header>
           <h2>Send us a message</h2>
@@ -44,4 +57,8 @@
         </footer>
       </section>
     </form>
+    <div id="contact-form-feedback" class="message grid-600" style="clear:left; display:none; margin-bottom:2em;">
+      <p>Thanks for your feedback!</p>
+    </div>
+    
 {% endblock %}
