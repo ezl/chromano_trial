@@ -31,10 +31,17 @@
     </section>
 
     {% if not form.free %}
+    <div id="register-note" class="right grid-200">
+      <h3>We accept the following:</h3>
+      <img src="/static/images/plans_cc.png" alt="" />
+      <p style="margin-top: 10px;">Having trouble? <a href="{% url monitor.views.contact %}">Contact Us</a></p>
+    </div>
     <section>
       <header>
-        <h2>Payment details</h2>
-        <h3></h3>
+        <h2>Payment Details</h2>
+        <h3>We currently accept Visa and MasterCard. Your 30-day free trial starts today.<br>
+									<b>Your card won't be billed unless you keep your account open past the 30-day trial.</b>
+				</h3>
       </header>
       <div>
           {{ form.card_holder.errors }}
@@ -64,10 +71,12 @@
     </section>
     {% endif %}
 
+    <div class="right grid-200" style="font-size: 12px;">
+        <h3>View our <a href="{% url refund %}">Refund/Cancellation</a> policies.</h3>
+    </div>
     <section>
       <header>
         <h2>Confirm Your Account Details</h2>
-        <h3>View our <a href="{% url refund %}">Refund/Cancellation</a> policies.</h3>
         <h3>If everything looks good, click the button below to get started.</h3>
       </header>
       <div>
