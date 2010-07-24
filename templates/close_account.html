@@ -9,7 +9,10 @@
         <h3></h3>
     </header>
     <div>
-        <h3>Are you sure you want to close your account?</h3>
+        <h3>Are you sure you want to close your account? If you close your account, any information will be permanently lost.</h3>
+        <h3>If at a later date, you wish to create a new account, you may do so, but you will not be able to reclaim this account.</h3>
+        <h3>Consider <a href="{% url monitor.views.upgrade %}">switching to our free plan</a> instead of closing your account.  There is no cost associated with the free plan and we do not keep any of your credit card information, ever.</h3>
+        <h3><strong>Are you sure you want to close your account?</strong></h3>
     </div>
     <footer>
         <input type="hidden" name="close" value="1"/>
@@ -19,6 +22,13 @@
 </section>
 </form>
 {% else %}
-    Your account was closed.
+<section class="center down">
+    <header>
+        <h2>Your account was closed.</h2>
+    <header>
+    <div>
+        <h3>We're sorry to see you go!  Please consider <a href="{% url monitor.views.contact %}">giving us some feedback</a> about what you thought the service was lacking or why you decided Quote Sentinel wasn't for you.</h3>
+    </div>
+</section>
 {% endif %}
 {% endblock %}
