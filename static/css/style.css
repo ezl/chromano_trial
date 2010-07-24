@@ -74,9 +74,12 @@ form strong { font-weight:bold; }
 .static h2 { font-size: 18px; }
 
 .register .sub-plan { margin: 0; } /* override .sub-plan */
-.register .errorlist { float: right; color: red; font-size: 12px; margin-right: 50px; }
+.register footer .errorlist { margin:0; padding:10px; font-weight:bold; }
+.register .errorlist { color: red; font-size: 12px; margin-bottom: 6px; margin-left: 139px; }
 .register button { margin: 10px; }
 #id_card_cvv { width: 100px; }
+#register-note { font-size:12px; }
+#register-note h3 { color:#0350A6; font-size:15px; margin-bottom: 5px; }
 
 /* generic forms style */
 form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-color: #8F9AA7 #C1CAD5 #C1CAD5; border-right: 1px solid #C1CAD5; border-style: solid; border-width: 1px; margin-bottom: 20px; width: 600px; }
