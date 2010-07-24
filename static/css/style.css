@@ -121,11 +121,6 @@ form > section .message { padding:0; }
 .upgrade .cc-info.free .cc-data {
 	opacity: 0.3;
 }
-.upgrade .errorlist {
-	float: none;
-	margin-left: 120px;
-	margin-right: 0;
-}
 #planGrid {
   border: 1px solid #B0BCC1;
 	background: url("../images/plans_gradient1.jpg") repeat-x scroll 0 0 transparent;
