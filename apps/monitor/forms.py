@@ -38,6 +38,12 @@ class RegistrationForm(UserCreationForm):
             raise forms.ValidationError("You must enter the name as it appears on the credit card.")
         return v
 
+    def clean_billing_zip_code(self):
+        v = self.cleaned_data['billing_zip_code']
+        if not self.free and not re.match(r'^[-0-9]{5,10}$', v):
+            raise forms.ValidationError("You must enter a valid US zip code.")
+        return v
+
     def subscribe(self, user, plan):
         """ Create remote Customer instance """
         authorize_gateway()

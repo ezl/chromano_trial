@@ -59,6 +59,7 @@
           {{ form.card_expires_year }}
       </div>
       <div>
+          {{ form.billing_zip_code.errors }}
           <label for="id_card_expires_month">Billing zip code</label>
           {{ form.billing_zip_code }}
       </div>
