@@ -77,6 +77,7 @@ def monitor(request):
 def plans(request):
     """ Subscription plans page """
     qs = SubscriptionPlan.objects.all()
+    qs = qs.exclude(secret=True)
     return {
         'plans': qs.order_by('-billing_period_price'),
         'title': 'Plans & Pricing',
@@ -203,6 +204,7 @@ def verify(request):
 def upgrade(request):
     """ Upgrade/downgrade subscription plan """
     plans = SubscriptionPlan.objects.all().order_by('billing_period_price')
+    plans = plans.exclude(secret=True)
     profile = UserProfile.objects.get(user=request.user)
     
     if request.method == 'POST':

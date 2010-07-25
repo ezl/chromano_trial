@@ -5,6 +5,7 @@ from django.db import models
 class SubscriptionPlan(models.Model):
     """ User subscription options """
     name = models.CharField("Plan name", max_length=100)
+    secret = models.BooleanField("Secret")
     description = models.TextField("Description", blank=True)
     max_price_watches = models.IntegerField("Max.monitors")
     allow_email_alerts = models.BooleanField("Email alerts")
