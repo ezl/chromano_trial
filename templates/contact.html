@@ -59,6 +59,11 @@ $(function(){
     </form>
     <div id="contact-form-feedback" class="message grid-600" style="clear:left; display:none; margin-bottom:2em;">
       <p>Thanks for your feedback!</p>
+      {% if user.is_authenticated %}
+        <p>Go to your <a href="{% url monitor.views.monitor %}">Quote Sentinel Dashboard</a>.</p>
+      {% else %}
+        <p>Go back to the <a href="{% url monitor.views.main %}">Quote Sentinel home page</a>.</p>
+      {% endif %}
     </div>
     
 {% endblock %}
