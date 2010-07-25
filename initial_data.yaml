@@ -20,6 +20,6 @@
   pk: 3
 - fields: {allow_email_alerts: true, allow_phone_alerts: true, billing_period_length: 180,
     billing_period_price: 0, description: '', limit_email_alerts: 0, limit_phone_alerts: 0,
-    max_price_watches: 0, name: Beta Tester, secret: false}
+    max_price_watches: 0, name: Beta Tester, secret: true}
   model: monitor.subscriptionplan
   pk: 4
