@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from functools import wraps
+import re
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -13,6 +14,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context, loader
 from django.utils import simplejson
 from annoying.decorators import render_to, ajax_request
+from django.core.mail import send_mail
 
 from forms import RegistrationForm, ProfileForm, ActivationForm, UpgradeForm, \
     authorize_gateway, Customer
@@ -296,6 +298,28 @@ def tour(request):
 @render_to('contact.html')
 @site_page
 def contact(request):
+    data = request.GET
+    name = data.get("name") or ""
+    email = data.get("email") or ""
+    message = data.get("message") or ""
+    if name or email or message:
+        # django.core.validators email regex
+        email_re = re.compile(
+             r"(^[-!#$%&'*+/=?^_P}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_P}|~0-9A-Z]+)*"  # dot-atom
+             r'|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-011\013\014\016-\177])*"' # quoted-string
+             r')@(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?$', re.IGNORECASE)  # domain
+        if not email_re.search(email):
+            email = "null@example.com"
+        subject = "Quote Sentinel Feedback"
+        message = """Name: %s\nEmail: %s\n\nMessage:\n%s""" % (name, email, message)
+        recipient_list = ["contactform@quotesentinel.com",
+                          "crchang@gmail.com",
+                          "ezl@quotesentinel.com",
+                          "crc@quotesentinel.com",
+                          "ericzliu@gmail.com",]
+        send_mail(subject=subject, message=message,
+                  from_email=email,
+                  recipient_list=recipient_list)
     return {'title': 'Get in touch'}
 
 
