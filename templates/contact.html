@@ -13,7 +13,7 @@ $(function(){
 {% endblock %}
 
 {% block content %}
-    <div class="left grid-600 center">
+    <div class="left grid-600 center" style="margin-bottom:20px;">
     <h1><span class="stripes">Keep in touch</span></h1>
     <h2>Talk to the team at Quote Sentinel</h2>
     </div>
@@ -22,7 +22,7 @@ $(function(){
         <h2>Did you need...</h2>
         <p class="center"><a href="{% url monitor.views.plans %}">Pricing info?</a></p>
         <p class="center"><a href="{% url monitor.views.tour %}">Product features?</a></p>
-        <p class="center"><a href="{% url monitor.views.register 'trader' %}">To sign up?</a></p>
+        <p class="center"><a href="{% url monitor.views.register %}">To sign up?</a></p>
         <footer></footer>
       </div>
       <div class="module">
@@ -34,7 +34,7 @@ $(function(){
       </div>
     </div>
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-    <form id="contact-form" style="clear:left;" target="hidden_iframe">
+    <form id="contact-form" style="clear:left;" method="get" target="hidden_iframe">
       <section>
         <header>
           <h2>Send us a message</h2>
