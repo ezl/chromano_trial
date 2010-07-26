@@ -59,6 +59,7 @@ MIDDLEWARE_CLASSES = (
 AUTH_PROFILE_MODULE = 'monitor.UserProfile'
 
 # operational settings
+DEFAULT_FROM_EMAIL = "Accounts@quotesentinel.com"
 ACCOUNTS_EMAIL = 'Accounts@quotesentinel.com'
 ALERTS_EMAIL = 'PriceAlert@quotesentinel.com'
 GOOGLE_VOICE_USER = 'ezlmail@gmail.com'
