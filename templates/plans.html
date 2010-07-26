@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+  .badge {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: url({{ MEDIA_URL }}images/plan-badge.png) no-repeat;
+    right: -33px;
+    top: -33px;
+    z-index: 99;
+  }
+</style>
 <div class="sub-plan-container">
     <div class="sub-plan-promo">
         <p>Start your free 30-day trial today!</p>

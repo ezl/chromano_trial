@@ -1,5 +1,6 @@
 <div class="sub-plan">
   <div class="module">
+    {% if plan.name == 'Trader' %}<div class="badge"></div>{% endif %}
     <h3>{{ plan.name }}</h3>
     <div class="price">
         <big>${{ plan.billing_period_price }}</big>/month
