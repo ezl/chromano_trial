@@ -60,8 +60,13 @@
       </div>
       <div>
           {{ form.billing_zip_code.errors }}
-          <label for="id_card_expires_month">Billing zip code</label>
+          <label for="id_billing_zip_code">Billing zip code</label>
           {{ form.billing_zip_code }}
+      </div>
+      <div>
+          {{ form.card_cvv.errors }}
+          <label for="id_card_cvv">CVV</label>
+          {{ form.card_cvv }}
       </div>
       <footer>
           <div class="errorlist">

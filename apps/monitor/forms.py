@@ -19,7 +19,7 @@ class RegistrationForm(UserCreationForm):
         choices=[(n, '%02d' % n) for n in xrange(1, 13)])
     card_expires_year = forms.ChoiceField(required=False,
         choices=[(n, n) for n in xrange(2010, 2020)])
-    # card_cvv = forms.IntegerField(required=False)
+    card_cvv = forms.IntegerField(required=False)
     billing_zip_code = USZipCodeField(required=False)
 
     def __init__(self, free, **kwargs):
@@ -103,7 +103,7 @@ class UpgradeForm(forms.Form):
         choices=[(n, '%02d' % n) for n in xrange(1, 13)])
     card_expires_year = forms.ChoiceField(required=False,
         choices=[(n, n) for n in xrange(2010, 2020)])
-    # card_cvv = forms.IntegerField(required=False)
+    card_cvv = forms.IntegerField(required=False)
     billing_zip_code = USZipCodeField(required=False)
 
     def __init__(self, free, **kwargs):
@@ -148,7 +148,7 @@ def update_subscription(sub, data, user):
     sub.cc_expiration = '%02d/%s' % \
         (int(data['card_expires_month']), data['card_expires_year'])
     sub.cc_zip = data['billing_zip_code']
-    # sub.cc_card_code = '%03d' % data['card_cvv']
+    sub.cc_card_code = '%03d' % data['card_cvv']
     if user.first_name != first_name or user.last_name != last_name:
         user.first_name = first_name
         user.last_name = last_name

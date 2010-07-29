@@ -115,8 +115,12 @@ jQuery(function($) {
         {{ form.card_expires_year }}
     </div>
     <div class="cc-data">
-        <label for="id_card_expires_month">Billing zip code</label>
+        <label for="id_billing_zip_code">Billing zip code</label>
         {{ form.billing_zip_code }}
+    </div>
+    <div class="cc-data">
+        <label for="id_card_cvv">CVV</label>
+        {{ form.card_cvv }}
     </div>
     <footer>
       <button type="submit" id="submit">Update subscription</button>
