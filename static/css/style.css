@@ -155,8 +155,12 @@ form > section .message { padding:0; }
 	font-weight: bold;
 }
 #planGrid .currentPlan {
-	background: #ffe;
+	background: #EEFCFF;
 	color: #333;
+}
+#planGrid .selectedPlan {
+	background: #ffe;
+	color: #000;
 }
 #planGrid .icon {
 	margin: 4px auto;

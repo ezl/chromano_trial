@@ -13,7 +13,10 @@ jQuery(function($) {
         $('#amount').html(price ? '$' + price : 'free');
     });
     $('#planGrid td').click(function(){
-      $('#planGrid > tfoot input:radio').get($(this).prevAll().length-1).click();
+      $('#planGrid .selectedPlan').removeClass('selectedPlan');
+      var i = $(this).prevAll().length-1;
+      $('#planGrid tr > *:nth-child('+(i+2)+')').addClass('selectedPlan');
+      $('#planGrid > tfoot input:radio').get(i).click();
     });
 });
 </script>
@@ -28,7 +31,7 @@ jQuery(function($) {
         <tr>
             <th>Plan</th>
 {% for plan in plans %}
-            <td {% if profile.plan == plan %} class="currentPlan"{% endif %}><h3>{{ plan.name }}</h3></td>
+            <td {% if profile.plan == plan %} class="currentPlan selectedPlan"{% endif %}><h3>{{ plan.name }}</h3></td>
 {% endfor %}
         </tr>
     </thead>
@@ -36,7 +39,7 @@ jQuery(function($) {
       <tr>
         <th>Price</th>
 {% for plan in plans %}
-        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+        <td {% if profile.plan == plan %} class="currentPlan selectedPlan"{% endif %}>
             <big>${{ plan.billing_period_price }}</big>/month
         </td>
 {% endfor %}
@@ -44,7 +47,7 @@ jQuery(function($) {
       <tr>
         <th>Monitors</th>
 {% for plan in plans %}
-        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+        <td {% if profile.plan == plan %} class="currentPlan selectedPlan"{% endif %}>
             {% if plan.max_price_watches %}{{ plan.max_price_watches }}{% else %}unlimited{% endif %}
         </td>
 {% endfor %}
@@ -52,7 +55,7 @@ jQuery(function($) {
       <tr>
         <th>Email Alerts</th>
 {% for plan in plans %}
-        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+        <td {% if profile.plan == plan %} class="currentPlan selectedPlan"{% endif %}>
             <div class="icon {% if plan.allow_email_alerts %}icon-yes{% else %}icon-no{% endif %}"></div>
             {% if plan.limit_email_alerts %}{{ plan.limit_email_alerts }}/mo{% else %}no limit{% endif %}
         </td>
@@ -61,7 +64,7 @@ jQuery(function($) {
       <tr>
         <th>SMS Alerts</th>
 {% for plan in plans %}
-        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+        <td {% if profile.plan == plan %} class="currentPlan selectedPlan"{% endif %}>
             <div class="icon {% if plan.allow_phone_alerts %}icon-yes{% else %}icon-no{% endif %}"></div>
             {% if plan.limit_phone_alerts %}{{ plan.limit_phone_alerts }}/mo{% else %}no limit{% endif %}
         </td>
@@ -72,7 +75,7 @@ jQuery(function($) {
       <tr>
         <th></th>
 {% for plan in plans %}
-        <td {% if profile.plan == plan %} class="currentPlan"{% endif %}>
+        <td {% if profile.plan == plan %} class="currentPlan selectedPlan"{% endif %}>
           <input type="radio" id="p{{ plan.id }}-cb" name="plan_id" value="{{ plan.id }}"
               {% if plan_record == plan %} checked="checked" {% endif %} />
           <input type="hidden" id="p{{ plan.id }}" value="{{ plan.billing_period_price }}"/>
