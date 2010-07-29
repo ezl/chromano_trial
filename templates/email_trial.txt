@@ -3,7 +3,7 @@
 Hey there,
 
 Hope you've been getting some use out of QuoteSentinel so far!
-Your 30-Day FREE Trial expires on QuoteSentinel in {{ data.days_left }}.
+Your 7-Day FREE Trial expires on QuoteSentinel in {{ data.days_left }}.
 
 As of today, {{ data.days_passed }} days of your {{ data.days_trial }} day free trial have passed.
 Your first credit card payment will be in {{ data.days_left }} days.

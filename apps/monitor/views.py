@@ -116,7 +116,7 @@ def register(request, plan_name=''):
                 tpl = loader.get_template('email_welcome_paid.txt')
             else:
                 tpl = loader.get_template('email_welcome_free.txt')
-            first_charge_date = datetime.now().date() + timedelta(days=30)
+            first_charge_date = datetime.now().date() + timedelta(days=7)
             ctx = Context({'user': user, 'profile': profile,
                            'first_charge_date': first_charge_date,})
             subject, message = tpl.render(ctx).split('\n', 1)
