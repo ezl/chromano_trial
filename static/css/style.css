@@ -303,7 +303,7 @@ header.grid-watch table .tab-symbol > a:first-child { padding-left:5px; }
 .main-stripe.plans p > img { margin: 0 0.5em; vertical-align: -20%; }
 
 
-/* Tour page: /tour */
+/* Tour page: /tour /help */
 #tour section { clear:both; margin:0 0 1em; padding:0 0 2em; }
 #tour section > header { background-image: -moz-linear-gradient(top, #eeeeee, #ffffff); border-top:thin solid #bbb; height:3em; margin: 0 -10px; }
 #tour h3 { color:#0350A6; font-size: 18px; margin:0 10px 0.5em; }
