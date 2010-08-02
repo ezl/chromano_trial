@@ -47,8 +47,12 @@ class RegistrationForm(UserCreationForm):
     def subscribe(self, user, plan):
         """ Create remote Customer instance """
         authorize_gateway()
+        fn = ln = "-"
+        if plan.free:
+            fn, ln = user.email.split("@")
+            ln = "@" + ln
         customer = Customer(code=user.id, email=user.email,
-            first_name=user.first_name or '-', last_name=user.last_name or '-')
+            first_name=user.first_name or fn, last_name=user.last_name or ln)
         sub = customer.subscription
         sub.plan = Plan.get(plan.code)
         if not self.free:
