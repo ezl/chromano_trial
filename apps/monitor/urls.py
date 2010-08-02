@@ -40,7 +40,10 @@ urlpatterns = patterns('monitor.views',
 )
 
 urlpatterns += patterns('',
+    # TODO: this is stupid. these shouldn't be in the app urls
     url(r'^refund/$', 'django.views.generic.simple.direct_to_template',
         {'template': 'refund.html'}, name='refund',),
+    url(r'^terms/$', 'django.views.generic.simple.direct_to_template',
+        {'template': 'terms_of_service.html'}, name='terms_of_service',),
 #    url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'coming_soon.html'},),
 )
