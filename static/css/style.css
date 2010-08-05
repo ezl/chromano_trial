@@ -122,6 +122,8 @@ form > section .message { padding:0; }
 /* /upgrade */
 .upgrade .cc-info.free .cc-data {
 	opacity: 0.3;
+  filter: alpha(opacity = 30);
+  zoom: 1;
 }
 #planGrid {
   border: 1px solid #B0BCC1;
