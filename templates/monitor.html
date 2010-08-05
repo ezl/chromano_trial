@@ -96,7 +96,7 @@
                 <tr>
                     <th scope="row" class="tab-active">
                         <a href="{% url monitor.views.monitor_edit item.id 'active' %}"
-                        class="icon {% if item.active %}icon-on{% else %}icon-off{% endif %} toggle"></a>
+                        class="center {% if item.active %}icon-on{% else %}icon-off{% endif %} toggle"></a>
                     </th>
                     <td class="symbol tab-symbol">
                         {{ item.instrument }}

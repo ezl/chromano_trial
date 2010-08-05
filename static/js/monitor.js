@@ -12,7 +12,7 @@ jQuery(function($) {
         var tpl = '<li id="w{{ id }}">' +
             '<table><tr>' +
             '<th scope="row" class="tab-active">' +
-            '<a href="/monitor/edit/{{ id }}/active" class="icon icon-on toggle"></a>' +
+            '<a href="/monitor/edit/{{ id }}/active" class="center icon-on toggle"></a>' +
             '</th>' +
             '<td class="symbol tab-symbol">{{ symbol }}</td>' +
             '<td class="tab-lower"><div class="editable lower">{{ lower_bound }}</div></td>' +
@@ -209,8 +209,8 @@ jQuery(function($) {
         $.post(form.attr('action'), form.serialize(), function(data) {
             if (data.error)
                 return $('p', form).html('<div class="errorlist">' + data.error + '</div>');
-            form.find('.name, .price').html('');
-            form.find(':input').val('') // reset values
+            form.find('.name').html('');
+            form.find('input').val('') // reset values
                 .first().focus(); // focus first element
             createItem(data);
             updateCountLabel(1);

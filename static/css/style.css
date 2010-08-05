@@ -96,7 +96,7 @@ form > section { -moz-border-radius: 5px; background-color: #F1F7FE; border-colo
         form > section select { font-size: 13px; margin:7px 0; }
     form > section  > footer { min-height: 1em; text-align:right; }
         form > section .confirm-result { color:#29384C; font-size:18px; font-weight:bold; line-height:30px; }
-    form > section  > footer button { color:inherit; font-weight:bold; letter-spacing:0.05em; margin:10px; padding:0.5em 1em; }
+    form > section  > footer button { color:inherit; }
     form > section a { color: #0350A6; }
     form > section .errorlist { text-align:left; }
 form > section .message { padding:0; }
@@ -233,7 +233,6 @@ form > section .message { padding:0; }
 .grid-watch tr>.tab-upper { width: 75px; }
 .grid-watch tr>.tab-alerts { width: 40px; }
 .grid-watch tr>.tab-remove { width: 50px; }
-.grid-watch th a { text-decoration: none; }
 .grid-watch th a:hover { color: #99f; }
 
 .grid-watch ul { margin: 5px 0; }
@@ -247,10 +246,10 @@ form > section .message { padding:0; }
     width: 100px; margin-right: -100px; font-size: 10px; border: 2px solid #c66; }
 
 .grid-watch input { width: 50px; padding: 2px; text-align: center; border: 1px solid #ccc; }
-.grid-watch .icon { display: inline-block; vertical-align: sub; }
+.grid-watch .icon { float:left; vertical-align: sub; }
 .icon-trash { background: url('../images/monitor_remove.png'); }
-.icon-on { background: url('../images/monitor.png') no-repeat 50% 0; width: 26px; height: 26px; }
-.icon-off { background: url('../images/monitor.png') no-repeat 50% 100%; width: 26px; height: 26px; }
+.icon-on { background: url('../images/monitor.png') no-repeat 50% 0; display:block; width: 26px; height: 26px; }
+.icon-off { background: url('../images/monitor.png') no-repeat 50% 100%; display:block; width: 26px; height: 26px; }
 
 /* watch page: design update */
 header.grid-watch {
@@ -309,7 +308,14 @@ header.grid-watch table .tab-symbol > a:first-child { padding-left:5px; }
 
 /* Tour page: /tour /help */
 #tour section { clear:both; margin:0 0 1em; padding:0 0 2em; }
-#tour section > header { background-image: -moz-linear-gradient(top, #eeeeee, #ffffff); border-top:thin solid #bbb; height:3em; margin: 0 -10px; }
+#tour section > header {
+  background-image: -moz-linear-gradient(top, #eeeeee, #ffffff); /* FF3.6 */
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eeeeee),color-stop(1, #ffffff)); /* Saf4+, Chrome */
+            filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#eeeeee', EndColorStr='#ffffff'); /* IE6,IE7 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#eeeeee', EndColorStr='#ffffff')"; /* IE8 */
+
+  border-top:thin solid #bbb; height:3em; margin: 0 -10px;
+}
 #tour h3 { color:#0350A6; font-size: 18px; margin:0 10px 0.5em; }
 #tour section p,#tour section ol { font-size:11px; line-height:1.5em; margin:0 2em 1.5em; text-align:justify; }
 #tour section img { padding:0 20px; }
