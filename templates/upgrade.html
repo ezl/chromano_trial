@@ -8,7 +8,7 @@ jQuery(function($) {
     }
     markFree({{ plan_record.free|lower }});
     $('#planGrid > tfoot input:radio').click(function() {
-        var price = parseFloat($(this).next().val());
+        var price = +$(this).next().val();
         markFree(!price);
         $('#amount').html(price ? '$' + price : 'free');
     });

@@ -10,35 +10,50 @@ from yfinance import YahooSymbol
 class YahooFinanceStream(Thread):
     """ Streaming data implementation """
     def __init__(self):
+        Thread.__init__(self)
+        self.daemon = True
         self.symbols = {}
         self.conn = None
         self.data = ''
         self.active = True
-        self.daemon = True
 
     def connect(self):
-        symbols_slug = ','.join(self.symbols.keys())
+        symbols_slug = ','.join(self.symbols.keys()) or 'A'
         self.conn = httplib.HTTPConnection("streamerapi.finance.yahoo.com")
         self.conn.request("GET", "/streamer/1.0?s=%s&k=%s&" \
             "callback=parent.yfs_u1f&mktmcb=parent.yfs_mktmcb&" \
             "gencallback=parent.yfs_gencb" % (symbols_slug, 'l10'))
-        self.data = self.conn.getresponse()
+        self.resp = self.conn.getresponse()
+        self.data = ''
 
     def run(self):
         while self.active:
-            self.connect()
             try:
+                self.connect()
                 while True:
-                    char = self.conn.read(1)
+                    char = self.resp.read(1)
                     self.data += char
                     if char == '>':
                         self.parse_line(self.data)
                         self.data = ''
-            except IOError:
+            except httplib.HTTPException, e:
                 pass  # re-connect
+            except Exception, e:
+                self.active = False
 
     def parse_line(self, line):
-        print line
+        m = re.search("\((.*?)\)", line)
+        if not m:
+            return
+        valid = re.sub("(\w+):", '"\\1":', m.group(1))
+        data = json.loads(valid)
+        
+        for k, v in data.items():
+            price = v['l10']
+            self.symbols[k].price = price
+            item = FinancialInstrument.objects.get(symbol=k)
+            item.last_price = price
+            item.save()
 
     def add_symbol(self, item):
         self.symbols[item.symbol] = \
