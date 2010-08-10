@@ -121,6 +121,7 @@ def register(request, plan_name=''):
             ctx = Context({'user': user, 'profile': profile,
                            'first_charge_date': first_charge_date,})
             subject, message = tpl.render(ctx).split('\n', 1)
+            eric = "quotesentinel@gmail.com"
             send_mail(subject=subject, message=message,
                 from_email=settings.ACCOUNTS_EMAIL,
                 recipient_list=[user.email])
