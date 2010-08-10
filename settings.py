@@ -7,7 +7,8 @@ DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 # ----- Administration settings
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Funkmaster Flex', 'ericzliu@gmail.com'),
+    ('Chris Chang', 'crchang@gmail.com'),
 )
 MANAGERS = ADMINS
 INTERNAL_IPS = ('76.29.38.47',)
