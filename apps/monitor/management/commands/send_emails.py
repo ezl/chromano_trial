@@ -37,4 +37,4 @@ class Command(NoArgsCommand):
         subject, message = tpl.render(ctx).split('\n', 1)
         send_mail(subject=subject, message=message,
             from_email=settings.ALERTS_EMAIL,
-            recipient_list=[user.email])
+            recipient_list=[user.username])
