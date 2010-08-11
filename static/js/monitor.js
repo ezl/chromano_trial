@@ -60,7 +60,7 @@ jQuery(function($) {
             });
         }, 'json');
     }
-    setInterval(updatePrices, 10 * 1000);
+    setInterval(updatePrices, 2 * 1000);
 
     // edit limit values
     var editing = null;
