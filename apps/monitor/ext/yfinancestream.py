@@ -22,7 +22,7 @@ class YahooFinanceStream(Thread):
         self.conn = httplib.HTTPConnection("streamerapi.finance.yahoo.com")
         self.conn.request("GET", "/streamer/1.0?s=%s&k=%s&" \
             "callback=parent.yfs_u1f&mktmcb=parent.yfs_mktmcb&" \
-            "gencallback=parent.yfs_gencb" % (symbols_slug, 'l10'))
+            "gencallback=parent.yfs_gencb" % (symbols_slug, 'l90'))
         self.resp = self.conn.getresponse()
         self.data = ''
 
@@ -49,7 +49,7 @@ class YahooFinanceStream(Thread):
         data = json.loads(valid)
         
         for k, v in data.items():
-            price = v['l10']
+            price = v['l90']
             self.symbols[k].price = price
             item = FinancialInstrument.objects.get(symbol=k)
             item.last_price = price
