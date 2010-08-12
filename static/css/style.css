@@ -242,9 +242,8 @@ form > section .message { padding:0; }
 .grid-watch .symbol { font-size: 24px; }
 .grid-watch .editable { color: #999; cursor:pointer; }
 .grid-watch .price { color: #333; font-weight: bold; text-align: center; }
-.grid-watch .floater { position: absolute; right: -20px; top: 5px; padding: 0 5px;
-    width: 100px; margin-right: -100px; font-size: 10px; border: 2px solid #c66; }
-
+.grid-watch .floater { background-color:#fee; border:2px solid #c66; cursor:pointer; font-size:10px; padding:0 5px; position:absolute; width:100px; z-index:1; }
+.ui-corner-all { -moz-border-radius:0.5em; -webkit-border-radius:0.5em; border-radius:0.5em; }
 .grid-watch input { width: 50px; padding: 2px; text-align: center; border: 1px solid #ccc; }
 .grid-watch .icon { float:left; vertical-align: sub; }
 .icon-trash { background: url('../images/monitor_remove.png'); }

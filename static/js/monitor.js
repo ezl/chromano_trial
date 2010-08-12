@@ -110,11 +110,11 @@ jQuery(function($) {
     });
 
     function displayError(el, message) {
-        var floater = $('<div>').addClass('floater ui-state-error ui-corner-all')
-            .appendTo(el).css('opacity', 0.9).html(message);
-        setTimeout(function() {
-            floater.fadeOut('slow', function() { floater.remove() });
-        }, 2000);
+        el.find('div.floater').remove();  //flush any old floaters
+        var floater = $('<div class="floater ui-state-error ui-corner-all">'+message+'</div>').css('opacity', 0.9)
+            .appendTo(el).click(function() {
+                floater.fadeOut('slow', function() { floater.remove() });
+            });
     }
     function compareToPrice(value, el) {
         // compare value to price
@@ -126,7 +126,7 @@ jQuery(function($) {
 
         // display floating error
         var msg = (upper ? 'Value is below the price' : 'Value is above the price');
-        displayError(item, msg);
+        displayError(el.parent(), msg);
     }
     window.test = compareToPrice;
 
