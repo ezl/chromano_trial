@@ -117,6 +117,8 @@ jQuery(function($) {
             });
     }
     function compareToPrice(value, el) {
+        el.siblings('div.floater').remove();  //flush any old floaters
+
         // compare value to price
         var item = el.parents('li'),
             price = parseFloat(item.find('.price').html()),
