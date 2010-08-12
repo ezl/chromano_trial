@@ -58,9 +58,10 @@ jQuery(function($) {
             $.each(data.data, function(k, v) {
                 $(groups[v.symbol]).siblings().find('.price').html(format(v.price));
             });
+            setTimeout(updatePrices,2 * 1000);
         }, 'json');
     }
-    setInterval(updatePrices, 2 * 1000);
+    updatePrices();
 
     // edit limit values
     var editing = null;
