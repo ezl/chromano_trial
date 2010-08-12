@@ -300,7 +300,11 @@ header.grid-watch table .tab-symbol > a:first-child { padding-left:5px; }
 /* QA URLs: / /plans */
 .main-stripe { background:url('/static/images/main_stripe_bg.png') repeat-x; border-top:1px solid #556c71; bottom:0; clear:both; height:74px; left:-12px; padding:0 10px; position:absolute; width:100%; }
 .main-stripe a { width: 164px; height: 44px; margin: 14px 20px 0 40px; float: left;
-    display: block; background: url('/static/images/main_signup.jpg') no-repeat; }
+    display: block;
+    background: url('/static/images/main_signup.png') no-repeat 0 0;
+}
+.main-stripe a:hover { background-position: 0 50%; }
+.main-stripe a:active { background-position: 0 100%; }
 .main-stripe p { color: #ffa; font-size: 9px; margin: 24px; }
 
 .main-stripe.plans { height: 50px; position:static; margin: 0 -10px; }
