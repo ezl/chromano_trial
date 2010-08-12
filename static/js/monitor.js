@@ -56,7 +56,20 @@ jQuery(function($) {
         });
         $.get('/monitor/check/' + symbols.join(','), function(data) {
             $.each(data.data, function(k, v) {
-                $(groups[v.symbol]).siblings().find('.price').html(format(v.price));
+                var selector = $(groups[v.symbol]).siblings('.tab-price').find('.price');
+                var oldPrice = +selector.html();
+                var newPrice = v.price;
+                selector.html(format(newPrice));
+                var a;
+                if (newPrice > oldPrice) a = '#dfd';
+                else if (newPrice < oldPrice) a = '#fdd';
+                //else if (Math.random() < 1/3) a = '#dfd'; // for debugging
+                if (a) {
+                  selector.css('background-color',a)
+                  .animate({'background-color':'#fff'},2000,function(){
+                      $(this).css('background-color','');
+                  });
+                }
             });
             setTimeout(updatePrices,2 * 1000);
         }, 'json');
