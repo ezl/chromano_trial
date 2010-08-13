@@ -47,7 +47,7 @@ class PriceWatch(models.Model):
 
     lower_bound = models.FloatField(null=True, blank=True)
     upper_bound = models.FloatField(null=True, blank=True)
-    triggered = models.DateTimeField(null=True)
+    triggered = models.DateTimeField(null=True, blank=True)
     active = models.BooleanField(default=True)
     position = models.IntegerField(default=0)
 
@@ -79,8 +79,6 @@ class UserProfile(models.Model):
     phone_verified = models.BooleanField()
     phone_activation_string = models.CharField(max_length=10, blank=True)
 
-    count_email_alerts = models.IntegerField("Email alerts remaining", default=0)
-    count_phone_alerts = models.IntegerField("SMS alerts remaining", default=0)
     received_email_alerts = models.IntegerField("Email alerts received", default=0)
     received_phone_alerts = models.IntegerField("SMS alerts received", default=0)
 
@@ -93,12 +91,36 @@ class UserProfile(models.Model):
         qs = PriceWatch.objects.filter(user=self.user, active=True)
         return max_ - qs.count()
 
+    @property
+    def count_email_alerts(self):
+        # count_email_alerts = models.IntegerField("SMS alerts remaining", default=0)
+        if self.plan.allow_email_alerts is True:
+            limit = self.plan.limit_email_alerts
+            if limit > 0:
+                return limit - self.received_email_alerts
+            if self.plan.limit_email_alerts == 0:
+                return -1
+        else:
+            return 0
+
+    @property
+    def count_phone_alerts(self):
+        # count_phone_alerts = models.IntegerField("SMS alerts remaining", default=0)
+        if self.plan.allow_phone_alerts is True:
+            limit = self.plan.limit_phone_alerts
+            if limit > 0:
+                return limit - self.received_phone_alerts
+            if self.plan.limit_phone_alerts == 0:
+                return -1
+        else:
+            return 0
+
     def reset(self):
         """ Reset values to defaults """
-        self.count_email_alerts = (self.plan.limit_email_alerts or -1) \
-            if self.plan.allow_email_alerts else 0
-        self.count_phone_alerts = (self.plan.limit_phone_alerts or -1) \
-            if self.plan.allow_phone_alerts else 0
+#         self.count_email_alerts = (self.plan.limit_email_alerts or -1) \
+#             if self.plan.allow_email_alerts else 0
+#         self.count_phone_alerts = (self.plan.limit_phone_alerts or -1) \
+#             if self.plan.allow_phone_alerts else 0
         self.received_email_alerts = 0
         self.received_phone_alerts = 0
         self.save()

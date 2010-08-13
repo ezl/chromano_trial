@@ -24,8 +24,7 @@ class PriceWatchAdmin(admin.ModelAdmin):
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'plan', 'phone_number', 'phone_verified',
-        'count_email_alerts', 'count_phone_alerts')
+    list_display = ('user', 'plan', 'phone_number', 'phone_verified')
     search_fields = ('user',)
     filters = ('plan',)
 

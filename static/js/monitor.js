@@ -56,11 +56,25 @@ jQuery(function($) {
         });
         $.get('/monitor/check/' + symbols.join(','), function(data) {
             $.each(data.data, function(k, v) {
-                $(groups[v.symbol]).siblings().find('.price').html(format(v.price));
+                var selector = $(groups[v.symbol]).siblings('.tab-price').find('.price');
+                var oldPrice = +selector.html();
+                var newPrice = v.price;
+                selector.html(format(newPrice));
+                var a;
+                if (newPrice > oldPrice) a = '#dfd';
+                else if (newPrice < oldPrice) a = '#fdd';
+                //else if (Math.random() < 1/3) a = '#dfd'; // for debugging
+                if (a) {
+                  selector.css('background-color',a)
+                  .animate({'background-color':'#fff'},2000,function(){
+                      $(this).css('background-color','');
+                  });
+                }
             });
+            setTimeout(updatePrices,2 * 1000);
         }, 'json');
     }
-    setInterval(updatePrices, 2 * 1000);
+    updatePrices();
 
     // edit limit values
     var editing = null;
@@ -96,13 +110,15 @@ jQuery(function($) {
     });
 
     function displayError(el, message) {
-        var floater = $('<div>').addClass('floater ui-state-error ui-corner-all')
-            .appendTo(el).css('opacity', 0.9).html(message);
-        setTimeout(function() {
-            floater.fadeOut('slow', function() { floater.remove() });
-        }, 2000);
+        el.find('div.floater').remove();  //flush any old floaters
+        var floater = $('<div class="floater ui-state-error ui-corner-all">'+message+'</div>').css('opacity', 0.9)
+            .appendTo(el).click(function() {
+                floater.fadeOut('slow', function() { floater.remove() });
+            });
     }
     function compareToPrice(value, el) {
+        el.siblings('div.floater').remove();  //flush any old floaters
+
         // compare value to price
         var item = el.parents('li'),
             price = parseFloat(item.find('.price').html()),
@@ -112,7 +128,7 @@ jQuery(function($) {
 
         // display floating error
         var msg = (upper ? 'Value is below the price' : 'Value is above the price');
-        displayError(item, msg);
+        displayError(el.parent(), msg);
     }
     window.test = compareToPrice;
 

@@ -68,8 +68,7 @@ class Command(NoArgsCommand):
             except Exception, e:
                 print 'Mailer fail: %s / %s' % (profile.user.email, str(e))
             # update counters
-            if profile.count_email_alerts > 0:
-                profile.count_email_alerts -= 1
+            else:
                 profile.received_email_alerts += 1
                 profile.save()
         
@@ -84,8 +83,7 @@ class Command(NoArgsCommand):
             except Exception, e:
                 print 'Sender fail: %s / %s' % (profile.phone_number, str(e))
             # update counters
-            if profile.count_phone_alerts > 0:
-                profile.count_phone_alerts -= 1
+            else:
                 profile.received_phone_alerts += 1
                 profile.save()
         
