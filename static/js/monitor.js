@@ -181,7 +181,7 @@ jQuery(function($) {
                 var msg = data.breach + ' boundary is breached';
                 return displayError(link.parents('li'), msg);
             }
-            link.removeClass('icon-on').removeClass('icon-off')
+            link.removeClass('icon-on icon-off')
                 .addClass(data.value ? 'icon-on' : 'icon-off');
             updateCountLabel(data.value ? 1 : -1);
         }, 'json');
@@ -196,7 +196,7 @@ jQuery(function($) {
                 var msg = 'No configured ' + data.alert;
                 return displayError(link.parents('li'), msg);
             }
-            link.removeClass('true').removeClass('false')
+            link.removeClass('true false')
                 .addClass(data.value ? 'true' : 'false');
         }, 'json');
     });

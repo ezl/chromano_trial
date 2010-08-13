@@ -245,7 +245,7 @@ form > section .message { padding:0; }
 .grid-watch .floater { background-color:#fee; border:2px solid #c66; cursor:pointer; font-size:10px; padding:0 5px; position:absolute; width:100px; z-index:1; }
 .ui-corner-all { -moz-border-radius:0.5em; -webkit-border-radius:0.5em; border-radius:0.5em; }
 .grid-watch input { width: 50px; padding: 2px; text-align: center; border: 1px solid #ccc; }
-.grid-watch .icon { float:left; vertical-align: sub; }
+.grid-watch .icon { float:left; vertical-align: sub; margin:0 1px; }
 .icon-trash { background: url('../images/monitor_remove.png'); }
 .icon-on { background: url('../images/monitor.png') no-repeat 50% 0; display:block; width: 26px; height: 26px; }
 .icon-off { background: url('../images/monitor.png') no-repeat 50% 100%; display:block; width: 26px; height: 26px; }
