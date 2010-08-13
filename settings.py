@@ -69,8 +69,8 @@ GOOGLE_VOICE_PASS = 'idontcare'
 CHEDDAR_GETTER_USER = 'quotesentinel@gmail.com'
 CHEDDAR_GETTER_PASS = 'acf02da87'
 CHEDDAR_GETTER_PRODUCT = 'QUOTE_SENTINEL'
-TRIAL_PERIOD = 30
-TRIAL_WARNING = 21
+TRIAL_PERIOD = 7
+TRIAL_WARNING = 2
 
 try:
     from settings_local import *
