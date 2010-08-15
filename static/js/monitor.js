@@ -181,25 +181,29 @@ jQuery(function($) {
                 var msg = data.breach + ' boundary is breached';
                 return displayError(link.parents('li'), msg);
             }
-            link.removeClass('icon-on').removeClass('icon-off')
+            link.removeClass('icon-on icon-off')
                 .addClass(data.value ? 'icon-on' : 'icon-off');
             updateCountLabel(data.value ? 1 : -1);
         }, 'json');
     });
-
-    $('.grid-watch [class^="alert-"]').click(function(ev) {
-        ev.preventDefault();
-        var link = $(ev.target);
-        $.get(link.attr('href'), function(data) {
+    function toggleAlert(){
+      var link = $(this);
+      if (!link.data('ajax')) {
+        $.getJSON(link.attr('href'), function(data) {
             if (!data) return;
             if (data.alert) {
-                var msg = 'No configured ' + data.alert;
-                return displayError(link.parents('li'), msg);
+                var msg = 'No configured ' + data.alert;  // no configured phone / email
+                return displayError(link.parent(), msg);
             }
-            link.removeClass('true').removeClass('false')
-                .addClass(data.value ? 'true' : 'false');
-        }, 'json');
-    });
+            link.removeClass('true false')
+                .addClass(data.value ? 'true' : 'false')
+                .removeData('ajax');
+        });
+        link.data('ajax',true);
+      }
+      return false;
+    }
+    $('.grid-watch td.tab-alerts > a').live('click',toggleAlert);
     // symbol delete
     $('.grid-watch a.remove').live('click', function(ev) {
         ev.preventDefault();
