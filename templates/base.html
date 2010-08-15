@@ -10,8 +10,11 @@
     <script src="{{ MEDIA_URL }}js/jquery.min.js"></script>
     <script src="{{ MEDIA_URL }}js/site.js"></script>
     {% block extrahead %}{% endblock %}
-    {% include "kiss_insights.html" %}
-    {% if not debug%}{% include "google_analytics.html" %}{% endif %}
+    {% if not debug%}
+      {% include "kiss_insights.html" %}
+      {% include "google_analytics.html" %}
+      {% include "getclicky_analytics.html" %}
+    {% endif %}
 </head>
 <body>
     <section id="container">
