@@ -87,10 +87,14 @@ def plans(request):
 
 @render_to('register.html')
 @site_page
-def register(request, plan_name=''):
+def register(request, plan_name=None):
     """ Registration page """
-    DEFAULT_PLAN = "Trader"
-    plan = SubscriptionPlan.objects.get(name__iexact=plan_name or DEFAULT_PLAN)
+    DEFAULT_PLAN = "Free"
+    try:
+        plan = SubscriptionPlan.objects.get(name__iexact=plan_name or DEFAULT_PLAN)
+    except SubscriptionPlan.DoesNotExist:
+        # return HttpResponseRedirect(reverse('register', kwargs={'plan_name': DEFAULT_PLAN}))
+        return HttpResponseRedirect(reverse(register))
     if request.method == 'POST':
         form = RegistrationForm(plan.free, data=request.POST)
         if form.is_valid():
