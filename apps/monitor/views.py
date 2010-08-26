@@ -89,8 +89,11 @@ def plans(request):
 @site_page
 def register(request, plan_name=''):
     """ Registration page """
-    DEFAULT_PLAN = "Trader"
-    plan = SubscriptionPlan.objects.get(name__iexact=plan_name or DEFAULT_PLAN)
+    DEFAULT_PLAN = "Free"
+    try:
+        plan = SubscriptionPlan.objects.get(name__iexact=plan_name)
+    except:
+        plan = SubscriptionPlan.objects.get(name=DEFAULT_PLAN)
     if request.method == 'POST':
         form = RegistrationForm(plan.free, data=request.POST)
         if form.is_valid():
