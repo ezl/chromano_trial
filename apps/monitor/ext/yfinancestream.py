@@ -1,10 +1,16 @@
-import httplib 
+import httplib
+import datetime
 import re
 import simplejson as json
 from threading import Thread
+# import logging
 
 from monitor.models import FinancialInstrument
 from yfinance import YahooSymbol
+
+# import os
+# path = os.getcwd()
+# LOG_FILENAME = "%s/stream.log" % path
 
 
 class YahooFinanceStream(Thread):
@@ -18,6 +24,7 @@ class YahooFinanceStream(Thread):
         self.active = True
 
     def connect(self):
+        # print ".CONNECT"
         symbols_slug = ','.join(self.symbols.keys()) or 'A'
         self.conn = httplib.HTTPConnection("streamerapi.finance.yahoo.com")
         self.conn.request("GET", "/streamer/1.0?s=%s&k=%s&" \
@@ -25,6 +32,7 @@ class YahooFinanceStream(Thread):
             "gencallback=parent.yfs_gencb" % (symbols_slug, 'l90'))
         self.resp = self.conn.getresponse()
         self.data = ''
+        # print ".FINISHED CONNECT"
 
     def run(self):
         while self.active:
@@ -37,8 +45,11 @@ class YahooFinanceStream(Thread):
                         self.parse_line(self.data)
                         self.data = ''
             except httplib.HTTPException, e:
+                # print "HTTPException. Should  try to reconnect."
                 pass  # re-connect
             except Exception, e:
+                # print "UNHANDLED EXCEPTION"
+                # print e
                 self.active = False
 
     def parse_line(self, line):
@@ -47,9 +58,14 @@ class YahooFinanceStream(Thread):
             return
         valid = re.sub("(\w+):", '"\\1":', m.group(1))
         data = json.loads(valid)
-        
+
+        if "unixtime" in data.keys():
+            # print data["unixtime"]
+            return
+
         for k, v in data.items():
             price = v['l90']
+            # print "%s | %s: %s" % (datetime.datetime.now(), k, price)
             self.symbols[k].price = price
             item = FinancialInstrument.objects.get(symbol=k)
             item.last_price = price
@@ -117,53 +133,3 @@ yahoo_items = {
     'c86': 'RTExtHourQuote/afterHourChange/percent',
     'p44': 'RTExtHourQuote/change/percent',
 }
-
-"""
-def open(symbols="SPY,T,MSFT",data="l10,v00"):
-  conn = httplib.HTTPConnection("streamerapi.finance.yahoo.com") 
-  conn.request("GET","/streamer/1.0?s=%s&k=%s&callback=parent.yfs_u1f&\
-mktmcb=parent.yfs_mktmcb&gencallback=parent.yfs_gencb" % (symbols , data)) 
-  return conn.getresponse()
-
-def parse_line(line):
-  if line.find('yfs_u1f') != -1:
-    #return 'data: '+line
-    #{"MSFT":{l10:"25.81",v00:"108,482,336"}}
-    try:
-      line = re.match(r".*?\((.*?)\)",line) # grab between the parentheses
-      line = line.group(1)
-      line = re.sub(r"(\w\d\d):",'"\\1":',line) # line isn't valid JSON
-      return json.loads(line)
-    except:
-      return 'ERR: '+line
-  elif line.find('yfs_mktmcb') != -1:
-    line = re.match(r".*?\((.*?)\)",line) # grab between the parentheses
-    line = line.group(1)
-    return json.loads(line)
-    return 'PING PONG DING DONG: ' + line
-  else:
-    return
-    
-
-def doStuff():
-  conn = ''
-  r = open("SPY,MSFT","l10")
-
-  line = ''
-
-  while True:
-    char = r.read(1)
-    if char == '>':
-      line += char
-      data = parse_line(line)
-      if data:
-        print(data)
-      line = ''
-    else:
-      line += char
-
-  con.close();
-
-if __name__ == "__main__":
-  doStuff()
-"""
