@@ -3,15 +3,15 @@ import datetime
 import re
 import simplejson as json
 from threading import Thread
-# import logging
+import logging
 
 from monitor.models import FinancialInstrument
 from yfinance import YahooSymbol
 
-# import os
-# path = os.getcwd()
-# LOG_FILENAME = "%s/stream.log" % path
-
+import os
+path = os.getcwd()
+LOG_FILENAME = "%s/stream.log" % path
+logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG)
 
 class YahooFinanceStream(Thread):
     """ Streaming data implementation """
@@ -24,7 +24,7 @@ class YahooFinanceStream(Thread):
         self.active = True
 
     def connect(self):
-        # print ".CONNECT"
+        logging.debug(".CONNECT")
         symbols_slug = ','.join(self.symbols.keys()) or 'A'
         self.conn = httplib.HTTPConnection("streamerapi.finance.yahoo.com")
         self.conn.request("GET", "/streamer/1.0?s=%s&k=%s&" \
@@ -32,7 +32,7 @@ class YahooFinanceStream(Thread):
             "gencallback=parent.yfs_gencb" % (symbols_slug, 'l90'))
         self.resp = self.conn.getresponse()
         self.data = ''
-        # print ".FINISHED CONNECT"
+        logging.debug(".FINISHED CONNECT")
 
     def run(self):
         while self.active:
@@ -45,11 +45,11 @@ class YahooFinanceStream(Thread):
                         self.parse_line(self.data)
                         self.data = ''
             except httplib.HTTPException, e:
-                # print "HTTPException. Should  try to reconnect."
+                logging.debug("HTTPException. Should  try to reconnect.")
                 pass  # re-connect
             except Exception, e:
-                # print "UNHANDLED EXCEPTION"
-                # print e
+                logging.debug("UNHANDLED EXCEPTION")
+                logging.debug(e)
                 self.active = False
 
     def parse_line(self, line):
@@ -60,12 +60,12 @@ class YahooFinanceStream(Thread):
         data = json.loads(valid)
 
         if "unixtime" in data.keys():
-            # print data["unixtime"]
+            logging.debug("%s | HEARTBEAT: %s" % (datetime.datetime.now(), data["unixtime"]))
             return
 
         for k, v in data.items():
             price = v['l90']
-            # print "%s | %s: %s" % (datetime.datetime.now(), k, price)
+            logging.debug("%s | %s: %s" % (datetime.datetime.now(), k, price))
             self.symbols[k].price = price
             item = FinancialInstrument.objects.get(symbol=k)
             item.last_price = price
