@@ -41,6 +41,8 @@ urlpatterns = patterns('monitor.views',
 
 urlpatterns += patterns('',
     # TODO: this is stupid. these shouldn't be in the app urls
+    url(r'^robots.txt$', 'django.views.generic.simple.direct_to_template',
+        {'template': 'robots.txt', 'mimetype': 'text/plain'}, name='robots',),
     url(r'^refund/$', 'django.views.generic.simple.direct_to_template',
         {'template': 'refund.html'}, name='refund',),
     url(r'^terms/$', 'django.views.generic.simple.direct_to_template',
