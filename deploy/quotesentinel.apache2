@@ -45,7 +45,7 @@
 </VirtualHost>
 
 <VirtualHost *:443>
-    ServerAdmin quotesentinel-sysadmin@pybrew.com
+    ServerAdmin sysadmin@quotesentinel.com
 
     ServerName www.quotesentinel.com
     ServerAlias quotesentinel.com
