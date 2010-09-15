@@ -78,7 +78,7 @@
     # ssl hosts on highsite1 use these params too:
     #SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire
     SSLCertificateFile /home/quotesentinel/quotesentinel/deploy/ssl/quotesentinel.com.crt
-    SSLCertificateKeyFile /home/quotesentinel/quotesentinel/deploy/ssl/www.quotesentinel.com.key
+    SSLCertificateKeyFile /home/quotesentinel/quotesentinel/deploy/ssl/quotesentinel.com.key
     SSLCertificateChainFile /home/quotesentinel/quotesentinel/deploy/ssl/gd_bundle.crt
 
     #### WSGI ####
