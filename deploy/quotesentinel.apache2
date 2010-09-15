@@ -3,7 +3,7 @@
     ServerAdmin sysadmin@quotesentinel.com
 
     ServerName www.quotesentinel.com
-    ServerAlias quotesentinel.com
+    ServerAlias quotesentinel.com test.quotesentinel.com
 
     LogLevel warn
     ErrorLog /home/quotesentinel/log/apache.error.log
