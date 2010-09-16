@@ -7,9 +7,9 @@ DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 # ----- Administration settings
 ADMINS = (
-    ('Eric Liu, 'ericzliu@gmail.com'),
+    ('Eric Liu', 'ericzliu@gmail.com'),
     ('Chris Chang', 'crchang@gmail.com'),
-    ('Rodrigo Guzman',rodguze@gmail.com'),
+    ('Rodrigo Guzman', 'rodguze@gmail.com'),
 )
 MANAGERS = ADMINS
 INTERNAL_IPS = ('76.29.38.47',)
