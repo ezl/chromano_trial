@@ -15,5 +15,6 @@ DATABASES = {
         'NAME': DATABASE_NAME,
         'USER': DATABASE_USER,
         'PASSWORD': DATABASE_PASSWORD,
+        'HOST': '72.14.181.111',
     }
 }
