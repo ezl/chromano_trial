@@ -1,0 +1,89 @@
+# vim: set ft=apache :
+<VirtualHost *:80>
+    ServerAdmin sysadmin@quotesentinel.com
+
+    ServerName www.quotesentinel.com
+    ServerAlias quotesentinel.com test.quotesentinel.com
+
+    LogLevel warn
+    ErrorLog /home/quotesentinel/log/apache.error.log
+    CustomLog /home/quotesentinel/log/apache.custom.log combined
+
+    #### STATIC MEDIA ####
+    # Alias /favicon.ico /home/quotesentinel/quotesentinel/media/images/favicon.ico
+    # Alias /robots.txt /home/quotesentinel/quotesentinel/media/robots.txt
+
+    Alias /site_media /home/quotesentinel/quotesentinel/media/
+    <Location "/site_media">
+        SetHandler None
+        Order allow,deny
+        Allow from all
+    </Location>
+
+    Alias /media /home/quotesentinel/env/lib/python2.6/site-packages/django/contrib/admin/media
+    <Location "/media">
+        SetHandler None
+        Order allow,deny
+        Allow from all
+    </Location>
+
+    #### WSGI ####
+    WSGIDaemonProcess quotesentinel user=www-data group=www-data threads=2
+    WSGIProcessGroup quotesentinel
+
+    WSGIScriptAlias / /home/quotesentinel/quotesentinel/deploy/quotesentinel.wsgi
+
+
+    #### Maintenance ####
+    # To put the site in maintenance mode uncomment the following section and comment
+    # out the WSGI section
+    # RewriteEngine on
+    # RewriteCond %{REQUEST_URI} !/index\.html$
+    # RewriteCond %{REQUEST_URI} !/site_media/.*
+    # RewriteRule ^(.*)$ /index.html [L]
+    # DocumentRoot /home/quotesentinel/quotesentinel/media/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerAdmin sysadmin@quotesentinel.com
+
+    ServerName www.quotesentinel.com
+    ServerAlias quotesentinel.com
+
+    LogLevel warn
+    ErrorLog /home/quotesentinel/log/apache.error.log
+    CustomLog /home/quotesentinel/log/apache.custom.log combined
+
+    #### STATIC MEDIA ####
+    Alias /favicon.ico /home/quotesentinel/quotesentinel/media/images/favicon.ico
+
+    Alias /site_media /home/quotesentinel/quotesentinel/media/
+    <Location "/site_media">
+        SetHandler None
+        Order allow,deny
+        Allow from all
+    </Location>
+
+    Alias /media /home/quotesentinel/env/lib/python2.6/site-packages/django/contrib/admin/media
+    <Location "/media">
+        SetHandler None
+        Order allow,deny
+        Allow from all
+    </Location>
+
+    #### SSL ####
+    SSLEngine on
+    # cipher suite taken from highsite1:
+    SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+    # ssl hosts on highsite1 use these params too:
+    #SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire
+    SSLCertificateFile /home/quotesentinel/quotesentinel/deploy/ssl/quotesentinel.com.crt
+    SSLCertificateKeyFile /home/quotesentinel/quotesentinel/deploy/ssl/quotesentinel.com.key
+    SSLCertificateChainFile /home/quotesentinel/quotesentinel/deploy/ssl/gd_bundle.crt
+
+    #### WSGI ####
+    # Same process group, but no WSGIDaemonProcess
+    WSGIProcessGroup quotesentinel
+
+    WSGIScriptAlias / /home/quotesentinel/quotesentinel/deploy/quotesentinel.wsgi
+</VirtualHost>

@@ -13,3 +13,4 @@ pycheddar==0.9.3
 pycrypto==2.0.1
 simplejson==2.1.1
 wsgiref==0.1.2
+psycopg2

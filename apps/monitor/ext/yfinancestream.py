@@ -10,7 +10,7 @@ from yfinance import YahooSymbol
 
 import os
 path = os.getcwd()
-LOG_FILENAME = "%s/stream.log" % path
+LOG_FILENAME = "/home/quotesentinel/log/stream.log"
 logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG)
 
 class YahooFinanceStream(Thread):
