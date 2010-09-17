@@ -56,8 +56,6 @@ def update():
     Updates package list and installs the ones that need updates.
     """
     # Activate Ubuntu's "Universe" repositories.
-    files.uncomment('/etc/apt/sources.list', regex=r'deb.*universe',
-                    use_sudo=True)
     sudo('apt-get update -y')
     sudo('apt-get upgrade -y')
 
@@ -67,6 +65,8 @@ def basic_setup():
     Updates package list and packages and installs some basic backages
     e.g. svn
     """
+    files.uncomment('/etc/apt/sources.list', regex=r'deb.*universe',
+                    use_sudo=True)
     update()
     for pkg in BASIC_PACKAGES:
         sudo('apt-get -y install ' + pkg)
