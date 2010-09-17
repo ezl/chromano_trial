@@ -243,7 +243,8 @@ def setup_project_user(project_name):
     """
     Create a user and SSH key for the project.
     """
-    sudo('adduser --ingroup www-data --gecos %s --disabled-password %s)' % ((project_name,)*2))
+    sudo('adduser --gecos %s --disabled-password %s' % ((project_name,)*2))
+    sudo('usermod -a -G www-data %s' % project_name)
     set_ssh_keys(target_user=project_name)
     # save the env.user, but run the remaining commands as the project_name user we just created
     with settings(user=project_name):
@@ -266,6 +267,12 @@ def setup_project_user(project_name):
     # TODO: put ssh key into deployment keys on codebase via API
     # in the meantime, prompt user to go do it and hit any key to continue
     prompt("Press enter to continue.")
+
+
+def undo_setup_project(project_name):
+    sudo('deluser --remove-home %s' % project_name)
+    sudo('a2dissite %s.apache2' % project_name)
+    sudo('rm -rf /etc/apache2/sites-available/%s.apache2' % project_name)
 
 
 def setup_project_virtualenv(project_name, site_packages=False):
@@ -309,8 +316,8 @@ def setup_project(project_name, git_url, site_packages=False):
     setup_project_virtualenv(project_name, site_packages)
     with cd('/home/%s' % project_name):
         # permissions for media/
-        sudo('chgrp www-data -R %s/media/' % project_name)
-        sudo('chmod g+w %s/media/' % project_name)
+        sudo('chgrp www-data -R %s/static/' % project_name)
+        sudo('chmod g+w %s/static/' % project_name)
         # apache config
         sudo('ln -s $PWD/%s/deploy/%s.apache2 /etc/apache2/sites-available/' %
              ((project_name, )*2))
