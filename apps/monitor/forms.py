@@ -58,6 +58,8 @@ class RegistrationForm(UserCreationForm):
         sub.plan = Plan.get(plan.code)
         if not self.free:
             update_subscription(sub, self.cleaned_data, user)
+        elif not settings.CHEDDAR_GETTER_CREATE_USER:
+            return
         customer.save()
 
 
