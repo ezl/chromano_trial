@@ -1,10 +1,13 @@
 import csv
-import sys
+import logging
 import re
+import sys
 import urllib
 import urllib2
 
 from django.conf import settings
+
+log = logging.getLogger("gvoice")
 
 
 class GoogleVoice(object):
@@ -13,7 +16,7 @@ class GoogleVoice(object):
     authenticate_url = 'https://www.google.com/accounts/ServiceLoginAuth'
     gv_home_page_url = 'https://www.google.com/voice/#inbox'
     email  = settings.GOOGLE_VOICE_USER
-    passwd = settings.GOOGLE_VOICE_PASS
+    password = settings.GOOGLE_VOICE_PASS
 
     def __init__(self):
         self._opener = None
@@ -27,24 +30,29 @@ class GoogleVoice(object):
 
     def open(self, *args, **kwargs):
         try:
+            log.debug("Opening %r %r" % (args, kwargs))
             return self.opener.open(*args, **kwargs)
         except:
             if "attempts" in kwargs and not kwargs["attempts"]:
                 raise
+            log.info("Fail on open -- args=%r kwargs=%r" % (args, kwargs))
             kwargs["attempts"] -= 1
             self._opener = None
+            log.info("Connection invalidated")
             return self.open(*args, **kwargs)
 
     @property
     def opener(self):
         if self._opener:
+            log.debug("Using currently opened connection")
             return self._opener
-        # TODO: auth stuff
-        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
-        urllib2.install_opener(self.opener)
+        log.debug("Creating a new connection")
+        log.info("Logging into GoogleVoice")
+        self._opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
+        urllib2.install_opener(self._opener)
 
         # Load sign in page
-        login_page_contents = self.opener.open(self.login_page_url).read()
+        login_page_contents = self._opener.open(self.login_page_url).read()
 
         # Find GALX value
         galx_match_obj = re.search(
@@ -60,19 +68,21 @@ class GoogleVoice(object):
             'GALX': galx_value
         })
         # Login
-        self.opener.open(self.authenticate_url, login_params)
+        self._opener.open(self.authenticate_url, login_params)
 
         # Open GV home page
-        gv_home_page_contents = self.opener.open(self.gv_home_page_url).read()
+        gv_home_page_contents = self._opener.open(self.gv_home_page_url).read()
 
         # Fine _rnr_se value
         key = re.search('name="_rnr_se".*?value="(.*?)"', gv_home_page_contents)
 
         if not key:
+            log.warning("Failed to retrieve the key")
             self.logged_in = False
         else:
+            log.warning("Key retrieved successfully")
             self.logged_in = True
-            self.key = key.group(1)
+            self._key = key.group(1)
 
 class ContactLoader(object):
     contacts_csv_url = ("http://mail.google.com/mail/contacts/data/export?"
@@ -161,6 +171,7 @@ class TextSender():
       self.text = ''
 
   def send_text(self, phone_number):
+      log.debug("TextSender.send_text phone=%r" % phone_number)
       sms_params = urllib.urlencode({
           '_rnr_se': gvoice.key,
           'phoneNumber': phone_number,
