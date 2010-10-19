@@ -23,7 +23,7 @@ from models import SubscriptionPlan, FinancialInstrument, \
 from urls import MENU_ITEMS_AUTHENTICATED, MENU_ITEMS_UNAUTHENTICATED
 from ext.yfinancestream import yahoo_feed
 from ext.yfinance import YahooFinance
-from ext.gvoice import GoogleVoiceLogin, TextSender
+from ext.gvoice import TextSender
 from pycheddar.exceptions import MouseTrap
 import random
 
@@ -83,7 +83,6 @@ def plans(request):
         'plans': qs.order_by('-billing_period_price'),
         'title': 'Plans & Pricing',
     }
-
 
 @render_to('register.html')
 @site_page
@@ -404,10 +403,7 @@ def send_phone_activation(request):
     profile.save()
 
     # send text message
-    user_, pass_ = settings.GOOGLE_VOICE_USER, settings.GOOGLE_VOICE_PASS
-    gvoice = GoogleVoiceLogin(user_, pass_)
-
-    sender = TextSender(gvoice.opener, gvoice.key)
+    sender = TextSender()
     sender.text = 'Your activation key: %s' % token
     sender.send_text(profile.phone_number)
     return json_or_redirect(request, {})

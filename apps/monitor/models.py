@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from monitor.ext.alerts import send_price_alerts
+
 
 class SubscriptionPlan(models.Model):
     """ User subscription options """
@@ -37,6 +39,18 @@ class FinancialInstrument(models.Model):
     def __unicode__(self):
         return self.symbol
 
+    def warn_watchers(self):
+        for item in self.pricewatch_set.filter(active=True):
+            if item.lower_bound and self.last_price < item.lower_bound:
+                item.price_breached(self.last_price, 'L')
+            if item.upper_bound and self.last_price > item.upper_bound:
+                item.price_breached(self.last_price, 'U')
+
+    def save(self, *args, **kwargs):
+        result = super(FinancialInstrument, self).save(*args, **kwargs)
+        self.check_watchers()
+        return result
+
 
 class PriceWatch(models.Model):
     """ User monitor """
@@ -61,6 +75,9 @@ class PriceWatch(models.Model):
     def __unicode__(self):
         return '%s: (%s<%s<%s)' % (self.user, self.lower_bound or '0',
             self.instrument, self.upper_bound or 'inf')
+
+    def on_price_breached(self, new_price, warning_type):
+        send_price_alerts(self, new_price, warning_type)
 
     def set_alert_flags(self, profile):
         """ Set alert flags according to profile restrictions """
