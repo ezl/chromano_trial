@@ -14,6 +14,8 @@ ADMINS = (
 MANAGERS = ADMINS
 INTERNAL_IPS = ('76.29.38.47',)
 
+AUTH_PROFILE_MODULE = 'monitor.UserProfile'
+
 # ----- Database settings
 DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = 'quotemonitorDB.sqlite3'
