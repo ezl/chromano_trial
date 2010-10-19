@@ -3,14 +3,13 @@ from datetime import datetime
 from django.conf import settings
 from django.core.mail import send_mail
 
-from monitor.models import FinancialInstrument
-from monitor.ext.gvoice import TextSender, UserProfile
+from monitor.ext.gvoice import TextSender
 
 
 def send_price_alerts(self, item, price, type_):
     """ Send alert (email and phone) """
     try:
-        profile = UserProfile.objects.get(user=item.user)
+        profile = item.user.get_profile()
     except UserProfile.DoesNotExist:
         return  # admin account
 

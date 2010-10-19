@@ -4,6 +4,8 @@ import re
 import urllib
 import urllib2
 
+from django.conf import settings
+
 
 class GoogleVoice(object):
     """Abstraction for interacting with Google Voice."""
@@ -23,14 +25,15 @@ class GoogleVoice(object):
             tmp = self.opener
         return self._key
 
-    def open(self, *args, **kwargs, attempts=1):
+    def open(self, *args, **kwargs):
         try:
             return self.opener.open(*args, **kwargs)
         except:
-            if not attempts:
+            if "attempts" in kwargs and not kwargs["attempts"]:
                 raise
+            kwargs["attempts"] -= 1
             self._opener = None
-            return self.open(*args, **kwargs, attempts - 1)
+            return self.open(*args, **kwargs)
 
     @property
     def opener(self):
@@ -72,10 +75,10 @@ class GoogleVoice(object):
             self.key = key.group(1)
 
 class ContactLoader(object):
-    contacts_csv_url = "http://mail.google.com/mail/contacts/data/export"
-    contacts_csv_url += "?groupToExport=^Mine&exportType=ALL&out=OUTLOOK_CSV"
+    contacts_csv_url = ("http://mail.google.com/mail/contacts/data/export?"
+                        + "groupToExport=^Mine&exportType=ALL&out=OUTLOOK_CSV")
 
-  def __init__(self):
+    def __init__(self):
       # Load ALL Google Contacts into csv dictionary
       self.contacts = csv.DictReader(gvoice.open(self.contacts_csv_url))
 
