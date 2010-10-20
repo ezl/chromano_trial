@@ -69,6 +69,7 @@ ACCOUNTS_EMAIL = 'Accounts@quotesentinel.com'
 ALERTS_EMAIL = 'PriceAlert@quotesentinel.com'
 GOOGLE_VOICE_USER = 'ezlmail@gmail.com'
 GOOGLE_VOICE_PASS = 'idontcare'
+CHEDDAR_GETTER_CUSTOMER_CODE_PREFIX = "production-"
 CHEDDAR_GETTER_CREATE_USER = not DEBUG
 CHEDDAR_GETTER_USER = 'quotesentinel@gmail.com'
 CHEDDAR_GETTER_PASS = 'acf02da87'

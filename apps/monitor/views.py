@@ -249,7 +249,8 @@ def close_account(request):
         # remove from remote storage
         try:
             authorize_gateway()
-            Customer.get(user.id).delete()
+            code = settings.CHEDDAR_GETTER_CUSTOMER_CODE_PREFIX + str(user.id)
+            Customer.get(code).delete()
         except MouseTrap:
             pass
         # logout user

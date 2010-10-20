@@ -11,6 +11,15 @@ from pycheddar import CheddarGetter as CG, Plan, Customer, Subscription
 from pycheddar.exceptions import NotFound
 
 
+def create_customer(user, plan):
+    fn = ln = "-"
+    fn, ln = user.email.split("@")
+    ln = "@" + ln
+    code = settings.CHEDDAR_GETTER_CUSTOMER_CODE_PREFIX + str(user.id)
+    customer = Customer(code=code, email=user.username,
+        first_name=user.first_name or fn, last_name=user.last_name or ln)
+    return customer
+
 class RegistrationForm(UserCreationForm):
     """ Registration processing """
     username = forms.EmailField(required=True)
@@ -47,16 +56,10 @@ class RegistrationForm(UserCreationForm):
 
     def subscribe(self, user, plan):
         """ Create remote Customer instance """
-        authorize_gateway()
-        # fn == firstname, ln == lastname
-        fn = ln = "-"
-        if plan.free:
-            fn, ln = user.email.split("@")
-            ln = "@" + ln
-        if not settings.CHEDDAR_GETTER_CREATE_USER:
+        if not settings.CHEDDAR_GETTER_CREATE_USER or self.free:
             return
-        customer = Customer(code=user.id, email=user.username,
-            first_name=user.first_name or fn, last_name=user.last_name or ln)
+        authorize_gateway()
+        customer = create_customer(user, plan)
         sub = customer.subscription
         sub.plan = Plan.get(plan.code)
         if not self.free:
@@ -134,15 +137,15 @@ class UpgradeForm(forms.Form):
         """ Update remote Customer instance """
         authorize_gateway()
         try:
-            customer = Customer.get(user.id)
+            code = settings.CHEDDAR_GETTER_CUSTOMER_CODE_PREFIX + str(user.id)
+            customer = Customer.get(code)
             new_customer = False
         except NotFound:
-            if self.free:
+            if not self.free:
+                customer = create_customer(user, plan)
+                new_customer = True
+            else:
                 return
-            customer = Customer(code=user.id, email=user.username,
-                first_name=user.first_name or "-",
-                last_name=user.last_name or "-")
-            new_customer = True
         if self.free:
             return customer.delete()
         sub = customer.subscription
