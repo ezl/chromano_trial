@@ -8,6 +8,7 @@ from django.contrib.localflavor.us.forms import USPhoneNumberField, USZipCodeFie
 
 from models import UserProfile
 from pycheddar import CheddarGetter as CG, Plan, Customer, Subscription
+from pycheddar.exceptions import NotFound
 
 
 class RegistrationForm(UserCreationForm):
@@ -52,14 +53,14 @@ class RegistrationForm(UserCreationForm):
         if plan.free:
             fn, ln = user.email.split("@")
             ln = "@" + ln
+        if not settings.CHEDDAR_GETTER_CREATE_USER:
+            return
         customer = Customer(code=user.id, email=user.username,
             first_name=user.first_name or fn, last_name=user.last_name or ln)
         sub = customer.subscription
         sub.plan = Plan.get(plan.code)
         if not self.free:
             update_subscription(sub, self.cleaned_data, user)
-        elif not settings.CHEDDAR_GETTER_CREATE_USER:
-            return
         customer.save()
 
 
@@ -132,13 +133,25 @@ class UpgradeForm(forms.Form):
     def subscribe(self, user, plan):
         """ Update remote Customer instance """
         authorize_gateway()
-        customer = Customer.get(user.id)
+        try:
+            customer = Customer.get(user.id)
+            new_customer = False
+        except NotFound:
+            if self.free:
+                return
+            customer = Customer(code=user.id, email=user.username,
+                first_name=user.first_name or "-",
+                last_name=user.last_name or "-")
+            new_customer = True
+        if self.free:
+            return customer.delete()
         sub = customer.subscription
         sub.plan = Plan.get(plan.code)
-        if not self.free:
-            update_subscription(sub, self.cleaned_data, user)
+        update_subscription(sub, self.cleaned_data, user)
         sub.save()
-
+        if new_customer:
+            customer.save()
+ 
 
 def authorize_gateway():
     """ Initialize CheddarGetter """
