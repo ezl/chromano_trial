@@ -76,7 +76,7 @@ class PriceWatch(models.Model):
         return '%s: (%s<%s<%s)' % (self.user, self.lower_bound or '0',
             self.instrument, self.upper_bound or 'inf')
 
-    def on_price_breached(self, new_price, warning_type):
+    def price_breached(self, new_price, warning_type):
         send_price_alerts(self, new_price, warning_type)
 
     def set_alert_flags(self, profile):
