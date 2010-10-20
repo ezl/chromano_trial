@@ -48,7 +48,7 @@ class FinancialInstrument(models.Model):
 
     def save(self, *args, **kwargs):
         result = super(FinancialInstrument, self).save(*args, **kwargs)
-        self.check_watchers()
+        self.warn_watchers()
         return result
 
 
