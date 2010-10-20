@@ -110,7 +110,7 @@ def register(request, plan_name=''):
                 user.delete()
         if form.is_valid():
             # save profile
-            profile = UserProfile()
+            profile = user.get_profile()
             profile.user = user
             profile.plan = plan
             profile.reset()

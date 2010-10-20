@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
 
 from monitor.ext.alerts import send_price_alerts
 
@@ -99,6 +100,13 @@ class UserProfile(models.Model):
     received_email_alerts = models.IntegerField("Email alerts received", default=0)
     received_phone_alerts = models.IntegerField("SMS alerts received", default=0)
 
+    @classmethod
+    def on_user_saved(cls, sender, *args, **kwargs):
+        """Create a profile with a free plan associated for new users."""
+        if kwargs["created"]:
+            plan = SubscriptionPlan.objects.filter(billing_period_price=0)[0]
+            cls(user=kwargs["instance"], plan=plan).save()
+
     @property
     def count_watches(self):
         """ Number of available monitors """
@@ -141,3 +149,6 @@ class UserProfile(models.Model):
         self.received_email_alerts = 0
         self.received_phone_alerts = 0
         self.save()
+
+post_save.connect(UserProfile.on_user_saved, sender=User)
+
