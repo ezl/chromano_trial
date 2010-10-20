@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from monitor.ext.gvoice import TextSender
 
 
-def send_price_alerts(self, item, price, type_):
+def send_price_alerts(item, price, type_):
     """ Send alert (email and phone) """
     try:
         profile = item.user.get_profile()
