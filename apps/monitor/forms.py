@@ -6,8 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.localflavor.us.forms import USPhoneNumberField, USZipCodeField
 #from django.utils.dates import MONTHS
 
-from models import UserProfile
-from pycheddar import CheddarGetter as CG, Plan, Customer, Subscription
+from models import UserProfile, authorize_CG_gateway
+from pycheddar import Plan, Customer
 from pycheddar.exceptions import NotFound
 
 
@@ -58,7 +58,7 @@ class RegistrationForm(UserCreationForm):
         """ Create remote Customer instance """
         if not settings.CHEDDAR_GETTER_CREATE_USER or self.free:
             return
-        authorize_gateway()
+        authorize_CG_gateway()
         customer = create_customer(user, plan)
         sub = customer.subscription
         sub.plan = Plan.get(plan.code)
@@ -135,7 +135,7 @@ class UpgradeForm(forms.Form):
 
     def subscribe(self, user, plan):
         """ Update remote Customer instance """
-        authorize_gateway()
+        authorize_CG_gateway()
         try:
             code = settings.CHEDDAR_GETTER_CUSTOMER_CODE_PREFIX + str(user.id)
             customer = Customer.get(code)
@@ -155,12 +155,6 @@ class UpgradeForm(forms.Form):
         if new_customer:
             customer.save()
  
-
-def authorize_gateway():
-    """ Initialize CheddarGetter """
-    CG.auth(settings.CHEDDAR_GETTER_USER, settings.CHEDDAR_GETTER_PASS)
-    CG.set_product_code(settings.CHEDDAR_GETTER_PRODUCT)
-
 
 def update_subscription(sub, data, user):
     """ Update credit card information """

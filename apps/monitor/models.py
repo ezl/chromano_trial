@@ -1,6 +1,9 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
+from pycheddar import CheddarGetter as CG, Customer
+from pycheddar.exceptions import NotFound
 
 from monitor.ext.alerts import send_price_alerts
 
@@ -100,6 +103,22 @@ class UserProfile(models.Model):
     received_email_alerts = models.IntegerField("Email alerts received", default=0)
     received_phone_alerts = models.IntegerField("SMS alerts received", default=0)
 
+    def delete_customer(self):
+        authorize_CG_gateway()
+        code = settings.CHEDDAR_GETTER_CUSTOMER_CODE_PREFIX + str(self.user.id)
+        try:
+            Customer.get(code).delete()
+        except NotFound:
+            return
+
+    @classmethod
+    def on_user_delete(cls, sender, *args, **kwargs):
+        try:
+            profile = kwargs["instance"].get_profile()
+        except cls.DoesNotExist:
+            return
+        profile.delete_customer()
+
     @classmethod
     def on_user_saved(cls, sender, *args, **kwargs):
         """Create a profile with a free plan associated for new users."""
@@ -150,5 +169,13 @@ class UserProfile(models.Model):
         self.received_phone_alerts = 0
         self.save()
 
+
+def authorize_CG_gateway():
+    """ Initialize CheddarGetter """
+    CG.auth(settings.CHEDDAR_GETTER_USER, settings.CHEDDAR_GETTER_PASS)
+    CG.set_product_code(settings.CHEDDAR_GETTER_PRODUCT)
+
+
 post_save.connect(UserProfile.on_user_saved, sender=User)
+pre_delete.connect(UserProfile.on_user_delete, sender=User)
 

@@ -17,9 +17,9 @@ from annoying.decorators import render_to, ajax_request
 from django.core.mail import send_mail
 
 from forms import RegistrationForm, ProfileForm, ActivationForm, UpgradeForm, \
-    authorize_gateway, Customer
+    Customer
 from models import SubscriptionPlan, FinancialInstrument, \
-    PriceWatch, UserProfile
+    PriceWatch, UserProfile, authorize_CG_gateway
 from urls import MENU_ITEMS_AUTHENTICATED, MENU_ITEMS_UNAUTHENTICATED
 from ext.yfinancestream import yahoo_feed
 from ext.yfinance import YahooFinance
@@ -248,9 +248,7 @@ def close_account(request):
         user.save()
         # remove from remote storage
         try:
-            authorize_gateway()
-            code = settings.CHEDDAR_GETTER_CUSTOMER_CODE_PREFIX + str(user.id)
-            Customer.get(code).delete()
+            user.get_profile().delete_customer()
         except MouseTrap:
             pass
         # logout user
