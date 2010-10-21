@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 
 from monitor.ext.gvoice import TextSender
@@ -10,7 +11,7 @@ def send_price_alerts(item, price, type_):
     """ Send alert (email and phone) """
     try:
         profile = item.user.get_profile()
-    except UserProfile.DoesNotExist:
+    except ObjectDoesNotExist:
         return  # admin account
 
     # format message
