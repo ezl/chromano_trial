@@ -18,6 +18,7 @@ urlpatterns = patterns('monitor.views',
     (r'^$', 'main'),
     (r'^monitor/$', 'monitor'),
     (r'^plans/$', 'plans'),
+    (r'^plans/reset$', 'reset_plan'),
     (r'^register/(?P<plan_name>\w*)/?$', 'register', {'SSL':True}),
     (r'^register/$', 'register', {'SSL':True}),
     # TODO: hacky.  set it so that register/ defaults to a particular plan, but can also take an input.

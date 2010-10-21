@@ -5,6 +5,7 @@ import re
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
@@ -83,6 +84,23 @@ def plans(request):
         'plans': qs.order_by('-billing_period_price'),
         'title': 'Plans & Pricing',
     }
+
+def reset_plan(request):
+    """Callback for CheddarGetter's post transaction, reset notification
+    counters if payment was approved by CG."""
+    if (not request.POST or
+        request.POST.get("transaction[response]") != "approved"):
+        return HttpResponse("FAILED")
+    code = request.POST.get("customer[code]")
+    if not code:
+        return HttpResponse("FAILED")
+    user_id = code.strip(settings.CHEDDAR_GETTER_CUSTOMER_CODE_PREFIX)
+    try:
+        user = User.objects.get(id=user_id)
+        user.get_profile().reset()
+    except User.DoesNotExist:
+        return HttpResponse("FAILED")
+    return HttpResponse("OK")
 
 @render_to('register.html')
 @site_page
