@@ -1,37 +1,27 @@
-#!/usr/bin/env python
 import httplib
 import datetime
 import re
-import logging
-import os
-
 import simplejson as json
-import stomp
+from threading import Thread
+import logging
 
 from monitor.models import FinancialInstrument
-from monitor.ext.yfinance import YahooSymbol
+from yfinance import YahooSymbol
 
+import os
 path = os.getcwd()
-LOG_FILENAME = "/home/chromano/Dev/quotesentinel/log/stream.log"
+LOG_FILENAME = "/home/quotesentinel/log/stream.log"
 logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG)
 
-class YahooFinanceStream(object):
+class YahooFinanceStream(Thread):
     """ Streaming data implementation """
     def __init__(self):
+        Thread.__init__(self)
+        self.daemon = True
         self.symbols = {}
         self.conn = None
         self.data = ''
         self.active = True
-        self.stomp_conn = stomp.Connection()
-        self.stomp_conn.set_listener('', self)
-        self.stomp_conn.start()
-
-    def on_message(self, header, message):
-        if message.startswith("ADD"):
-            parts = message.split(" ")
-            item = FinancialInstrument.objects.get(symbol=parts[1])
-            self.add_symbol(item)
-            logging.info("SYMBOL %r ADDED" % parts[1])
 
     def connect(self):
         logging.debug(".CONNECT")
@@ -45,16 +35,9 @@ class YahooFinanceStream(object):
         logging.debug(".FINISHED CONNECT")
 
     def run(self):
-        logging.debug("%s | QS-PRICE-PRODUCER STARTED -- PID=%r"
-                      % (datetime.datetime.now(), os.getpid()))
-        logging.debug("%s | SYMBOLS: %s"
-                      % (datetime.datetime.now(), self.symbols.keys()))
         while self.active:
             try:
                 self.connect()
-                self.stomp_conn.connect()
-                self.stomp_conn.subscribe(
-                    destination='/prices/add', ack='auto')
                 while True:
                     char = self.resp.read(1)
                     self.data += char
@@ -67,7 +50,6 @@ class YahooFinanceStream(object):
             except Exception, e:
                 logging.debug("UNHANDLED EXCEPTION")
                 logging.debug(e)
-                raise
                 self.active = False
 
     def parse_line(self, line):
@@ -85,8 +67,6 @@ class YahooFinanceStream(object):
             price = v['l90']
             logging.debug("%s | %s: %s" % (datetime.datetime.now(), k, price))
             self.symbols[k].price = price
-            self.stomp_conn.send("%s,%s,%s" % (k, self.symbols[k].name, price),
-                                 destination="/queue/prices")
             item = FinancialInstrument.objects.get(symbol=k)
             item.last_price = price
             item.save()
@@ -102,7 +82,7 @@ class YahooFinanceStream(object):
 yahoo_feed = YahooFinanceStream()
 for item in FinancialInstrument.objects.all():
     yahoo_feed.add_symbol(item)
-yahoo_feed.run()
+yahoo_feed.start()
 
 # available data items
 yahoo_items = {
