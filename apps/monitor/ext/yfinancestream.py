@@ -4,6 +4,8 @@ import re
 import simplejson as json
 from threading import Thread
 import logging
+import socket
+import time
 
 from monitor.models import FinancialInstrument
 from yfinance import YahooSymbol
@@ -15,6 +17,8 @@ logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG)
 
 class YahooFinanceStream(Thread):
     """ Streaming data implementation """
+    RECONNECT_DELAY = 30
+
     def __init__(self):
         Thread.__init__(self)
         self.daemon = True
@@ -39,14 +43,24 @@ class YahooFinanceStream(Thread):
             try:
                 self.connect()
                 while True:
+                    # Code should block at this point and only returns when
+                    # something is read from the other peer.  If nothing is
+                    # returned it is most likely the connection is gone, so
+                    # we just reconnect.
                     char = self.resp.read(1)
+                    if not char:
+                        break
                     self.data += char
                     if char == '>':
                         self.parse_line(self.data)
                         self.data = ''
-            except httplib.HTTPException, e:
-                logging.debug("HTTPException. Should  try to reconnect.")
-                pass  # re-connect
+            except (httplib.HTTPException, socket.error), e:
+                self.conn.close()
+                delay = YahooFinanceStream.RECONNECT_DELAY
+                logging.debug("Failure on connect or reading from peer."
+                              " New connection attempt in %d seconds..."
+                              % delay)
+                time.sleep(delay)
             except Exception, e:
                 logging.debug("UNHANDLED EXCEPTION")
                 logging.debug(e)
