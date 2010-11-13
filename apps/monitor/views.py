@@ -22,7 +22,7 @@ from forms import RegistrationForm, ProfileForm, ActivationForm, UpgradeForm, \
 from models import SubscriptionPlan, FinancialInstrument, \
     PriceWatch, UserProfile, authorize_CG_gateway
 from urls import MENU_ITEMS_AUTHENTICATED, MENU_ITEMS_UNAUTHENTICATED
-from ext.yfinancestream import yahoo_feed
+from prices import consumer as price_consumer
 from ext.yfinance import YahooFinance
 from ext.gvoice import TextSender
 from pycheddar.exceptions import MouseTrap
@@ -361,11 +361,12 @@ def check(request, symbols=''):
     symbols = set([s.upper() for s in symbols.split(',')])
 
     # check streamer first (allow fast updates)
-    if yahoo_feed.active:
-        data = map(lambda k: yahoo_feed.symbols.get(k), symbols)
-        if None not in data:
-            convert = lambda x: dict(symbol=x.symbol, name=x.name, price=x.price)
-            return {'data': map(convert, data)}
+    data = map(lambda k: price_consumer.get_symbol(k), symbols)
+    if None not in data:
+        convert = lambda x: dict(symbol=x.symbol, name=x.name, price=x.price)
+        return {'data': map(convert, data)}
+    else:
+        pass
 
     # fetch item records, detect new and expired items
     items = list(FinancialInstrument.objects.filter(symbol__in=symbols))
@@ -487,9 +488,8 @@ def monitor_add(request):
         return error("Symbol exists")
 
     # notify streamer
-    if yahoo_feed.active:
-        if symbol not in yahoo_feed.symbols:
-            yahoo_feed.add_symbol(item)
+    if not price_consumer.get_symbol(symbol):
+        price_consumer.add_symbol(item.symbol)
 
     # output result or redirect
     return json_or_redirect(request, {
